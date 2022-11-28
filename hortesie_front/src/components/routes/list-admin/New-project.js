@@ -206,7 +206,10 @@ export function New_Project() {
 
         <div className="image-admin-container">
           <div className="image-vignette">
-            <img className="vignette-admin" src={vignette}></img>
+            <img
+              className="vignette-admin"
+              src={process.env.PUBLIC_URL + "/" + vignette}
+            ></img>
             <input
               name="file_vignette"
               style={{ display: "none" }}

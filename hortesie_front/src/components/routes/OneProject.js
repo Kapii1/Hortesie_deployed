@@ -23,7 +23,7 @@ export function Projet(props) {
         <motion.img
           layout="position"
           className="vignette"
-          src={props.path_image}
+          src={process.env.PUBLIC_URL+ "/" +props.path_image}
         ></motion.img>
       </motion.div>
     </motion.div>

@@ -203,7 +203,10 @@ export function DetailAdmin(props) {
 
           <div className="image-admin-container">
             <div className="image-vignette">
-              <img className="vignette-admin" src={vignette}></img>
+              <img
+                className="vignette-admin"
+                src={process.env.PUBLIC_URL + vignette}
+              ></img>
               <input
                 name="file_vignette"
                 style={{ display: "none" }}
@@ -261,7 +264,10 @@ export function DetailAdmin(props) {
               if (i != 0) {
                 return (
                   <div key={i} className="image-container">
-                    <img className="image-admin" src={elem.nom} />
+                    <img
+                      className="image-admin"
+                      src={process.env.PUBLIC_URL + "/" + elem.nom}
+                    />
                     <div className="delete-button-img">
                       <IconButton
                         backgroundColor="error"
