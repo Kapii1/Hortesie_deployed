@@ -11,11 +11,12 @@ import Details from "./Details";
 import { Link, useLocation } from "react-router-dom";
 
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { API_URL } from "../../url";
 var items;
-fetch("http://localhost:3001/projets", { method: "GET" })
+fetch(API_URL + "/projets", { method: "GET" })
   .then((response) => response.json())
   .then((json) => {
-    console.log(json)
+    console.log(json);
     items = json;
   });
 

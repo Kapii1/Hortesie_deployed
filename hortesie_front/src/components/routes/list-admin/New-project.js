@@ -15,6 +15,7 @@ import AddIcon from "@mui/icons-material/Add";
 // toast-configuration method,
 // it is compulsory method.
 import { v4 as uuidv4 } from "uuid";
+import { API_URL } from "../../../url";
 function useForceUpdate() {
   const [value, setValue] = useState(0); // integer state
   return () => setValue((value) => value + 1); // update state to force render
@@ -52,7 +53,7 @@ export function New_Project() {
     idPhoto = idPhoto.split("/");
     let realidPhoto = idPhoto[idPhoto.length - 1];
     var nomimg = { id: realidPhoto, img: nom_img };
-    fetch("http://localhost:3001/del_image", {
+    fetch(API_URL + "/del_image", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -89,22 +90,20 @@ export function New_Project() {
       images: [],
     };
     console.log("ezaezazaeeaz " + new_data);
-    const res = await fetch("http://localhost:3001/save_modif_project",
-      {
-        method: "POST",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
+    const res = await fetch(API_URL + "/save_modif_project", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
 
-        body: JSON.stringify(new_data)
-      }
-    )
+      body: JSON.stringify(new_data),
+    });
 
-    console.log("post toast")
+    console.log("post toast");
 
-    window.location.replace("http://localhost:3000/#/admin/"+id);
-    return (new_data)
+    window.location.replace("http://localhost:3000/#/admin/" + id);
+    return new_data;
   };
 
   const imageHandler = async (event) => {
@@ -118,7 +117,7 @@ export function New_Project() {
     }
 
     try {
-      let res = fetch("http://localhost:3001/add_image", {
+      let res = fetch(API_URL + "/add_image", {
         method: "POST",
         body: data2,
       })
@@ -139,7 +138,7 @@ export function New_Project() {
     console.log("file ving", file_vignette, event.target.files[0]);
     data_to_send.append("idProjet", id);
     data_to_send.append("file_vignette", event.target.files[0]);
-    let oo = await fetch("http://localhost:3001/add_vignette", {
+    let oo = await fetch(API_URL + "/add_vignette", {
       method: "POST",
       body: data_to_send,
     })
@@ -158,7 +157,7 @@ export function New_Project() {
   };
 
   const create_project = async () => {
-    const res = await fetch("http://localhost:3001/add_project", {
+    const res = await fetch(API_URL + "/add_project", {
       method: "POST",
       headers: {
         Accept: "application/json",
