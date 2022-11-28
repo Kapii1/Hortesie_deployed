@@ -1,0 +1,56 @@
+.vignette {
+  flex-shrink: 0;
+  width: 100%;
+  border-radius: 2px;
+}
+
+.card {
+  display: flex;
+  flex-direction: row;
+  overflow: visible;
+  transition: transform 0.2s;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+}
+
+.card:hover {
+  transform: scale(1.04);
+}
+.title-container{
+}
+.sub-card {
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.description {
+  text-align: left;
+  text-justify: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.title-description {
+  font-weight: lighter;
+  margin: 0;
+  padding-top: 20px;
+}
+
+.title-card {
+  position: absolute;
+  width: inherit;
+  text-decoration: none;
+  color: white;
+  bottom: 10%;
+  font-weight: 500;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 2rem;
+  width: 100%;
+  text-align: center;
+}
+.title-card-container {
+  max-width: 100%;
+  text-align: left;
+}

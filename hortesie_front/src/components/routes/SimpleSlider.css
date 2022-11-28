@@ -1,0 +1,28 @@
+.slick-slide img{
+    width: 100%;
+    height: 100%;
+}
+.slick-dots{
+    position: relative;
+}
+.slick-prev {
+    left: 2% !important;
+    z-index: 1;
+  }
+  .slick-next {
+    right: 5% !important;
+    z-index: 1;
+  }
+  .slick-prev:before,
+.slick-next:before
+{
+  font-family: 'slick';
+  font-size: 60px;
+  line-height: 1;
+
+  opacity: .75;
+  color: white;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

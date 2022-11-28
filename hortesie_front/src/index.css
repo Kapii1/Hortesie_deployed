@@ -1,0 +1,24 @@
+body {
+  background-image: url('arbre_autres_bouteilles_rouge Cropped (1).jpg');
+  top: 0;
+  background-attachment: fixed;
+  margin: 0px;
+  height: 100%;
+  background-size: cover;
+  scroll-behavior: smooth;
+  overflow-y: hidden; /* Hide vertical scrollbar */
+}
+html {
+  overflow: scroll;
+  overflow-x: hidden;
+  
+}
+::-webkit-scrollbar {
+  width: 0;  
+  background: transparent; 
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

@@ -1,0 +1,47 @@
+.detail-container{
+    padding: 1rem;
+    display: flex;
+    margin-top: 1%;
+    padding-left: 2%;
+}
+.Details-container{
+    padding-left: 1%;
+}
+.detail-title{
+    font-weight: bold;
+    font-size: 3rem;
+
+  font-family: 'Roboto Condensed', sans-serif;
+  
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top:20%
+}
+.text-container{
+    width: 45%;
+    right: 4rem;
+    align-items: center;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+.description{
+    padding-top: 0.5rem;
+    text-justify: inter-word;
+    font-size: 1.3rem;
+  font-family: 'Roboto Condensed', sans-serif;
+    text-align: justify;
+    position: relative;
+    top:20%;
+}
+.img-container{
+    width: 50%;
+    left: 2%;
+    bottom: 15%;
+}
+.leave{
+    position: absolute;
+    top:0.5%;
+    right: 4%;
+    height: 1.5vw;
+}

@@ -1,0 +1,18 @@
+
+.login-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    background: white;
+    height: 100vh;
+    width: 100%;
+
+}
+.button-connexion{
+    margin-top: 1rem;
+    
+}
+.login-in-wrapper{
+    margin: auto;
+}

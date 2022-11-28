@@ -1,0 +1,11 @@
+.a-propos-container{
+    position: absolute;
+    top: 5rem;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background: beige;
+}
+.container{
+    width: 100%;
+}

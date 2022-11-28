@@ -1,0 +1,62 @@
+.slide-container {
+  width: 70%;
+  margin: auto;
+}
+
+h3 {
+  text-align: center;
+}
+.lazy{
+    max-width: 100%;
+}
+.each-slide > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  height: 300px;
+}
+
+.each-slide span {
+  padding: 20px;
+  font-size: 20px;
+  background: #efefef;
+  text-align: center;
+}
+
+.each-fade {
+  display: flex;
+}
+
+.each-fade .image-container {
+  width: 75%;
+  overflow: hidden;
+}
+
+.each-fade .image-container img {
+  width: 100%;
+}
+.Projet {
+  max-width: 600px;
+  height: 600px;
+}
+.each-fade h2 {
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  background: #adceed;
+}
+
+.indicator {
+  width: 30px;
+  color: blue;
+  text-align: center;
+  cursor: pointer;
+  border: 1px blue solid;
+}
+.indicator.active {
+  background: #000;
+  color: #fff;
+}

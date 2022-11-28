@@ -1,0 +1,58 @@
+
+.admin-list-container{  
+    background-color: whitesmoke;
+    display: flex;
+    margin: 0;
+    height: 80vh;
+}
+.button-admin{
+    width: 50%;
+}
+.del-row-container{
+    display: flex;
+}
+.del-button{
+    margin: auto;
+}
+.all-admin-container{
+    padding-top: 5rem;
+    background-color: whitesmoke;
+    margin: 0;
+    height: 100vh;
+    width: 100%;
+}
+.admin-button-container{
+    display: flex;
+    width: 50%;
+}
+.add-project-admin{
+    width: 100% !important;
+    margin-left: 0 !important;
+}
+.admin-list{
+    align-items: center;
+    width: 50%;
+    max-height: 98vh;
+}
+.one-row-header{
+    display: flex;
+    height: 3rem;
+    align-items: center;
+    width: auto;
+}
+.elem-title{    
+    font-weight: bold;
+    width: 25%;
+    font-size: 1.5rem;
+    margin: auto;
+    text-decoration: none;
+}
+.supp-title{
+    width: 5%;
+}
+.admin-list{
+    overflow: scroll;
+}
+html,body,#root{
+    height: 100vh;
+}

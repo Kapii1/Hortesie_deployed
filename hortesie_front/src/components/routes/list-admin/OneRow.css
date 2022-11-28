@@ -1,0 +1,38 @@
+.one-row {
+    display: flex;
+    height: 4rem;
+    align-items: center;
+    width: auto;
+    padding: 10px;
+    margin: auto;
+
+}
+
+.pair {
+    background-color: rgb(233, 233, 233);
+}
+.image-elem{
+    height: 100%;
+}
+.mini{
+    width: 100%;
+    padding:0 !important;
+}
+.one-row:hover {
+    background-color: green;
+}
+.poubelle{
+    position:relative;
+}
+.elem {
+    width: 25%;
+    margin: auto;
+    text-align: center;
+    text-decoration: none;
+    }
+
+.vignette {
+    width: auto;
+    height: 100%;
+    max-width: 100%;
+}
