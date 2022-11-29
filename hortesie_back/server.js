@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const hostname = "127.0.0.1";
-const dir_vignette = "../hortesie_front/public/images/vignettes/";
+
 require("dotenv").config();
 const cors = require("cors");
 const PORT = 3001;
@@ -22,6 +22,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 process.env.NODE_ENV = "production";
 const URL_DEST = require("./url_back").URL_DEST;
+const dir_vignette = URL_DEST + "images/vignettes/";
 console.log(URL_DEST);
 const verifyToken = (req, res, next) => {
   const token =
