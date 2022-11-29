@@ -2,7 +2,6 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const hostname = "127.0.0.1";
-
 const dir_vignette = "../hortesie_front/public/images/vignettes/";
 require("dotenv").config();
 const cors = require("cors");
@@ -10,7 +9,8 @@ const PORT = 3001;
 const sqlite3 = require("sqlite3").verbose();
 const multer = require("multer");
 const fs = require("fs");
-
+const helmet = require("helmet");
+app.use(helmet());
 const db = new sqlite3.Database("base.db");
 const s4 = () => {
   return Math.floor((1 + Math.random()) * 0x10000)
@@ -20,6 +20,8 @@ const s4 = () => {
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+
+process.env.NODE_ENV = "production";
 
 const verifyToken = (req, res, next) => {
   const token =

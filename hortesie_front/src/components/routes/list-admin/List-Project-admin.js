@@ -19,6 +19,8 @@ import Login from "./Login";
 import { API_URL } from "../../../url";
 import useToken from "./useToken";
 import { New_Project } from "./New-project";
+
+
 function useFetchData() {
   const [data, setData] = useState();
 
@@ -70,7 +72,6 @@ export function ListProjectAdmin() {
   const { token, setToken } = useToken();
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
-  console.log("token", token);
   useEffect(() => {
     fetch(API_URL + "/welcome_admin", {
       method: "POST",

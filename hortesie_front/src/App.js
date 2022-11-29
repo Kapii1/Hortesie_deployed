@@ -1,5 +1,5 @@
 import "./App.css";
-import Projets from "./components/routes/Project";
+import {Projets} from "./components/routes/Project";
 import { Routes, Route, Link } from "react-router-dom";
 import { React, useState } from "react";
 import { Apropos } from "./components/routes/A-propos";

@@ -12,16 +12,25 @@ import { Link, useLocation } from "react-router-dom";
 
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { API_URL } from "../../url";
-var items;
-fetch(API_URL + "/projets", { method: "GET" })
-  .then((response) => response.json())
-  .then((json) => {
-    console.log(json);
-    items = json;
-  });
 
-const Projets = (props) => {
+export function Projets(props) {
   const location = useLocation();
+  const [items, setItems ] = useState();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(API_URL + "/projets", { method: "GET" });
+        const json = await res.json();
+        console.log(json);
+        setItems(json)
+        return json
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+    const a =  fetchData();
+    console.log('a'+ a);
+  }, [setItems]);
   return (
     <div className="Grid-container">
       <Grid
@@ -31,28 +40,26 @@ const Projets = (props) => {
         justifyContent="center"
         alignItems="center"
       >
-        {items.map((item, i) => (
-          <Grid className="projet" item xs={3}>
-            <Link to={item.id}>
-              <motion.div key={i}>
-                <Projet
-                  id={item.id}
-                  nom_fr={item.nom}
-                  path_image={item.vignette}
-                  description={item.description}
-                />
-              </motion.div>
-            </Link>
-          </Grid>
-        ))}
+        {items &&
+          items.map((item, i) => (
+            <Grid className="projet" item xs={3}>
+              <Link to={item.id}>
+                <motion.div key={i}>
+                  <Projet
+                    id={item.id}
+                    nom_fr={item.nom}
+                    path_image={item.vignette}
+                    description={item.description}
+                  />
+                </motion.div>
+              </Link>
+            </Grid>
+          ))}
       </Grid>
-      <AnimatePresence>
-        <Routes location={location} key={location.key}>
-          <Route path="/" />
-          <Route path="/:id" element={<Details />} />
-        </Routes>
-      </AnimatePresence>
+      <Routes location={location} key={location.key}>
+        <Route path="/" />
+        <Route path="/:id" element={<Details />} />
+      </Routes>
     </div>
   );
-};
-export default Projets;
+}
