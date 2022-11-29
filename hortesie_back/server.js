@@ -56,8 +56,6 @@ const Log = async (req, res) => {
     async function (err, rows) {
       console.log(rows);
 
-      const bcryptPassword2 = await bcrypt.hash("GretaMarie", 10);
-      console.log("bcryppt" + bcryptPassword2);
       if (rows.length == 0) {
         return res.status(400).json({ msg: "Wrong Password" });
       }
@@ -65,8 +63,6 @@ const Log = async (req, res) => {
         const saltRounds = 10;
         const pw = req.body.password;
         const bcryptPassword = await bcrypt.hashSync(pw, 10);
-        const bcryptPassword2 = await bcrypt.hash("GretaMarie", 10);
-        const rez = await bcrypt.compare(bcryptPassword, pw);
         const match = await bcrypt.compare(req.body.password, rows[0].mdp);
 
         if (!match) return res.status(400).json({ msg: "Wrong Password" });
