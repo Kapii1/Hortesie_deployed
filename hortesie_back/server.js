@@ -298,7 +298,7 @@ app.post(
   async (req, res) => {
     console.log("sending : ", req.files);
     if (req.files.length > 0) {
-      res.send(req.files[0].path);
+      res.send(req.files[0].path.replace(URL_DEST, ""));
     }
   }
 );

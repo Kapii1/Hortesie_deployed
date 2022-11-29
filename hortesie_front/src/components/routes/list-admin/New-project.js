@@ -144,7 +144,8 @@ export function New_Project() {
     })
       .then((res) => res.text())
       .then((res) => {
-        setVignette(res.replace("../hortesie_front/public/", ""));
+        console.log("ressss" + res);
+        setVignette(res);
       });
   };
   const hiddenFileInput = React.useRef(null);
