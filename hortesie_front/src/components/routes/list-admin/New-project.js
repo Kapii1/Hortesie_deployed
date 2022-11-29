@@ -102,7 +102,7 @@ export function New_Project() {
 
     console.log("post toast");
 
-    window.location.replace("http://localhost:3000/#/admin/" + id);
+    window.location.replace("https://hortesie.fr/admin/" + id);
     return new_data;
   };
 
@@ -206,10 +206,12 @@ export function New_Project() {
 
         <div className="image-admin-container">
           <div className="image-vignette">
-          {vignette && <img
-              className="vignette-admin"
-              src={ process.env.PUBLIC_URL + "/" + vignette}
-            ></img>}
+            {vignette && (
+              <img
+                className="vignette-admin"
+                src={process.env.PUBLIC_URL + "/" + vignette}
+              ></img>
+            )}
             <input
               name="file_vignette"
               style={{ display: "none" }}

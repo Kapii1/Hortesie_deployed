@@ -20,9 +20,9 @@ const s4 = () => {
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
 process.env.NODE_ENV = "production";
-
+const URL_DEST = require("./url_back").URL_DEST;
+console.log(URL_DEST);
 const verifyToken = (req, res, next) => {
   const token =
     req.body.token || req.query.token || req.headers["x-access-token"];
@@ -87,7 +87,7 @@ const Log = async (req, res) => {
 };
 
 const storage_vignette = multer.diskStorage({
-  destination: "../hortesie_front/public/images/vignettes/",
+  destination: URL_DEST + "images/vignettes/",
   filename: (req, file, cb) => {
     console.log("enter file");
     const files = fs.readdirSync(dir_vignette);
@@ -115,7 +115,7 @@ const storage_vignette = multer.diskStorage({
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     console.log("id is 2:", req.body.idProjet);
-    cb(null, "../hortesie_front/public/images/projets/" + req.body.idProjet);
+    cb(null, URL_DEST + "images/projets/" + req.body.idProjet);
   },
   filename: (req, file, cb) => {
     let id = s4() + s4() + s4() + s4();
@@ -282,7 +282,7 @@ app.post("/add_image", (req, res) => {
     }
 
     req.files.forEach((file) => {
-      list_of_ids.push(file.path.replace("../hortesie_front/public/", ""));
+      list_of_ids.push(file.path.replace(URL_DEST, ""));
     });
 
     console.log(JSON.stringify(list_of_ids));
@@ -312,7 +312,7 @@ app.post("/welcome_admin", verifyToken, (req, res) => {
 });
 
 app.post("/del_image", (req, res) => {
-  fs.unlinkSync("../hortesie_front/public/" + req.body.img);
+  fs.unlinkSync(URL_DEST + req.body.img);
   db.all("DELETE FROM photos WHERE id=?", [req.body.id]);
   res.sendStatus(200);
 
@@ -354,8 +354,7 @@ app.post("/add_project", (req, res) => {
             console.log("ici" + err);
           }
         );
-        const folderName =
-          "../hortesie_front/public/images/projets/" + req.body.id;
+        const folderName = URL_DEST + "images/projets/" + req.body.id;
 
         if (!fs.existsSync(folderName)) {
           fs.mkdirSync(folderName);
@@ -373,7 +372,7 @@ app.post("/del_projet", (req, res) => {
   db.all(`DELETE FROM photos WHERE idProjet=?`, [req.body.id]);
   db.all(`DELETE FROM projets_corrected WHERE id=?`, [req.body.id]);
 
-  const dir = "../hortesie_front/public/images/projets/" + req.body.id;
+  const dir = URL_DEST + "images/projets/" + req.body.id;
   console.log(dir);
   fs.rm(dir, { recursive: true }, (err) => {
     if (err) {
