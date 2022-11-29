@@ -120,6 +120,10 @@ export function New_Project() {
       let res = fetch(API_URL + "/add_image", {
         method: "POST",
         body: data2,
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
       })
         .then((res) => res.json())
         .then((res) => {
