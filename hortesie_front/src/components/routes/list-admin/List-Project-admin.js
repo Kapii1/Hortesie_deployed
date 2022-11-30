@@ -123,6 +123,7 @@ export function ListProjectAdmin() {
                   <div className="del-button">
                     <IconButton
                       onClick={() => {
+                        console.log(item.id);
                         delProjet(item.id);
                       }}
                     >
