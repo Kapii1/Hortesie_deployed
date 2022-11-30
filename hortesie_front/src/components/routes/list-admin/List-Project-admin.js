@@ -40,7 +40,7 @@ export function ListProjectAdmin() {
       body: JSON.stringify({ id: id }),
     });
     setReRender(!reRender);
-    console.log(reRender);
+    console.log("reeeer", reRender);
   };
   const handleReRender = () => {
     setReRender(!reRender); // state change will re-render parent
