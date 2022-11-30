@@ -101,13 +101,13 @@ ul {
 .title {
   text-align: center;
   font-size: calc(1.4vw + 20px);
+  letter-spacing: 0.25rem !important;
 
 }
 .subtitle {
   text-align: center;
   font-size: calc(0.55vw + 10px);
   text-transform:uppercase;
-  letter-spacing: -2px !important;
 }
 .fade-exit-active {
   opacity: 0;
