@@ -130,7 +130,7 @@ const upload_vignette = multer({ storage: storage_vignette });
 app.use("/static", express.static(path.join(__dirname, "/static")));
 app.use(
   cors({
-    origin: "https://hortesie.fr:444",
+    origin: "https://hortesie.fr",
   })
 );
 app.use(express.json());
