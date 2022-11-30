@@ -210,7 +210,7 @@ export function New_Project() {
             {vignette && (
               <img
                 className="vignette-admin"
-                src={process.env.PUBLIC_URL + "/" + vignette}
+                src={process.env.PUBLIC_URL + "/public/" + vignette}
               ></img>
             )}
             <input
