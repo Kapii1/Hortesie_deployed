@@ -39,6 +39,7 @@ export function ListProjectAdmin() {
         "Content-Type": "application/json",
       },
     });
+    console.log("ended res", res);
     setReRender(!reRender);
     console.log("reeeer", reRender);
   };
