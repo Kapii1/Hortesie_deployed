@@ -118,7 +118,6 @@ export function ListProjectAdmin() {
 
           {data &&
             data.map((item, i) => {
-              console.log("item", item.nom);
               return (
                 <div className="del-row-container">
                   <div className="del-button">
