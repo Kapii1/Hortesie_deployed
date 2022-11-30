@@ -110,7 +110,7 @@ export function DetailAdmin(props) {
     }
 
     try {
-      console.log("before fetch in img handler");
+      console.log("before fetch in img handler " + data2);
       let res = fetch(API_URL + "/add_image", {
         method: "POST",
         headers: {
