@@ -3,6 +3,7 @@ import "./Detail.css";
 import { Link } from "react-router-dom";
 import { SimpleSlider } from "./SimpleSlider";
 import { motion } from "framer-motion";
+
 export function Detail(props) {
   console.log(props.item.slice(1));
   return (

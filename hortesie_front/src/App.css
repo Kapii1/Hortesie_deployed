@@ -23,21 +23,25 @@ ul{
   height: 100%;
 }
 .NavbarItems {
-  height: 5rem;
+  height: calc(2.7vw + 50px);
   width: 100%;
   background-color: white;
   border-bottom: 1px solid;
   display: flex;
   padding-left: 2rem;
   align-items: center;
-  
+  font-family:  "Century Gothic", sans-serif; 
   position: fixed;
   z-index: 9999;
 }
 
 ul > li {
   font-size: 1rem;
-  font-family: "Smooch Sans", sans-serif;
+}
+.title-container{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
 }
 li {
   font-size: 10px;
@@ -53,14 +57,23 @@ li {
 .nav-title{
   color: black;
   text-decoration: none;
-  font-size: larger;
-  padding: 10px;
+  height: 100%;
+}
+.logo-container{
+  display: flex;
+}
+.logo-img{
+  height: 100%;
+  filter: brightness(0);
+  min-width: 45px;
+  margin: auto;
 }
 .nav-links {
   color: black;
   text-decoration: none;
   align-items: center;
-  vertical-align: middle;    display: flex;
+  vertical-align: middle;    
+  display: flex;
   flex-direction: row;
   flex-basis: 100%;
   align-items: center;
@@ -68,7 +81,6 @@ li {
   width: 100%;
   font-size:xx-large;
   height: 100%;
-  font-family: 'Roboto Condensed', sans-serif;
   transition: 0.2s ease-in-out;
 }
 .nav-links:hover {
@@ -84,12 +96,14 @@ ul {
 }
 .title {
   text-align: center;
-  margin-right: 10px;
-  font-family: "Playfair Display", serif;
+  font-size: calc(1.4vw + 20px);
+
 }
 .subtitle {
   text-align: center;
-  font-family: "Playfair Display", serif;
+  font-size: calc(0.55vw + 10px);
+  text-transform:uppercase;
+  letter-spacing: -2px !important;
 }
 .fade-exit-active {
   opacity: 0;
