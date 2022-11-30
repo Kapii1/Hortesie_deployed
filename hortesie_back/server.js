@@ -369,6 +369,7 @@ app.post("/add_project", (req, res) => {
 });
 
 app.post("/del_projet", (req, res) => {
+  console.log("before req body");
   console.log("idd to del is ", req.body);
   if (req.body.id === null) return;
   db.all(`DELETE FROM photos WHERE idProjet=?`, [req.body.id]);
