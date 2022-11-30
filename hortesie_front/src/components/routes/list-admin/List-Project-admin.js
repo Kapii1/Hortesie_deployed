@@ -20,28 +20,6 @@ import { API_URL } from "../../../url";
 import useToken from "./useToken";
 import { New_Project } from "./New-project";
 
-
-function useFetchData() {
-  const [data, setData] = useState();
-
-  const [loading, setLoading] = useState();
-  useEffect(() => {
-    setLoading(true);
-    fetch(API_URL + "/projets", { method: "GET" })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        setData(responseJson);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-        setLoading(false);
-      });
-  }, []);
-
-  return { loading, data };
-}
-
 function useForceUpdate() {
   const [value, setValue] = useState(0); // integer state
   return () => setValue((value) => value + 1); // update state to force render
@@ -61,15 +39,31 @@ export function ListProjectAdmin() {
       },
       body: JSON.stringify({ id: id }),
     });
-    forceUpdate();
+    setReRender(!reRender);
   };
   const handleReRender = () => {
     setReRender(!reRender); // state change will re-render parent
   };
   const location = useLocation();
-  const { loading, data } = useFetchData();
+  const [loading, setLoading] = useState();
+  const [data, setData] = useState();
+
+  async function fetchData() {
+    setLoading(true);
+    fetch(API_URL + "/projets", { method: "GET" })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        setData(responseJson);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+      });
+  }
 
   const { token, setToken } = useToken();
+  const [deleted, isDeleted] = useState();
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
   useEffect(() => {
@@ -88,6 +82,9 @@ export function ListProjectAdmin() {
         }
       });
   });
+  useEffect(() => {
+    fetchData();
+  }, [deleted]);
   if (!token) {
     return <Login setToken={setToken} />;
   }
@@ -126,7 +123,7 @@ export function ListProjectAdmin() {
                     <IconButton
                       onClick={() => {
                         delProjet(item.id);
-                        forceUpdate();
+                        isDeleted(!deleted);
                       }}
                     >
                       <DeleteIcon></DeleteIcon>

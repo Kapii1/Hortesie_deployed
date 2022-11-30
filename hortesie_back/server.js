@@ -322,7 +322,7 @@ app.post("/del_image", (req, res) => {
 });
 
 app.post("/add_project", (req, res) => {
-  console.log(req.body);
+  console.log("Adding project " + req.body.id);
   db.all(
     "SELECT * FROM projets_corrected WHERE id=?",
     [req.body.id],
