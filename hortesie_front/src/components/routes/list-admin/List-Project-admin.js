@@ -33,7 +33,7 @@ export function ListProjectAdmin() {
   const delProjet = async (id) => {
     const res = await fetch(API_URL + "/del_projet", {
       method: "POST",
-      body: JSON.stringify({ id: id }),
+      body: { id: id },
     });
     setReRender(!reRender);
     console.log("reeeer", reRender);
