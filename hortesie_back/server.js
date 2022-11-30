@@ -111,7 +111,6 @@ const storage_vignette = multer.diskStorage({
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    console.log("id is 2:", req.body.idProjet);
     cb(null, URL_DEST + "images/projets/" + req.body.idProjet);
   },
   filename: (req, file, cb) => {
@@ -130,7 +129,7 @@ const upload_vignette = multer({ storage: storage_vignette });
 app.use("/static", express.static(path.join(__dirname, "/static")));
 app.use(
   cors({
-    origin: "https://hortesie.fr",
+    origin: "*",
   })
 );
 app.use(express.json());
@@ -280,6 +279,7 @@ app.post("/add_image", (req, res) => {
       console.log("b", req.files);
       // A Multer error occurred when uploading.
     } else if (err) {
+      console.log(err);
       // An unknown error occurred when uploading.
     }
 
