@@ -113,10 +113,6 @@ export function DetailAdmin(props) {
       console.log("before fetch in img handler " + data2);
       let res = fetch(API_URL + "/add_image", {
         method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
         body: data2,
       })
         .then((res) => res.json())
