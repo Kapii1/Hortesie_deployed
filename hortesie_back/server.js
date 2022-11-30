@@ -391,6 +391,6 @@ app.post("/del_projet", (req, res) => {
     }
   });
 
-  // res.send("ok");
+  res.send("ok");
 });
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
