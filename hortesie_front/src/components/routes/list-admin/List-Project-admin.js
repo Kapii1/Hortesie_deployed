@@ -40,6 +40,7 @@ export function ListProjectAdmin() {
       body: JSON.stringify({ id: id }),
     });
     setReRender(!reRender);
+    console.log(reRender);
   };
   const handleReRender = () => {
     setReRender(!reRender); // state change will re-render parent
@@ -49,6 +50,7 @@ export function ListProjectAdmin() {
   const [data, setData] = useState();
 
   async function fetchData() {
+    console.log("fetching");
     setLoading(true);
     fetch(API_URL + "/projets", { method: "GET" })
       .then((response) => response.json())
@@ -123,7 +125,6 @@ export function ListProjectAdmin() {
                     <IconButton
                       onClick={() => {
                         delProjet(item.id);
-                        isDeleted(!deleted);
                       }}
                     >
                       <DeleteIcon></DeleteIcon>
