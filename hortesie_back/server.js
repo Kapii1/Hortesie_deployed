@@ -128,7 +128,11 @@ const uploads = multer({ storage: storage }).array("file");
 
 const upload_vignette = multer({ storage: storage_vignette });
 app.use("/static", express.static(path.join(__dirname, "/static")));
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 app.use(express.json());
 app.get("/", function (req, res, next) {
   console.log(req.originalUrl);
