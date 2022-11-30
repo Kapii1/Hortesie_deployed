@@ -274,6 +274,7 @@ app.post("/save_modif_project", (req, res) => {
 app.use("/login", Log);
 app.post("/add_image", (req, res) => {
   var list_of_ids = [];
+  console.log("test");
   uploads(req, res, function (err) {
     if (err instanceof multer.MulterError) {
       console.log("b", req.files);
