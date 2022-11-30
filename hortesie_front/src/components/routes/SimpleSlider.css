@@ -10,14 +10,19 @@
     z-index: 1;
   }
   .slick-next {
-    right: 5% !important;
+    right: 2% !important;
     z-index: 1;
+  }
+  .slick-next:before{
+    display: inline-block;
+    transform: translate(-50%);
+
   }
   .slick-prev:before,
 .slick-next:before
 {
   font-family: 'slick';
-  font-size: 60px;
+  font-size: 3vw;
   line-height: 1;
 
   opacity: .75;
@@ -25,4 +30,8 @@
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.slick-track{
+  display: flex;
+  align-items: center;
 }

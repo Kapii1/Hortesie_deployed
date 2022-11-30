@@ -13,7 +13,8 @@
   overflow: visible;
 }
 .Grid-container {
-  padding-top: 4rem;
+  
+  padding-top: calc(2.7vw + 50px);
   background-color: white;
   position: absolute;
 }

@@ -2,7 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Roboto+Condensed:ital,wght@0,400;0,700;1,400&display=swap');
 .App {
   text-align: center;
-  font-family: "Montserrat", sans-serif;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -53,6 +52,11 @@ li {
   height: 100%;
   color: black;
   align-items: center;
+}
+@media (max-width: 800px){
+  .navbar-ul{
+    display: none;
+  }
 }
 .nav-title{
   color: black;

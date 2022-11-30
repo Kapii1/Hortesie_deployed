@@ -6,16 +6,21 @@
 
 .card {
   display: flex;
+  min-width: 200px;
   flex-direction: row;
   overflow: visible;
-  transition: transform 0.2s;
+  transition:  0.6s ;
+  filter: grayscale(80%);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
 }
 
 .card:hover {
   transform: scale(1.04);
+  filter: grayscale(0%);
 }
-.title-container{
+.card:hover .title-card{
+  opacity: 1;
+  transform: translate(0, 0);
 }
 .sub-card {
   display: flex;
@@ -45,10 +50,13 @@
   color: white;
   bottom: 10%;
   font-weight: 500;
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family:  "Century Gothic", sans-serif; 
   font-size: 2rem;
   width: 100%;
   text-align: center;
+  opacity: 0;
+  transform: translate(0, -6vw);
+  transition: 0.7s;
 }
 .title-card-container {
   max-width: 100%;

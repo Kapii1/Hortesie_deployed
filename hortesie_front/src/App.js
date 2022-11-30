@@ -26,7 +26,7 @@ function App() {
             </div>
           </Link>
           <div className="menu-icon"></div>
-          <ul>
+          <ul className="navbar-ul">
             <li>
               <Link to="/a-propos" className="nav-links">
                 À propos
