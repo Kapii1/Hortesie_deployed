@@ -33,10 +33,6 @@ export function ListProjectAdmin() {
   const delProjet = async (id) => {
     const res = await fetch(API_URL + "/del_projet", {
       method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
       body: JSON.stringify({ id: id }),
     });
     setReRender(!reRender);
