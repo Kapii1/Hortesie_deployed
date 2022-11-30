@@ -12,6 +12,7 @@ import "./OneProject.css";
  */
 export function Projet(props) {
   const [isOpen, setIsOpen] = useState(false);
+  console.log(props.path_image);
   return (
     <motion.div
       onClick={() => setIsOpen(!isOpen)}
@@ -19,11 +20,13 @@ export function Projet(props) {
       style={{ borderRadius: "7px" }}
     >
       <motion.div className="sub-card">
-        <div className="title-container"><motion.div className="title-card">{props.nom_fr}</motion.div></div>
+        <div className="title-container">
+          <motion.div className="title-card">{props.nom_fr}</motion.div>
+        </div>
         <motion.img
           layout="position"
           className="vignette"
-          src={process.env.PUBLIC_URL+ "/" +props.path_image}
+          src={process.env.PUBLIC_URL + "/" + props.path_image}
         ></motion.img>
       </motion.div>
     </motion.div>
