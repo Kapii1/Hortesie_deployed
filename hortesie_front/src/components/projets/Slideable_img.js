@@ -48,7 +48,7 @@ class Projet extends Component {
               <div key={index} className="each-slide">
                 <img
                   className="lazy"
-                  src={process.env.PUBLIC_URL + "/" + each}
+                  src={process.env.PUBLIC_URL + "/public/" + each}
                   alt="sample"
                 />
               </div>

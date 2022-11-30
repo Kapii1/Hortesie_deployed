@@ -18,7 +18,7 @@ export function SimpleSlider(props) {
         <div key={i}>
           <img
             className="image-nested"
-            src={process.env.PUBLIC_URL + "/" + item.nom}
+            src={process.env.PUBLIC_URL + "/public/" + item.nom}
             key={item.nom}
             layout="responsive"
             alt=""

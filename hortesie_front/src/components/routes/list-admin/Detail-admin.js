@@ -206,7 +206,7 @@ export function DetailAdmin(props) {
             <div className="image-vignette">
               <img
                 className="vignette-admin"
-                src={process.env.PUBLIC_URL + vignette}
+                src={process.env.PUBLIC_URL + "/public/" + vignette}
               ></img>
               <input
                 name="file_vignette"
