@@ -390,7 +390,7 @@ app.post("/del_projet", (req, res) => {
       }
     }
   });
-
+  console.log("sending");
   res.send({ msg: "deleted" });
 });
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
