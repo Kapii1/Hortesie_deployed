@@ -112,6 +112,10 @@ export function DetailAdmin(props) {
     try {
       let res = fetch(API_URL + "/add_image", {
         method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
         body: data2,
       })
         .then((res) => res.json())
