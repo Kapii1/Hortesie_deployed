@@ -10,7 +10,7 @@ function App() {
   const [color, changeColor] = useState("#282c34");
   return (
     <div className="App">
-      <div>
+      <div className="top-container">
         <nav className="NavbarItems">
           <Link to="/" className="nav-title">
             <div className="navbar-logo">
@@ -42,9 +42,16 @@ function App() {
                 Contact
               </Link>
             </li>
-          </ul>
+          </ul> 
+          <div className="menu-icon">
+          <div className="menu-icon-item"></div>
+          <div className="menu-icon-item"></div>
+          <div className="menu-icon-item"></div>
+        </div>
         </nav>
+       
       </div>
+
       <Routes>
         <Route path="/" />
         <Route path="a-propos" exact element={<Apropos />} />
