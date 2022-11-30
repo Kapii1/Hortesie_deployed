@@ -84,7 +84,7 @@ export function ListProjectAdmin() {
   });
   useEffect(() => {
     fetchData();
-  }, [deleted]);
+  }, [reRender]);
   if (!token) {
     return <Login setToken={setToken} />;
   }
