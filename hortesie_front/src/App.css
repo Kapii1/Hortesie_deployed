@@ -72,6 +72,7 @@ li {
   }
   .menu-icon{
     display:inline-block;
+    right:1vw;
   }
 }
 .nav-title{
