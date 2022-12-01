@@ -42,7 +42,7 @@ export function Projets(props) {
       >
         {items &&
           items.map((item, i) => (
-            <Grid className="projet" item lg={6} xl={2.5} xs={5} >
+            <Grid className="projet" item xl={2.5} xs={7} >
               <Link to={item.id}>
                 <motion.div key={i}>
                   <Projet
