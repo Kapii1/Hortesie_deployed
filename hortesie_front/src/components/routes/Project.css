@@ -9,6 +9,11 @@
 .card{
   width: 100%;
 }
+@media (min-width:800px){
+  .card{
+    width:30vw
+  }
+}
 .projets-container {
   padding: 3rem;
 }
