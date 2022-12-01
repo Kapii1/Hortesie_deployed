@@ -15,7 +15,7 @@ function App() {
     console.log(menu_icon);
     navbar.style.left = collapsed ? "0" : "100vw";
     menu_icon.style.transform = collapsed
-      ? "translateX(-85vw)"
+      ? "translateX(-75vw)"
       : "translateX(-5vw)";
   }, [collapsed]);
   return (
