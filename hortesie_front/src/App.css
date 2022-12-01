@@ -96,6 +96,7 @@ li {
 }
 .logo-container{
   display: flex;
+  width: 4rem;
 }
 .logo-img{
   height: 100%;
