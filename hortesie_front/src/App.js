@@ -15,8 +15,8 @@ function App() {
     console.log(menu_icon);
     navbar.style.left = collapsed ? "0" : "100vw";
     menu_icon.style.transform = collapsed
-      ? "translateX(-80vw)"
-      : "translateX(-10vw)";
+      ? "translateX(-85vw)"
+      : "translateX(-5vw)";
   }, [collapsed]);
   return (
     <div className="App">
