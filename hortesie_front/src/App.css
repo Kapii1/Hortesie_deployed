@@ -67,12 +67,25 @@ li {
   align-items: center;
 }
 @media (max-width: 800px){
+
   .navbar-ul{
-    display: none;
+    transition: 1s;
+    flex-direction: row;
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    top: 0;
+    height: 33.333vh;
+    left: 100vw;
+  }
+  .navbar-li{
+    background-color: white;
+    width: 100%;
   }
   .menu-icon{
     display:inline-block;
     right:1vw;
+    transition: 1s;
   }
 }
 .nav-title{

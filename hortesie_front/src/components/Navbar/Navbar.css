@@ -50,6 +50,7 @@ li{
     text-decoration: none;
     font-size: larger;
 }
+@media (min-width : 800px){
     ul{
     display: flex;
     flex-flow: row wrap;
@@ -58,7 +59,7 @@ li{
     align-self:center;
     margin-left: auto;
     margin-right: 0;
-}
+}}
 .title{
     text-align: center;
     margin-right: 40px;

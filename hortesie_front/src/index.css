@@ -3,7 +3,7 @@ body {
   top: 0;
   background-attachment: fixed;
   margin: 0px;
-  height: 100%;
+
   background-size: cover;
   scroll-behavior: smooth;
   overflow-y: hidden; /* Hide vertical scrollbar */
@@ -20,3 +20,6 @@ html {
 }
 
 
+@media (min-width :800px){
+  body{height: 100%;}
+}
