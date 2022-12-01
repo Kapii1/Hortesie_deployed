@@ -9,13 +9,15 @@ import Login from "./components/routes/list-admin/Login";
 function App() {
   const [color, changeColor] = useState("#282c34");
   const [collapsed, setCollapsed] = useState(true);
-  useEffect(()=>{
+  useEffect(() => {
     const navbar = document.getElementsByClassName("navbar-ul")[0];
-              const menu_icon = document.getElementsByClassName("menu-icon")[0];
-              console.log(menu_icon);
-              navbar.style.left = collapsed ? "0" : "100vw";
-              menu_icon.style.transform =collapsed ? "translateX(-90vw)":" translateX(0)"
-  },[collapsed])
+    const menu_icon = document.getElementsByClassName("menu-icon")[0];
+    console.log(menu_icon);
+    navbar.style.left = collapsed ? "0" : "100vw";
+    menu_icon.style.transform = collapsed
+      ? "translateX(-90vw)"
+      : " translateX(90vw)";
+  }, [collapsed]);
   return (
     <div className="App">
       <div className="top-container">
@@ -35,23 +37,36 @@ function App() {
           </Link>
           <ul className="navbar-ul">
             <li className="navbar-li">
-              <Link to="/a-propos" className="nav-links" onClick={async () => {
-              setCollapsed(!collapsed);
-            }}>
+              <Link
+                to="/a-propos"
+                className="nav-links"
+                onClick={async () => {
+                  setCollapsed(!collapsed);
+                }}
+              >
                 À propos
               </Link>
             </li>
             <li className="navbar-li">
-              <Link to="/projets" prefetch={false} className="nav-links" onClick={async () => {
-              setCollapsed(!collapsed);
-            }}>
+              <Link
+                to="/projets"
+                prefetch={false}
+                className="nav-links"
+                onClick={async () => {
+                  setCollapsed(!collapsed);
+                }}
+              >
                 Projets
               </Link>
             </li>
             <li className="navbar-li">
-              <Link to="/contact" className="nav-links" onClick={async () => {
-              setCollapsed(!collapsed);
-            }}>
+              <Link
+                to="/contact"
+                className="nav-links"
+                onClick={async () => {
+                  setCollapsed(!collapsed);
+                }}
+              >
                 Contact
               </Link>
             </li>

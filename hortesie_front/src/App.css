@@ -84,7 +84,7 @@ li {
   }
   .menu-icon{
     display:inline-block;
-    right:1vw;
+    right:2rem;
     transition: 1s;
   }
 }
