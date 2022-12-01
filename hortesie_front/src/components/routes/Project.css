@@ -3,17 +3,19 @@
   background-color: black;
 }
 .projet {
-  padding: 10px;
   margin: 10px;
+
+}
+.card{
+  width: 100%;
 }
 .projets-container {
-  padding: 4rem;
+  padding: 3rem;
 }
 .MuiGrid-item {
-  overflow: visible;
+  overflow: hidden;
 }
 .Grid-container {
-  
   padding-top: calc(2.7vw + 50px);
   background-color: white;
   position: absolute;

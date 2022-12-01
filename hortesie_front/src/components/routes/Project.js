@@ -36,13 +36,13 @@ export function Projets(props) {
       <Grid
         className="projets-container"
         container
-        spacing={10}
+        spacing={6}
         justifyContent="center"
         alignItems="center"
       >
         {items &&
           items.map((item, i) => (
-            <Grid className="projet" item xs={3}>
+            <Grid className="projet" item lg={6} xl={2.5} xs={5} >
               <Link to={item.id}>
                 <motion.div key={i}>
                   <Projet
