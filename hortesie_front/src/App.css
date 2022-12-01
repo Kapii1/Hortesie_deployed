@@ -37,7 +37,7 @@ ul{
 }
 .NavbarItems {
   height: calc(2.7vw + 50px);
-  width: 100%;
+  width: 100vw;
   background-color: white;
   border-bottom: 1px solid;
   display: flex;
@@ -85,7 +85,7 @@ li {
   .menu-icon{
     display:inline-block;
     right:2rem;
-    transform: translateX(-5vw);
+    transform: translateX(-15vw);
     transition: 1s;
   }
 }
