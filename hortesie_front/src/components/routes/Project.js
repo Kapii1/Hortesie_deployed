@@ -12,37 +12,39 @@ import { Link, useLocation } from "react-router-dom";
 
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { API_URL } from "../../url";
+import ProjectGrid from "../grid/ProjectGrid";
 
 export function Projets(props) {
   const location = useLocation();
-  const [items, setItems ] = useState();
+  const [items, setItems] = useState();
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await fetch(API_URL + "/projets", { method: "GET" });
         const json = await res.json();
         console.log(json);
-        setItems(json)
-        return json
+        setItems(json);
+        return json;
       } catch (error) {
         console.log("error", error);
       }
     };
-    const a =  fetchData();
-    console.log('a'+ a);
+    const a = fetchData();
+    console.log("a" + a);
   }, [setItems]);
   return (
     <div className="Grid-container">
       <Grid
         className="projets-container"
         container
-        spacing={6}
+        spacing={{ xs: 2, sm: 4, md: 6 }}
+        columns={{ xs: 4, sm: 9, md: 11 }}
         justifyContent="center"
         alignItems="center"
       >
         {items &&
           items.map((item, i) => (
-            <Grid className="projet" item xl={2.5} xs={7} >
+            <Grid className="projet" item xs={2} sm={4} md={2.5}>
               <Link to={item.id}>
                 <motion.div key={i}>
                   <Projet

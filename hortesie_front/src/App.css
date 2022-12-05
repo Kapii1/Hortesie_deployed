@@ -115,7 +115,7 @@ li {
   align-items: center;
   justify-content: center;
   width: 100%;
-  font-size:xx-large;
+  font-size:1.5rem;
   height: 100%;
   transition: 0.2s ease-in-out;
 }

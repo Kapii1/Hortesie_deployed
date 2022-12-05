@@ -17,7 +17,7 @@
 .card:hover {
   transform: scale(1.04);
   filter: grayscale(0%);
-}
+ }
 .card:hover .title-card{
   opacity: 1;
   transform: translate(0, 0);

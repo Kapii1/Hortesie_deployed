@@ -7,12 +7,8 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import "./OneProject.css";
 
-/**
- * @framerSupportedLayoutHeight fixed
- */
 export function Projet(props) {
   const [isOpen, setIsOpen] = useState(false);
-  console.log(props.path_image);
   return (
     <motion.div
       onClick={() => setIsOpen(!isOpen)}
