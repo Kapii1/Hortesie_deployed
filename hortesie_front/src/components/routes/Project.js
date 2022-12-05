@@ -12,7 +12,6 @@ import { Link, useLocation } from "react-router-dom";
 
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { API_URL } from "../../url";
-import ProjectGrid from "../grid/ProjectGrid";
 
 export function Projets(props) {
   const location = useLocation();
@@ -22,7 +21,6 @@ export function Projets(props) {
       try {
         const res = await fetch(API_URL + "/projets", { method: "GET" });
         const json = await res.json();
-        console.log(json);
         setItems(json);
         return json;
       } catch (error) {
@@ -30,7 +28,6 @@ export function Projets(props) {
       }
     };
     const a = fetchData();
-    console.log("a" + a);
   }, [setItems]);
   return (
     <div className="Grid-container">
