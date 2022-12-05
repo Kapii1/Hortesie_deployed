@@ -8,11 +8,10 @@ import { ListProjectAdmin } from "./components/routes/list-admin/List-Project-ad
 import Login from "./components/routes/list-admin/Login";
 function App() {
   const [color, changeColor] = useState("#282c34");
-  const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, setCollapsed] = useState(false);
   useEffect(() => {
     const navbar = document.getElementsByClassName("navbar-ul")[0];
     const menu_icon = document.getElementsByClassName("menu-icon")[0];
-    console.log(menu_icon);
     navbar.style.left = collapsed ? "0" : "100vw";
     menu_icon.style.transform = collapsed
       ? "translateX(-75vw)"

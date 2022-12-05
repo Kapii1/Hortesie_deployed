@@ -85,8 +85,8 @@ li {
   .menu-icon{
     display:inline-block;
     right:2rem;
-    transform: translateX(-5vw);
     transition: 1s;
+    transform: translateX(-5vw);
   }
 }
 .nav-title{
