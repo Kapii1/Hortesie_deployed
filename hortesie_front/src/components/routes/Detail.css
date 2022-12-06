@@ -1,7 +1,9 @@
-.detail-container{
-    display: flex;
-    height: 90%;
-    margin-bottom: 5%;
+@media (min-width:800px) {
+    .detail-container{
+        display: flex;
+        height: 90%;
+        margin-bottom: 5%;
+    } 
 }
 .Details-container{
     padding : auto;
@@ -42,12 +44,32 @@
     right: 4%;
     height: 1.5vw;
 }
-.detail-title{
-}
+
 .detail-ville{
     font-size: 1.5rem;
     font-family:  "Century Gothic", sans-serif;
     font-weight: 500;
     margin-top: 1rem;
     margin-bottom: 1rem;
+}
+
+@media (max-width: 800px) {
+    .detail-container{
+        display: flex;
+        flex-direction:column-reverse ;
+    }
+    .text-container{
+        padding-bottom: 2rem;
+        height: 35vh;
+    }
+    .leave{
+        height: 5vw;
+    }
+    .detail-title{ 
+        padding-top: 1rem;
+        font-size: 1.5rem;
+    }
+    .description{
+        font-size: 1rem;
+    }
 }

@@ -25,9 +25,7 @@ function Details() {
     <motion.div
       className="Details-container"
       initial={{ y: "100%" }}
-      animate={{
-        y: 1,
-      }}
+      animate={{ y: 1 }}
       transition={{ duration: 0.7 }}
       exit={{ y: "100%" }}
     >
