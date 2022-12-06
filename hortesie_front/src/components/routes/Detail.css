@@ -73,4 +73,7 @@
     .description{
         font-size: 1rem;
     }
+    .img-container{
+        width: 80%;
+    }
 }
