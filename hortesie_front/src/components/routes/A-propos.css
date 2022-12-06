@@ -3,8 +3,8 @@
     top: 4rem;
     align-items: center;
     width: 100%;
-    height: 100vh;
-    background: beige;
+    height: calc(100vh - 4rem);
+    background: white;
 }
 .container{
     width: 100%;
