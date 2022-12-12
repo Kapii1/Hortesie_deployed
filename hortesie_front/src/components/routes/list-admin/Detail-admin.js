@@ -208,7 +208,7 @@ export function DetailAdmin(props) {
             <div className="image-vignette">
               <img
                 className="vignette-admin"
-                src={process.env.PUBLIC_URL + "/" + vignette}
+                src={process.env.PUBLIC_URL + "/public/" + vignette}
               ></img>
               <input
                 name="file_vignette"
@@ -269,7 +269,7 @@ export function DetailAdmin(props) {
                   <div key={i} className="image-container">
                     <img
                       className="image-admin"
-                      src={process.env.PUBLIC_URL + "/" + elem.nom}
+                      src={process.env.PUBLIC_URL + "/public/" + elem.nom}
                     />
                     <div className="delete-button-img">
                       <IconButton
