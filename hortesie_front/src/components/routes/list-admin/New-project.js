@@ -34,34 +34,21 @@ export function New_Project() {
   const id = s4() + s4() + s4();
 
   const forceUpdate = useForceUpdate();
-  var imgs = [];
+  const [imgs, setimgs] = useState([]);
+  const [previewImage, setPreviewImage] = useState();
   const [vignette, setVignette] = useState();
+  const [previewVignette, setPreviewVignette] = useState();
   const [file_vignette, setFileVignette] = useState();
   const [file, setFile] = useState();
   const [fileName, setFileName] = useState("");
+  const [imageData, setImageData] = useState();
 
-  const removeImage = (nom_img) => {
-    var index;
-    data.forEach((element, i) => {
-      if (element.nom == nom_img) {
-        index = i;
-      }
-    });
-
-    data.splice(index, 1);
-    let idPhoto = nom_img.split(".")[0];
-    idPhoto = idPhoto.split("/");
-    let realidPhoto = idPhoto[idPhoto.length - 1];
-    var nomimg = { id: realidPhoto, img: nom_img };
-    fetch(API_URL + "/del_image", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(nomimg),
-    });
-    forceUpdate();
+  const removeImage = (item) => {
+    console.log(
+      imgs.filter((file) => file.name !== item.name),
+      item.name
+    );
+    setimgs(imgs.filter((file) => file !== item));
   };
 
   const format_new_data_to_save = async (bru) => {
@@ -89,7 +76,6 @@ export function New_Project() {
       ville: ville,
       images: [],
     };
-    console.log("ezaezazaeeaz " + new_data);
     const res = await fetch(API_URL + "/save_modif_project", {
       method: "POST",
       headers: {
@@ -100,53 +86,57 @@ export function New_Project() {
       body: JSON.stringify(new_data),
     });
 
-    console.log("post toast");
+    let data2 = new FormData();
+    data2.append("idProjet", id);
+    for (let i = 0; i < imgs.length; i++) {
+      data2.append("file", imgs[i]);
+    }
+    let res_2 = fetch(API_URL + "/add_image", {
+      method: "POST",
+      body: data2,
+    }).then((res) => res.json());
 
-    window.location.replace("https://hortesie.fr/admin/" + id);
+    mod_vignette();
+
+    // window.location.replace("https://hortesie.fr/admin/" + id);
     return new_data;
   };
 
   const imageHandler = async (event) => {
     event.preventDefault();
     const data2 = new FormData();
-    data2.append("idProjet", id);
-    const file_photo = event.target.files;
-
-    for (let i = 0; i < file_photo.length; i++) {
-      data2.append("file", file_photo[i]);
-    }
-
-    try {
-      let res = fetch(API_URL + "/add_image", {
-        method: "POST",
-        body: data2,
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          res.forEach((img) => {
-            data.push({ nom: img });
-            forceUpdate();
-          });
-        });
-    } catch (error) {
-      console.log("err", error);
-    }
+    const imgs_local = imgs ? imgs : [];
+    const file_photo = [...event.target.files];
+    setimgs((oldArray) => [].concat(oldArray, file_photo));
+    // for (let i = 0; i < file_photo.length; i++) {
+    //   setimgs((oldArray) => [...oldArray, file_photo[i]]);
+    // }
+    //   try {
+    //     let res = fetch(API_URL + "/add_image", {
+    //       method: "POST",
+    //       body: data2,
+    //     })
+    //       .then((res) => res.json())
+    //       .then((res) => {
+    //         res.forEach((img) => {
+    //           data.push({ nom: img });
+    //           forceUpdate();
+    //         });
+    //       });
+    //   } catch (error) {
+    //     console.log("err", error);
+    //   }
+    // };
   };
-  const mod_vignette = async (event) => {
-    event.preventDefault();
+  const mod_vignette = async () => {
     const data_to_send = new FormData();
-    console.log("file ving", file_vignette, event.target.files[0]);
     data_to_send.append("idProjet", id);
-    data_to_send.append("file_vignette", event.target.files[0]);
+    data_to_send.append("file_vignette", vignette);
     let oo = await fetch(API_URL + "/add_vignette", {
       method: "POST",
       body: data_to_send,
     })
       .then((res) => res.text())
-      .then((res) => {
-        console.log("ressss" + res);
-        setVignette(res);
-      });
   };
   const hiddenFileInput = React.useRef(null);
   const hiddenFileInput_photos = React.useRef(null);
@@ -167,11 +157,28 @@ export function New_Project() {
       body: JSON.stringify({ id: id }),
     });
     const response_json = await res.json();
-    console.log(response_json);
     return response_json;
   };
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (!vignette) {
+      setPreviewVignette(undefined);
+      return;
+    }
+    const objectURL = URL.createObjectURL(vignette);
+    setPreviewVignette(objectURL);
+  }, [vignette]);
 
+  useEffect(() => {
+    if (!imgs) {
+      setPreviewImage(undefined);
+      return;
+    }
+    var prev = [];
+    for (let i = 0; i < imgs.length; i++) {
+      prev.push(URL.createObjectURL(imgs[i]));
+    }
+    setPreviewImage(prev);
+  }, [imgs]);
   return (
     <div className="Detail-container">
       <div className="titre-container">
@@ -208,10 +215,7 @@ export function New_Project() {
         <div className="image-admin-container">
           <div className="image-vignette">
             {vignette && (
-              <img
-                className="vignette-admin"
-                src={process.env.PUBLIC_URL + "/public/" + vignette}
-              ></img>
+              <img className="vignette-admin" src={previewVignette}></img>
             )}
             <input
               name="file_vignette"
@@ -220,17 +224,10 @@ export function New_Project() {
               ref={hiddenFileInput}
               type="file"
               onChange={async (event) => {
-                const setving = async () => {
-                  const vignette = event.target.files[0];
-                };
-
+                const vignette = event.target.files[0];
                 if (vignette) {
-                  setFileVignette(event.target.files[0]);
-                  mod_vignette(event);
-                } else {
-                  setTimeout(setving, 300);
+                  setVignette(vignette);
                 }
-                setving();
               }}
             ></input>
             <Button
@@ -250,9 +247,6 @@ export function New_Project() {
               ref={hiddenFileInput_photos}
               type="file"
               onChange={(event) => {
-                const file = event.target.files;
-                console.log("all file", file);
-                setFile(file);
                 imageHandler(event);
               }}
             />
@@ -264,6 +258,29 @@ export function New_Project() {
               Ajouter des photos
             </Button>
           </div>
+          {previewImage
+            ? imgs.map((item, i) => {
+                return (
+                  <div key={i} className="image-container">
+                    <img
+                      key={i}
+                      className="image-admin"
+                      src={previewImage[i]}
+                    />
+                    <div className="delete-button-img">
+                      <IconButton
+                        backgroundColor="error"
+                        onClick={() => {
+                          return removeImage(imgs[i]);
+                        }}
+                      >
+                        <DeleteIcon></DeleteIcon>
+                      </IconButton>
+                    </div>
+                  </div>
+                );
+              })
+            : undefined}
         </div>
       </div>
     </div>

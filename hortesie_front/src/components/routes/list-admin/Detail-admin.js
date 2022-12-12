@@ -37,6 +37,8 @@ export function DetailAdmin(props) {
 
   const removeImage = (nom_img) => {
     var index;
+    if (!nom_img) return;
+
     data.forEach((element, i) => {
       if (element.nom == nom_img) {
         index = i;
@@ -123,7 +125,7 @@ export function DetailAdmin(props) {
           });
         });
     } catch (error) {
-      console.log("err", error);
+      console.log("Error : ", error);
     }
   };
   const mod_vignette = async (event) => {
@@ -206,7 +208,7 @@ export function DetailAdmin(props) {
             <div className="image-vignette">
               <img
                 className="vignette-admin"
-                src={process.env.PUBLIC_URL + "/public/" + vignette}
+                src={process.env.PUBLIC_URL + "/" + vignette}
               ></img>
               <input
                 name="file_vignette"
@@ -267,7 +269,7 @@ export function DetailAdmin(props) {
                   <div key={i} className="image-container">
                     <img
                       className="image-admin"
-                      src={process.env.PUBLIC_URL + "/public/" + elem.nom}
+                      src={process.env.PUBLIC_URL + "/" + elem.nom}
                     />
                     <div className="delete-button-img">
                       <IconButton

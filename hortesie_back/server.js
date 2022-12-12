@@ -273,7 +273,6 @@ app.post("/save_modif_project", (req, res) => {
 app.use("/login", Log);
 app.post("/add_image", (req, res) => {
   var list_of_ids = [];
-  console.log("test");
   uploads(req, res, function (err) {
     if (err instanceof multer.MulterError) {
       console.log("b", req.files);
@@ -287,7 +286,6 @@ app.post("/add_image", (req, res) => {
       list_of_ids.push(file.path.replace(URL_DEST, ""));
     });
 
-    console.log(JSON.stringify(list_of_ids));
     res.send(JSON.stringify(list_of_ids));
     // Everything went fine.
   });
