@@ -34,7 +34,7 @@ export function DetailAdmin(props) {
   const [file_vignette, setFileVignette] = useState();
   const [file, setFile] = useState();
   const [fileName, setFileName] = useState("");
-
+  const [vignetteHasChanged, setVignetteHasChanged] = useState();
   const removeImage = (nom_img) => {
     var index;
     if (!nom_img) return;
@@ -45,10 +45,9 @@ export function DetailAdmin(props) {
       }
     });
     data.splice(index, 1);
-    let idPhoto = nom_img.split(".")[0];
-    idPhoto = idPhoto.split("/");
-    let realidPhoto = idPhoto[idPhoto.length - 1];
-    var nomimg = { id: realidPhoto, img: nom_img };
+    let idPhoto = nom_img.split("/").slice(-1)[0];
+    var nomimg = { id: idPhoto, img: nom_img };
+    console.log(nomimg);
     fetch(API_URL + "/del_image", {
       method: "POST",
       headers: {
@@ -71,6 +70,7 @@ export function DetailAdmin(props) {
     const nom_projet = document.getElementById("nom-projet").value;
     const description = document.getElementById("description-projet").value;
     const ville = document.getElementById("ville-projet").value;
+    const annee = document.getElementById("annee-projet").value;
     var list_of_img = [];
     data.forEach((element, i) => {
       if (i != 0) {
@@ -86,7 +86,9 @@ export function DetailAdmin(props) {
       vignette: data[0].vignette,
       ville: ville,
       images: list_of_img,
+      annee: annee,
     };
+
     const res = await fetch(API_URL + "/save_modif_project", {
       method: "POST",
       headers: {
@@ -100,7 +102,25 @@ export function DetailAdmin(props) {
     console.log("post toast");
     return new_data;
   };
+  const updateVignetteonDB = async (path_vignette, idProjet) => {
+    var new_data = [];
+    new_data = await {
+      idProjet: idProjet,
+      path_vignette: path_vignette,
+    };
+    console.log(new_data);
+    const res = await fetch(API_URL + "/set_vignette", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
 
+      body: JSON.stringify(new_data),
+    });
+    onReRender();
+    setVignetteHasChanged(!vignetteHasChanged);
+  };
   const imageHandler = async (event) => {
     event.preventDefault();
     const data2 = new FormData();
@@ -129,9 +149,7 @@ export function DetailAdmin(props) {
     }
   };
   const mod_vignette = async (event) => {
-    event.preventDefault();
     const data_to_send = new FormData();
-    console.log("file ving", file_vignette, event.target.files[0]);
     data_to_send.append("idProjet", id);
     data_to_send.append("file_vignette", event.target.files[0]);
     let oo = await fetch(API_URL + "/add_vignette", {
@@ -139,9 +157,7 @@ export function DetailAdmin(props) {
       body: data_to_send,
     })
       .then((res) => res.text())
-      .then((res) => {
-        setVignette(res.replace("../hortesie_front/public/", ""));
-      });
+      .then((res) => setVignetteHasChanged(!vignetteHasChanged));
   };
   const hiddenFileInput = React.useRef(null);
   const hiddenFileInput_photos = React.useRef(null);
@@ -159,13 +175,12 @@ export function DetailAdmin(props) {
         method: "GET",
       });
       const json = await res.json();
-      console.log(json);
       setVignette(json[0].vignette);
       updateItems(json);
     };
 
     fetchData();
-  }, []);
+  }, [vignetteHasChanged]);
 
   return (
     <div className="Detail-container">
@@ -188,6 +203,12 @@ export function DetailAdmin(props) {
             className="form-projet"
             defaultValue={data[0].nom}
           ></TextField>
+          <label className="label-detail">Année de réalisation du projet</label>
+          <TextField
+            id="annee-projet"
+            className="form-projet"
+            defaultValue={data[0].annee}
+          ></TextField>
           <label className="label-detail">Description du projet</label>
           <TextField
             id="description-projet"
@@ -206,10 +227,7 @@ export function DetailAdmin(props) {
 
           <div className="image-admin-container">
             <div className="image-vignette">
-              <img
-                className="vignette-admin"
-                src={process.env.PUBLIC_URL + "/public/" + vignette}
-              ></img>
+              <img className="vignette-admin" src={vignette}></img>
               <input
                 name="file_vignette"
                 style={{ display: "none" }}
@@ -217,18 +235,8 @@ export function DetailAdmin(props) {
                 ref={hiddenFileInput}
                 type="file"
                 onChange={async (event) => {
-                  console.log("ezjajez");
-                  const setving = async () => {
-                    const vignette = event.target.files[0];
-                  };
-                  setving();
-                  console.log("vigg", event.target.files[0]);
                   if (event.target.files[0]) {
-                    console.log("go");
-                    setFileVignette(event.target.files[0]);
                     mod_vignette(event);
-                  } else {
-                    setTimeout(setving, 3);
                   }
                 }}
               ></input>
@@ -265,11 +273,32 @@ export function DetailAdmin(props) {
             </div>
             {data.map((elem, i) => {
               if (i != 0) {
+                console.log(elem);
                 return (
                   <div key={i} className="image-container">
+                    <div>
+                      Is vignette :
+                      <input
+                        type="checkbox"
+                        defaultChecked={data[0].vignette
+                          .split("/")
+                          .slice(-1)[0]
+                          .includes(elem.nom.split("/").slice(-1)[0])}
+                        checked={data[0].vignette
+                          .split("/")
+                          .slice(-1)[0]
+                          .includes(elem.nom.split("/").slice(-1)[0])}
+                        onClick={(event) => {
+                          updateVignetteonDB(
+                            process.env.PUBLIC_URL + "/" + elem.nom,
+                            data[0].id
+                          );
+                        }}
+                      />
+                    </div>
                     <img
                       className="image-admin"
-                      src={process.env.PUBLIC_URL + "/public/" + elem.nom}
+                      src={elem.nom}
                     />
                     <div className="delete-button-img">
                       <IconButton

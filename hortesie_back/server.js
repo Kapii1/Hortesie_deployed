@@ -90,22 +90,15 @@ const storage_vignette = multer.diskStorage({
     const files = fs.readdirSync(dir_vignette);
     for (i in files) {
       if (files[i].includes(req.body.idProjet)) {
-        console.log(files[i]);
+        console.log("in del file", dir_vignette, files[i]);
         fs.unlinkSync(dir_vignette + files[i]);
       }
     }
-    console.log(
-      req.body.idProjet + "." + file.originalname.split(".")[1],
-      req.body.idProjet
-    );
     db.all(`UPDATE projets_corrected SET vignette = ? WHERE id= ?  `, [
-      "images/vignettes/" +
-        req.body.idProjet +
-        "." +
-        file.originalname.split(".")[1],
+      "images/vignettes/" + req.body.idProjet + "_" + file.originalname,
       req.body.idProjet,
     ]);
-    cb(null, req.body.idProjet + "." + file.originalname.split(".")[1]);
+    cb(null, req.body.idProjet + "_" + file.originalname);
   },
 });
 
@@ -114,8 +107,8 @@ const storage = multer.diskStorage({
     cb(null, URL_DEST + "images/projets/" + req.body.idProjet);
   },
   filename: (req, file, cb) => {
-    let id = s4() + s4() + s4() + s4();
-    let name = id + "." + file.originalname.split(".")[1];
+    let id = file.originalname;
+    let name = file.originalname;
     let path = "images/projets/" + req.body.idProjet + "/" + name;
 
     db.all(`INSERT INTO photos VALUES (?,?,?)`, [id, req.body.idProjet, path]);
@@ -190,6 +183,7 @@ app.get("/projets/:id", (req, res) => {
               vignette: row.vignette,
               description: row.description_fr,
               ville: row.ville,
+              annee: row.date,
             });
           });
         }
@@ -222,7 +216,7 @@ app.post("/save_modif_project", (req, res) => {
   const nom = req.body.nom;
   const ville = req.body.ville;
   const images = req.body.images;
-  const date = req.body.date;
+  const date = req.body.annee;
   var description = req.body.description;
   const vignette = req.body.vignette;
 
@@ -295,12 +289,20 @@ app.post(
   "/add_vignette",
   upload_vignette.array("file_vignette"),
   async (req, res) => {
-    console.log("sending : ", req.files);
     if (req.files.length > 0) {
       res.send(req.files[0].path.replace(URL_DEST, ""));
     }
   }
 );
+
+app.post("/set_vignette", async (req, res) => {
+  console.log("enter", req.body);
+  db.all(`UPDATE projets_corrected SET vignette = ? WHERE id= ?  `, [
+    req.body.path_vignette,
+    req.body.idProjet,
+  ]);
+  res.send({ msg: "Worked!" });
+});
 
 app.post("/welcome_admin", verifyToken, (req, res) => {
   if (req.user == "expired") {
@@ -314,9 +316,8 @@ app.post("/welcome_admin", verifyToken, (req, res) => {
 app.post("/del_image", (req, res) => {
   fs.unlinkSync(URL_DEST + req.body.img);
   db.all("DELETE FROM photos WHERE id=?", [req.body.id]);
-  res.sendStatus(200);
-
   console.log("le body", req.body);
+  res.sendStatus(200);
 });
 
 app.post("/add_project", (req, res) => {

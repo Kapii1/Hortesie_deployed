@@ -16,7 +16,7 @@ export const OneRowAdmin = (props) => {
         <div className="elem image-elem">
           <img
             className="vignette"
-            src={process.env.PUBLIC_URL + "/public/" + props.vignette}
+            src={props.vignette}
           ></img>
         </div>
         <div className="elem">{props.nom} </div>
@@ -29,7 +29,7 @@ export const OneRowAdmin = (props) => {
         <div className="elem image-elem">
           <img
             className="vignette"
-            src={process.env.PUBLIC_URL + "/public/" + props.vignette}
+            src={props.vignette}
           ></img>
         </div>
         <div className="elem">{props.nom} </div>
