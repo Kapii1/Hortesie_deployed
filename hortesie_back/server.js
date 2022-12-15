@@ -356,8 +356,8 @@ app.post("/add_project", (req, res) => {
           }
         );
         const folderName = URL_DEST + "images/projets/" + req.body.id;
-
         if (!fs.existsSync(folderName)) {
+          console.log("Creating folder : ", folderName);
           fs.mkdirSync(folderName);
         }
         console.log("created");
