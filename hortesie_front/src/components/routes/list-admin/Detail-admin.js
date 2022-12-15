@@ -272,7 +272,7 @@ export function DetailAdmin(props) {
               </Button>
             </div>
             {data.map((elem, i) => {
-              if (i != 0) {
+              if (i != 0 && elem.nom !== "") {
                 console.log(elem);
                 return (
                   <div key={i} className="image-container">
@@ -296,10 +296,7 @@ export function DetailAdmin(props) {
                         }}
                       />
                     </div>
-                    <img
-                      className="image-admin"
-                      src={elem.nom}
-                    />
+                    <img className="image-admin" src={elem.nom} />
                     <div className="delete-button-img">
                       <IconButton
                         backgroundColor="error"
