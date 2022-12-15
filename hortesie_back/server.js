@@ -201,6 +201,7 @@ app.get("/projets/:id", (req, res) => {
           output.push({ nom: "" });
         } else {
           rows.forEach(function (row) {
+            console.log("row nom", row.nom);
             output.push({
               nom: row.nom,
             });
