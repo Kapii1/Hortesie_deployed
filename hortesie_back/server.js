@@ -110,7 +110,7 @@ const storage = multer.diskStorage({
     let id = file.originalname;
     let name = file.originalname;
     let path = "images/projets/" + req.body.idProjet + "/" + name;
-
+    console.log("Update in project", id, name, path);
     db.all(`INSERT INTO photos VALUES (?,?,?)`, [id, req.body.idProjet, path]);
     cb(null, name);
   },
@@ -197,7 +197,7 @@ app.get("/projets/:id", (req, res) => {
         console.log(err);
       } else {
         if (rows.length === 0) {
-          console.log("bug", req.params.id);
+          console.log("bug pas de photos", req.params.id);
           output.push({ nom: "" });
         } else {
           rows.forEach(function (row) {
