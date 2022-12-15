@@ -111,7 +111,13 @@ const storage = multer.diskStorage({
     let name = file.originalname;
     let path = "images/projets/" + req.body.idProjet + "/" + name;
     console.log("Update in project", id, name, path);
-    db.all(`INSERT INTO photos VALUES (?,?,?)`, [id, req.body.idProjet, path]);
+    db.all(`INSERT INTO photos VALUES (?,?,?)`, [id, req.body.idProjet, path],(err,rows)=>{
+      if (err){
+        console.log("Error in database adding image : ",err)
+      }else{
+        console.log("all added", rows)
+      }
+    });
     cb(null, name);
   },
 });
