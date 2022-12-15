@@ -118,7 +118,10 @@ const storage = multer.diskStorage({
         if (err) {
           console.log("Error in database adding image : ", err);
         } else {
-          console.log("all added", rows, [id, req.body.idProjet, path]);
+          rows.forEach((row) => {
+            console.log(row.nom);
+          });
+          console.log("all added", [id, req.body.idProjet, path]);
         }
       }
     );
