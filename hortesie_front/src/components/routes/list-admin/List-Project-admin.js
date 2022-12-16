@@ -112,6 +112,7 @@ export function ListProjectAdmin() {
             <div className="supp-title">
               <DeleteIcon />
             </div>
+            <div className="elem-title"> Ordre</div>
             <div className="elem-title"> Vignette</div>
             <div className="elem-title"> Nom Projet</div>
             <div className="elem-title"> Ville </div>
@@ -144,6 +145,7 @@ export function ListProjectAdmin() {
                       vignette={item.vignette}
                       ind={i}
                       ville={item.ville}
+                      ordre={item.ordre}
                       key={i}
                     />
                   </Link>

@@ -101,6 +101,7 @@ export function DetailAdmin(props) {
       body: JSON.stringify(new_data),
     });
 
+    onReRender();
     console.log("post toast");
     return new_data;
   };
@@ -224,14 +225,13 @@ export function DetailAdmin(props) {
             id="ville-projet"
             className="form-projet"
             defaultValue={data[0].ville}
-            multiline
           ></TextField>
-          <label className="label-detail">Ville du projet</label>
+          <label className="label-detail">Position du projet</label>
           <TextField
             id="ordre-projet"
             className="form-projet"
             defaultValue={data[0].ordre}
-            multiline
+            inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
           ></TextField>
           <div className="image-admin-container">
             <div className="add-photo-button">

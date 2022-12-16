@@ -171,15 +171,9 @@ app.get("/projets", (req, res) => {
             ordre: row.position,
           });
         });
-        console.log(
-          "SORTED",
-          output.sort(function (first, second) {
-            return second.ordre - first.ordre;
-          })
-        );
         res.send(
           output.sort(function (first, second) {
-            return second.ordre - first.ordre;
+            return first.ordre - second.ordre;
           })
         );
       }
