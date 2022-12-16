@@ -51,9 +51,31 @@
     font-weight: 500;
     margin-top: 1rem;
     margin-bottom: 1rem;
+
+    width: 100%;
 }
 
+@media (min-width:800px) {
+ .detail-ville{
+    display: flex;  
+     
+}
+.annee-p{
+    position: absolute;
+    right: 0;
+    margin: 0;
+    margin-right: 2rem;
+}}
+.ville-p{
+    margin: auto;
+}
+
+
 @media (max-width: 800px) {
+    .detail-ville{
+        display: flex;
+        flex-direction: column;
+    }
     .detail-container{
         display: flex;
         flex-direction:column-reverse ;

@@ -24,7 +24,10 @@ function App() {
           <Link to="/" className="nav-title">
             <div className="navbar-logo">
               <div className="logo-container">
-                <img className="logo-img" src={require("./logo.png")}></img>
+                <img
+                  className="logo-img"
+                  src={require("./Hortesie_rouge_et_or__1_-removebg-preview_recadré.png")}
+                ></img>
               </div>
               <div className="title-container">
                 <div className="title">HORTÉSIE</div>
