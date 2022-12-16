@@ -42,16 +42,7 @@ justify-content: center;
 font-weight: bold;  
 font-size: large;
 }
-.delete-button-img{
-    align-items: center;
-    margin: auto;
-    position: absolute;
-    z-index: 999;
-    right: 0;
-    color: red;
-    border-bottom-left-radius: 50%;
-    background-color: white;
-}
+
 .image-admin{
     height: 15rem;
     width:auto;
@@ -64,13 +55,7 @@ font-size: large;
     width: 100%;
     margin-bottom: 20rem;
 }
-.image-container{
-    display: flex;
-    margin: auto;
-    margin-bottom: 1rem;
-    position: relative;
 
-}
 .vignette-admin{
     width: auto;
     height: 30rem;

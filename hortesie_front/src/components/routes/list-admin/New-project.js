@@ -22,7 +22,8 @@ function useForceUpdate() {
   // An function that increment 👆🏻 the previous state like here
   // is better than directly setting `value + 1`
 }
-export function New_Project() {
+export function New_Project(props) {
+  const { onReRender } = props;
   const [data, updateItems] = useState();
   const [loading, setLoading] = useState();
   const [isDone, setDone] = useState();
@@ -97,7 +98,7 @@ export function New_Project() {
     }).then((res) => res.json());
 
     mod_vignette();
-
+    onReRender();
     // window.location.replace("https://hortesie.fr/admin/" + id);
     return new_data;
   };
@@ -135,8 +136,7 @@ export function New_Project() {
     let oo = await fetch(API_URL + "/add_vignette", {
       method: "POST",
       body: data_to_send,
-    })
-      .then((res) => res.text())
+    }).then((res) => res.text());
   };
   const hiddenFileInput = React.useRef(null);
   const hiddenFileInput_photos = React.useRef(null);

@@ -197,6 +197,7 @@ app.get("/projets/:id", (req, res) => {
               description: row.description_fr,
               ville: row.ville,
               annee: row.date,
+              ordre: row.position,
             });
           });
         }
@@ -233,6 +234,7 @@ app.post("/save_modif_project", (req, res) => {
   const date = req.body.annee;
   var description = req.body.description;
   const vignette = req.body.vignette;
+  const ordre = req.body.ordre;
 
   let s4 = () => {
     return Math.floor((1 + Math.random()) * 0x10000)
@@ -261,7 +263,7 @@ app.post("/save_modif_project", (req, res) => {
       "",
       "",
       description,
-      "",
+      ordre,
       nom,
       ville,
       "France",
@@ -291,7 +293,12 @@ app.post("/add_image", (req, res) => {
     }
 
     req.files.forEach((file) => {
-      list_of_ids.push(file.path.replace(URL_DEST, ""));
+      console.log(file.path);
+      list_of_ids.push(
+        file.path
+          .replace(URL_DEST, "")
+          .replace("..\\hortesie_front\\public\\", "")
+      );
     });
 
     res.send(JSON.stringify(list_of_ids));

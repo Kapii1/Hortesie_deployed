@@ -71,6 +71,7 @@ export function DetailAdmin(props) {
     const description = document.getElementById("description-projet").value;
     const ville = document.getElementById("ville-projet").value;
     const annee = document.getElementById("annee-projet").value;
+    const ordre = document.getElementById("ordre-projet").value;
     var list_of_img = [];
     data.forEach((element, i) => {
       if (i != 0) {
@@ -87,6 +88,7 @@ export function DetailAdmin(props) {
       ville: ville,
       images: list_of_img,
       annee: annee,
+      ordre: ordre,
     };
 
     const res = await fetch(API_URL + "/save_modif_project", {
@@ -224,30 +226,14 @@ export function DetailAdmin(props) {
             defaultValue={data[0].ville}
             multiline
           ></TextField>
-
+          <label className="label-detail">Ville du projet</label>
+          <TextField
+            id="ordre-projet"
+            className="form-projet"
+            defaultValue={data[0].ordre}
+            multiline
+          ></TextField>
           <div className="image-admin-container">
-            <div className="image-vignette">
-              <img className="vignette-admin" src={vignette}></img>
-              <input
-                name="file_vignette"
-                style={{ display: "none" }}
-                accept="image/*"
-                ref={hiddenFileInput}
-                type="file"
-                onChange={async (event) => {
-                  if (event.target.files[0]) {
-                    mod_vignette(event);
-                  }
-                }}
-              ></input>
-              <Button
-                type="button"
-                className="change-vignette"
-                onClick={handleClick}
-              >
-                Changer la vignette
-              </Button>
-            </div>
             <div className="add-photo-button">
               <input
                 multiple
@@ -258,8 +244,6 @@ export function DetailAdmin(props) {
                 type="file"
                 onChange={(event) => {
                   const file = event.target.files;
-                  console.log("all file", file);
-                  setFile(file);
                   imageHandler(event);
                 }}
               />
@@ -271,19 +255,20 @@ export function DetailAdmin(props) {
                 Ajouter des photos
               </Button>
             </div>
+            <div className="header-admin-container">
+              <th className="header-admin">Vignette</th>
+              <th className="header-admin">Supprimer</th>
+              <th className="header-admin">Photo</th>
+            </div>
             {data.map((elem, i) => {
               if (i != 0 && elem.nom !== "") {
                 console.log(elem);
                 return (
                   <div key={i} className="image-container">
-                    <div>
-                      Is vignette :
+                    <div className="checkbox-vignette-container">
                       <input
                         type="checkbox"
-                        defaultChecked={data[0].vignette
-                          .split("/")
-                          .slice(-1)[0]
-                          .includes(elem.nom.split("/").slice(-1)[0])}
+                        className="checkbox-vignette"
                         checked={data[0].vignette
                           .split("/")
                           .slice(-1)[0]
@@ -295,8 +280,9 @@ export function DetailAdmin(props) {
                           );
                         }}
                       />
+                      <div className="project-name">{elem.nom}</div>
                     </div>
-                    <img className="image-admin" src={elem.nom} />
+
                     <div className="delete-button-img">
                       <IconButton
                         backgroundColor="error"
@@ -304,6 +290,10 @@ export function DetailAdmin(props) {
                       >
                         <DeleteIcon></DeleteIcon>
                       </IconButton>
+                    </div>
+
+                    <div className="image-container-delete">
+                      <img className="image-admin" src={elem.nom} />
                     </div>
                   </div>
                 );

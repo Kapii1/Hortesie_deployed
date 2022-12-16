@@ -6,8 +6,29 @@
     width: 50%; 
     max-height: 100vh;
 }
+.header-admin-container{
+    display: flex;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+.header-admin{
+    margin: auto;
+}
 .button-admin{
     margin-left: 50%;
+}
+.project-name{
+    overflow-wrap:break-word;
+    margin-left: 2vw;
+    margin-right: 2vw;
+}
+
+.checkbox-vignette-container{
+    display: flex;
+    width: 33.33%;
+    left: 0;
+    flex-direction: column;
+    height: 100%;
 }
 .form-projet{
     padding-left: 2rem !important;
@@ -28,17 +49,21 @@ label{
 .field-container{
     display: flex;
     flex-direction: column;
-
 }
 .delete-button-img{
     align-items: center;
     margin: auto;
-    position: absolute;
     z-index: 999;
+    top: 0;
+    width: 33.33%;
     right: 0;
-    color: red;
-    border-bottom-left-radius: 50%;
-    background-color: white;
+    border-radius: 50%; 
+}
+.checkbox-vignette{   
+ width: 3vw;
+ max-width: 40px;
+    height: 5vw;
+    margin: auto
 }
 .image-admin{
     height: 15rem;
@@ -52,22 +77,44 @@ label{
     width: 100%;
     margin-bottom: 20rem;
 }
+
 .image-container{
     display: flex;
+    overflow: hidden;
     margin: auto;
-    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    height:20vh;
     position: relative;
-
+    width: 100%;
+    padding-top: 1rem;
+    border-top: dashed 1px gray ;
 }
+
+.image-container-delete{
+    right: 0;
+    width: 33.33%;
+    display: inline-block;
+}
+
+.image-container-delete img{
+    display: block;
+    margin-right: 8px; 
+    height: 95%;
+    width: 95%;
+    object-fit: contain;
+}
+
 .vignette-admin{
     width: auto;
     height: 30rem;
     margin: auto;
 }
+
 .image-vignette{
     display: flex;
     flex-direction: column;
 }
+
 .change-vignette{
     margin: auto !important;
     margin-bottom: 10px !important;

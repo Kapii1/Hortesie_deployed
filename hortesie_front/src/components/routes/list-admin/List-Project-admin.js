@@ -158,7 +158,10 @@ export function ListProjectAdmin() {
             path="/:id"
             element={<DetailAdmin onReRender={handleReRender} />}
           />
-          <Route path="/new_project" element={<New_Project />} />
+          <Route
+            path="/new_project"
+            element={<New_Project onReRender={handleReRender} />}
+          />
         </Routes>
       </div>
     </div>
