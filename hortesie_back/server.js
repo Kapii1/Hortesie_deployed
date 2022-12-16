@@ -222,6 +222,7 @@ app.get("/projets/:id", (req, res) => {
           });
         }
       }
+      console.log("PROJET RESP", output);
       res.send(output);
     }
   );
