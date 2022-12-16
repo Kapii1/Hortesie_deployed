@@ -99,7 +99,7 @@ export function New_Project(props) {
 
     mod_vignette();
     onReRender();
-    // window.location.replace("https://hortesie.fr/admin/" + id);
+    window.location.replace("https://hortesie.fr/admin/" + id);
     return new_data;
   };
 
@@ -212,7 +212,7 @@ export function New_Project(props) {
           multiline
         ></TextField>
 
-        <div className="image-admin-container">
+        {/* <div className="image-admin-container">
           <div className="image-vignette">
             {vignette && (
               <img className="vignette-admin" src={previewVignette}></img>
@@ -281,7 +281,7 @@ export function New_Project(props) {
                 );
               })
             : undefined}
-        </div>
+        </div> */}
       </div>
     </div>
   );
