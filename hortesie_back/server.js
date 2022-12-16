@@ -168,8 +168,15 @@ app.get("/projets", (req, res) => {
             vignette: row.vignette,
             description: row.description_fr,
             ville: row.ville,
+            ordre: row.position,
           });
         });
+        console.log(
+          "SORTED",
+          output.sort(function (first, second) {
+            return second.order - first.order;
+          })
+        );
         res.send(output);
       }
     }
