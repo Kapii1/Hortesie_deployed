@@ -49,6 +49,7 @@ export function Projets(props) {
                     nom_fr={item.nom}
                     path_image={item.vignette}
                     description={item.description}
+                    i={i}
                   />
                 </motion.div>
               </Link>

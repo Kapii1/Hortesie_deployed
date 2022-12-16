@@ -20,10 +20,11 @@ export function Projet(props) {
         <div className="title-container">
           <motion.div className="title-card">{props.nom_fr}</motion.div>
         </div>
+
         <motion.img
           layout="position"
           className="vignette"
-          style={isLoaded ? {} : { display: "none" }}
+          style={isLoaded ? {} : { height: "0" }}
           onLoad={() => setisLoaded(true)}
           src={props.path_image}
         ></motion.img>
