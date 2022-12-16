@@ -14,7 +14,10 @@ export function Detail(props) {
 
       <motion.div className="text-container">
         <div className="detail-title">{props.item[0].nom}</div>
-        <div className="detail-ville">{props.item[0].ville}</div>
+        <div className="detail-ville">
+          <p className="ville-p">{props.item[0].ville} </p>
+          <p className="annee-p">{props.item[0].annee}</p>
+        </div>
         <div className="description">{props.item[0].description}</div>
         <Link className="leave" to="/projets">
           <img src={require("./close.png")} alt="" className="leave"></img>
