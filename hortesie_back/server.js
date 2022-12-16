@@ -174,10 +174,14 @@ app.get("/projets", (req, res) => {
         console.log(
           "SORTED",
           output.sort(function (first, second) {
-            return second.order - first.order;
+            return second.ordre - first.ordre;
           })
         );
-        res.send(output);
+        res.send(
+          output.sort(function (first, second) {
+            return second.ordre - first.ordre;
+          })
+        );
       }
     }
   });
