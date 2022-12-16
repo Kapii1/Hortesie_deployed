@@ -9,6 +9,7 @@ import "./OneProject.css";
 
 export function Projet(props) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoaded, setisLoaded] = useState(false);
   return (
     <motion.div
       onClick={() => setIsOpen(!isOpen)}
@@ -22,6 +23,8 @@ export function Projet(props) {
         <motion.img
           layout="position"
           className="vignette"
+          style={isLoaded ? {} : { display: "none" }}
+          onLoad={() => setisLoaded(true)}
           src={props.path_image}
         ></motion.img>
       </motion.div>
