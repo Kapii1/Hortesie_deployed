@@ -11,7 +11,7 @@ body {
 html {
   overflow: scroll;
   overflow-x: hidden;
-  font-family: "Century Gothic"
+  font-family: "Century Gothic", sans-serif
 }
 ::-webkit-scrollbar {
   width: 0;  

@@ -250,40 +250,42 @@ app.post("/save_modif_project", (req, res) => {
 
   console.log(id, nom, ville, images, vignette);
   console.log("ORDRE OF project", ordre);
-  db.all("DELETE FROM projets_corrected WHERE id='" + id + "'");
+  //db.all("DELETE FROM projets_corrected WHERE id='" + id + "'");
+  db.all(`UPDATE projets_corrected 
+	  SET titre = ?,
+	  date = ?,
+	  ville = ?,
+	  description_fr = ?,
+	  vignette = ?,
+	  position = ?
+	  WHERE id = ?`,[nom,date,ville,description,vignette,ordre,id]
+	  )
   // db.all(`INSERT INTO projets_corrected VALUES ('${id}','${nom}','','${date}','projet','${vignette}','','','${description}','','','${nom}','','','${description}','','','${nom}','${ville}','France')`)
-  db.all(
-    `INSERT INTO projets_corrected VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
-    [
-      id,
-      nom,
-      "",
-      date,
-      "projet",
-      vignette,
-      "",
-      "",
-      description,
-      "",
-      "",
-      nom,
-      "",
-      "",
-      description,
-      ordre,
-      nom,
-      ville,
-      "France",
-    ]
-  );
+  //db.all(
+  //  `INSERT INTO projets_corrected VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+  //  [
+  //   id,
+  //    nom,
+  //    "",
+  //    date,
+  //    "projet",
+  //    vignette,
+  //    "",
+  //    "",
+  //    description,
+  //    "",
+  //    "",
+  //    nom,
+  //    "",
+  //    "",
+  //    description,
+  //    ordre,
+  //    nom,
+  //    ville,
+  //    "France",
+  //  ]
+  // );
 
-  console.log("done add");
-  db.all(`DELETE FROM photos WHERE idProjet='${id}'`);
-  console.log(images);
-  images.forEach((img, i) => {
-    img_id = s4() + s4() + s4();
-    db.all(`INSERT INTO photos VALUES (?,?,?)`, [img_id, id, img]);
-  });
   res.send({ msg: "done" });
 });
 
@@ -325,7 +327,7 @@ app.post(
 
 app.post("/set_vignette", async (req, res) => {
   console.log("enter", req.body);
-  db.all(`UPDATE projets_corrected SET vignette = ? WHERE id= ?  `, [
+db.all(`UPDATE projets_corrected SET vignette = ? WHERE id= ?  `, [
     req.body.path_vignette,
     req.body.idProjet,
   ]);
