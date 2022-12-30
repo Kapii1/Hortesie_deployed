@@ -342,6 +342,7 @@ app.post("/welcome_admin", verifyToken, (req, res) => {
 });
 
 app.post("/del_image", (req, res) => {
+  if (req.body.id === null ){return}
   fs.unlinkSync(URL_DEST + req.body.img);
   db.all("DELETE FROM photos WHERE id=?", [req.body.id]);
   console.log("le body", req.body);
