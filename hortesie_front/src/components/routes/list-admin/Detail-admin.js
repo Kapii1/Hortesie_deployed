@@ -219,7 +219,16 @@ export function DetailAdmin(props) {
     fetchData();
   }, [vignetteHasChanged]);
   useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch(API_URL + "/projets/" + id, {
+        method: "GET",
+      });
+      const json = await res.json();
+      setVignette(json[0].vignette);
+      updateItems(json);
+    };
 
+    fetchData();
   }, [data])
 
   return (
