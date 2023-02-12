@@ -107,7 +107,16 @@ const storage = multer.diskStorage({
     cb(null, URL_DEST + "images/projets/" + req.body.idProjet);
   },
   filename: (req, file, cb) => {
-    let id = file.originalname;
+    let id = s4() + s4() + s4();
+    db.all(
+      `SELECT * from photos WHERE id= ?`,
+      [id],
+      (err, rows) => {
+        if (rows.length !== 0) {
+          let id = s4() + s4() + s4();
+        }
+      }
+    )
     let name = file.originalname;
     let path = "images/projets/" + req.body.idProjet + "/" + name;
     console.log("Update in project", id, name, path);
