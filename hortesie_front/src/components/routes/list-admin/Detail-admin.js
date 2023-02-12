@@ -218,6 +218,9 @@ export function DetailAdmin(props) {
 
     fetchData();
   }, [vignetteHasChanged]);
+  useEffect(() => {
+
+  }, [data])
 
   return (
     <div className="Detail-container">
