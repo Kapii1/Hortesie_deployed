@@ -19,7 +19,6 @@ function Details() {
 
   useEffect(() => {
     fetchData();
-    console.log(items[0]);
   }, []);
   return (
     <motion.div

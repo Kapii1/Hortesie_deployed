@@ -258,8 +258,8 @@ app.post("/save_modif_project", (req, res) => {
 	  description_fr = ?,
 	  vignette = ?,
 	  position = ?
-	  WHERE id = ?`,[nom,date,ville,description,vignette,ordre,id]
-	  )
+	  WHERE id = ?`, [nom, date, ville, description, vignette, ordre, id]
+  )
   // db.all(`INSERT INTO projets_corrected VALUES ('${id}','${nom}','','${date}','projet','${vignette}','','','${description}','','','${nom}','','','${description}','','','${nom}','${ville}','France')`)
   //db.all(
   //  `INSERT INTO projets_corrected VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
@@ -310,7 +310,7 @@ app.post("/add_image", (req, res) => {
       );
     });
 
-    res.send(JSON.stringify(list_of_ids));
+    res.status(200).send(JSON.stringify(list_of_ids));
     // Everything went fine.
   });
 });
@@ -327,7 +327,7 @@ app.post(
 
 app.post("/set_vignette", async (req, res) => {
   console.log("enter", req.body);
-db.all(`UPDATE projets_corrected SET vignette = ? WHERE id= ?  `, [
+  db.all(`UPDATE projets_corrected SET vignette = ? WHERE id= ?  `, [
     req.body.path_vignette,
     req.body.idProjet,
   ]);
@@ -344,9 +344,15 @@ app.post("/welcome_admin", verifyToken, (req, res) => {
 });
 
 app.post("/del_image", (req, res) => {
-  if (req.body.id === null ){return}
-  fs.unlinkSync(URL_DEST + req.body.img);
-  db.all("DELETE FROM photos WHERE id=?", [req.body.id]);
+  if (req.body.id === null) { return }
+  console.log(req.body.id)
+  db.all("DELETE FROM photos WHERE nom=?", [req.body.img]);
+  try {
+    fs.unlinkSync(URL_DEST + req.body.img);
+  }
+  catch {
+
+  }
   console.log("le body", req.body);
   res.sendStatus(200);
 });

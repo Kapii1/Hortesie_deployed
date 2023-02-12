@@ -6,9 +6,13 @@ import {
   BrowserRouter as Router,
 
 } from "react-router-dom";
+import { ReactNotifications } from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
+
 
 ReactDOM.render(
   <Router>
+    <ReactNotifications />
     <App />
   </Router>,
 

@@ -6,6 +6,7 @@ import { Apropos } from "./components/routes/A-propos";
 import { Contact } from "./components/routes/Contact";
 import { ListProjectAdmin } from "./components/routes/list-admin/List-Project-admin";
 import Login from "./components/routes/list-admin/Login";
+import { ReactComponent as HortesieLogo } from "./components/logo/Hortesie-rouge-et-or.svg"
 function App() {
   const [color, changeColor] = useState("#282c34");
   const [collapsed, setCollapsed] = useState(false);
@@ -29,12 +30,7 @@ function App() {
                   src={require("./Hortesie_rouge_et_or__1_-removebg-preview_recadré.png")}
                 ></img>
               </div>
-              <div className="title-container">
-                <div className="title">HORTÉSIE</div>
-                <div className="subtitle">
-                  <a>Paysage et urbanisme</a>
-                </div>
-              </div>
+              <HortesieLogo />
             </div>
           </Link>
           <ul className="navbar-ul">
@@ -84,6 +80,11 @@ function App() {
             <div className="menu-icon-item"></div>
           </div>
         </nav>
+        <div className="bar-navbar-container">
+          <div className="bar-navbar">
+
+          </div>
+        </div>
       </div>
 
       <Routes>

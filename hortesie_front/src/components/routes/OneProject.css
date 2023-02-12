@@ -6,22 +6,56 @@
 
 .card {
   display: flex;
-  min-width: 200px;
   flex-direction: row;
   overflow: visible;
-  transition:  0.4s transform;
+  transition: 0.4s transform;
   filter: grayscale(80%);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
 }
 
-.card:hover {
-  transform: scale(1.04);
-  filter: grayscale(0%);
- }
-.card:hover .title-card{
-  opacity: 1;
-  transform: translate(0, 0);
+@media (min-width: 800px) {
+  .card:hover {
+    transform: scale(1.04);
+    filter: grayscale(0%);
+  }
+
+  .card:hover .title-card {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  .title-card {
+    position: absolute;
+    width: inherit;
+    text-decoration: none;
+    color: white;
+    bottom: 10%;
+    font-weight: 500;
+    font-family: "Century Gothic", sans-serif;
+    font-size: 2rem;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    transform: translate(0, -6vw);
+    transition: 0.7s;
+  }
+
 }
+
+@media (max-width: 800px) {
+  .title-card {
+    position: absolute;
+    text-decoration: none;
+    color: white;
+    width: 100%;
+    font-weight: 400;
+    font-size: 1.2rem;
+    bottom: 2rem;
+  }
+
+
+}
+
 .sub-card {
   display: flex;
   position: relative;
@@ -30,6 +64,7 @@
   align-items: center;
   overflow: hidden;
 }
+
 .description {
   text-align: left;
   text-justify: auto;
@@ -44,21 +79,8 @@
   padding-top: 20px;
 }
 
-.title-card {
-  position: absolute;
-  width: inherit;
-  text-decoration: none;
-  color: white;
-  bottom: 10%;
-  font-weight: 500;
-  font-family:  "Century Gothic", sans-serif; 
-  font-size: 2rem;
-  width: 100%;
-  text-align: center;
-  opacity: 0;
-  transform: translate(0, -6vw);
-  transition: 0.7s;
-}
+
+
 .title-card-container {
   max-width: 100%;
   text-align: left;

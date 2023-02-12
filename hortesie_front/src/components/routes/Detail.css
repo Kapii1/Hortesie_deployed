@@ -1,53 +1,60 @@
 @media (min-width:800px) {
-    .detail-container{
+    .detail-container {
         display: flex;
         height: 90%;
         margin-bottom: 5%;
-    } 
+    }
 }
-.Details-container{
-    padding : auto;
+
+.Details-container {
+    padding: auto;
 }
-.detail-title{
+
+.detail-title {
     font-weight: bold;
     font-size: 2.5rem;
     display: flex;
     flex-direction: column;
-    top:20%;
-    font-family:  "Century Gothic", sans-serif; 
+    top: 20%;
+    font-family: "Century Gothic", sans-serif;
 }
-.text-container{
+
+.text-container {
     width: 50%;
     margin: auto;
     align-items: center;
 }
-.description{
+
+.description {
     text-justify: inter-word;
     font-size: 1.3rem;
     text-align: justify;
-    font-family:  "Century Gothic", sans-serif;
+    font-family: "Century Gothic", sans-serif;
     max-height: 30vh;
     overflow: hidden;
     overflow-y: scroll;
 }
-.img-container{
+
+.img-container {
     width: 40%;
     margin: auto;
 }
-.slick-slider{
-    
+
+.slick-slider {
+
     bottom: 20%;
 }
-.leave{
+
+.leave {
     position: absolute;
-    top:0.5%;
+    top: 5%;
     right: 4%;
     height: 1.5vw;
 }
 
-.detail-ville{
+.detail-ville {
     font-size: 1.5rem;
-    font-family:  "Century Gothic", sans-serif;
+    font-family: "Century Gothic", sans-serif;
     font-weight: 500;
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -56,45 +63,59 @@
 }
 
 @media (min-width:800px) {
- .detail-ville{
-    display: flex;  
-     
+    .detail-ville {
+        display: flex;
+
+    }
+
+    .annee-p {
+        position: absolute;
+        right: 0;
+        margin: 0;
+        margin-right: 4rem;
+    }
 }
-.annee-p{
-    position: absolute;
-    right: 0;
-    margin: 0;
-    margin-right: 2rem;
-}}
-.ville-p{
+
+.ville-p {
     margin: auto;
 }
 
 
 @media (max-width: 800px) {
-    .detail-ville{
+    .detail-ville {
         display: flex;
         flex-direction: column;
     }
-    .detail-container{
+
+    .detail-container {
         display: flex;
-        flex-direction:column-reverse ;
+        flex-direction: column-reverse;
     }
-    .text-container{
+
+    .text-container {
         padding-bottom: 2rem;
         width: 80%;
+        height: calc(50vh - 4rem);
     }
-    .leave{
+
+    .leave {
         height: 5vw;
     }
-    .detail-title{ 
+
+    .detail-title {
         padding-top: 1rem;
         font-size: 1.5rem;
     }
-    .description{
+
+    .description {
         font-size: 1rem;
+        height: auto;
+        margin-bottom: 4rem;
     }
-    .img-container{
-        width: 80%;
+
+    .img-container {
+        height: 40vh;
+        width: auto;
+        max-width: 80%;
     }
 }

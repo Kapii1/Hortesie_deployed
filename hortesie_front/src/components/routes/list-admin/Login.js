@@ -4,14 +4,20 @@ import "./Login.css";
 import { Button, TextField } from "@mui/material";
 import { API_URL } from "../../../url";
 
+import { Store } from 'react-notifications-component';
+
 async function loginUser(credentials) {
-  return fetch(API_URL + "/login", {
+  const res = await fetch(API_URL + "/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(credentials),
-  }).then((data) => data.json());
+  })
+  if (res.status === 200) {
+    return (res.json())
+  }
+  return (404)
 }
 
 export default function Login({ setToken }) {
@@ -24,8 +30,24 @@ export default function Login({ setToken }) {
       username,
       password,
     });
-
-    setToken(token);
+    if (token !== 404) {
+      setToken(token);
+    }
+    else {
+      Store.addNotification({
+        title: "Mauvais identifiants !",
+        message: "Les identifiants que vous avez entrés sont incorrects.",
+        type: "danger",
+        insert: "top",
+        container: "bottom-center",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
+    }
   };
 
   return (

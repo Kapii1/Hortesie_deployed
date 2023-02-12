@@ -9,6 +9,7 @@ import SaveIcon from "@mui/icons-material/Save";
 import ImageListItem from "@mui/material/ImageListItem";
 import { Button, IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import { Store } from 'react-notifications-component';
 
 // Import toastify css file
 
@@ -135,18 +136,53 @@ export function DetailAdmin(props) {
     }
 
     try {
-      console.log("before fetch in img handler " + data2);
       let res = fetch(API_URL + "/add_image", {
         method: "POST",
         body: data2,
       })
-        .then((res) => res.json())
         .then((res) => {
-          res.forEach((img) => {
-            data.push({ nom: img });
-            forceUpdate();
-          });
+          if (res.status === 200) {
+            Store.addNotification({
+              title: "Parfait !",
+              message: "Les images ont bien été transmises !",
+              type: "success",
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animate__animated", "animate__fadeIn"],
+              animationOut: ["animate__animated", "animate__fadeOut"],
+              dismiss: {
+                duration: 5000,
+                onScreen: true
+              }
+            });
+            return (res.json())
+          } else {
+            Store.addNotification({
+              title: "Erreur !",
+              message: "Une erreur s'est produite...",
+              type: "danger",
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animate__animated", "animate__fadeIn"],
+              animationOut: ["animate__animated", "animate__fadeOut"],
+              dismiss: {
+                duration: 5000,
+                onScreen: true
+              }
+            })
+            return ("error")
+          }
+        }
+        )
+        .then((res) => {
+          console.log(res)
+          if (res != "error") {
+            res.forEach((img) => {
+              data.push({ nom: img });
+            });
+          }
         });
+
     } catch (error) {
       console.log("Error : ", error);
     }
@@ -170,8 +206,6 @@ export function DetailAdmin(props) {
   const handleClick_photo = (event) => {
     hiddenFileInput_photos.current.click();
   };
-
-  const change_vignette = () => {};
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(API_URL + "/projets/" + id, {
