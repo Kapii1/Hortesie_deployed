@@ -3,14 +3,35 @@ import "./Detail.css";
 import { Link } from "react-router-dom";
 import { SimpleSlider } from "./SimpleSlider";
 import { motion } from "framer-motion";
-
+import { Carousel } from 'primereact/carousel';
+import {
+  MDBCarousel,
+  MDBCarouselItem,
+} from 'mdb-react-ui-kit';
 export function Detail(props) {
   console.log(props.item.slice(1));
+  const photoTemplate = (photo) => {
+    console.log("jjjjj", photo)
+    return (
+      <img className="image-carousel" src={photo.nom}></img>
+    )
+  }
   return (
     <div className="detail-container">
-      <motion.div className="img-container">
-        <SimpleSlider images={props.item.slice(1)} />
-      </motion.div>
+      <MDBCarousel showControls interval={3000} className='image-carousel'>
+        {props.item.slice(1).map((items, index) => {
+          console.log(index + 1)
+          return (
+            <MDBCarouselItem
+              className='w-100 d-block'
+              itemId={index + 1}
+              src={items.nom}
+              alt='...'
+            />
+          )
+        })}
+      </MDBCarousel>
+
 
       <motion.div className="text-container">
         <div className="detail-title">{props.item[0].nom}</div>

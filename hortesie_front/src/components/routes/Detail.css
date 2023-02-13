@@ -65,14 +65,14 @@
 @media (min-width:800px) {
     .detail-ville {
         display: flex;
-
+        margin-right: 20px;
     }
 
     .annee-p {
         position: absolute;
         right: 0;
         margin: 0;
-        margin-right: 4rem;
+        margin-right: 5rem;
     }
 }
 
@@ -80,6 +80,28 @@
     margin: auto;
 }
 
+.image-carousel {
+    width: 40vw;
+}
+
+.p-carousel {
+    width: 50vw;
+    margin: auto;
+    height: 50vh;
+}
+
+.carousel-control-next-icon:after {
+    content: "";
+}
+
+.carousel {
+    display: flex;
+}
+
+.carousel-inner {
+    margin: auto;
+    margin-left: 1rem;
+}
 
 @media (max-width: 800px) {
     .detail-ville {
@@ -97,6 +119,8 @@
         width: 80%;
         height: calc(50vh - 4rem);
     }
+
+
 
     .leave {
         height: 5vw;

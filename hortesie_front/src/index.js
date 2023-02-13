@@ -8,7 +8,16 @@ import {
 } from "react-router-dom";
 import { ReactNotifications } from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+//theme
+import "primereact/resources/themes/lara-light-indigo/theme.css";
 
+//core
+import "primereact/resources/primereact.min.css";
+
+//icons
+import "primeicons/primeicons.css";
 
 ReactDOM.render(
   <Router>
