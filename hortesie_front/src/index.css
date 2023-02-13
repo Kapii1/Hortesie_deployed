@@ -6,19 +6,29 @@ body {
   background-size: cover;
   scrollbar-width: none;
   scroll-behavior: smooth;
-  overflow-y: hidden; /* Hide vertical scrollbar */
+  overflow-y: hidden;
+  /* Hide vertical scrollbar */
 }
+
 html {
   overflow: scroll;
   overflow-x: hidden;
-  font-family: "Century Gothic", sans-serif
+  font-family: "Century Gothic", sans-serif;
+  height: 100% !important;
 }
+
 ::-webkit-scrollbar {
-  width: 0;  
-  background: transparent; 
+  width: 0;
+  background: transparent;
 }
 
+#root {
+  height: 100%;
+}
 
-@media (min-width :800px){
-  body{height: 100%;}
+@media (min-width :800px) {
+  body {
+    height: 100%;
+  }
+
 }

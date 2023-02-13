@@ -70,6 +70,10 @@ label {
     border-radius: 50%;
 }
 
+fieldset>legend {
+    width: 0 !important;
+}
+
 .checkbox-vignette {
     width: 1.5vw;
     max-width: 40px;
