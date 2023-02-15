@@ -14,7 +14,7 @@ function App() {
   const [color, changeColor] = useState("#282c34");
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
-  console.log(location.pathname)
+  console.log(!(location.pathname.includes("admin")))
   useEffect(() => {
     const navbar = document.getElementsByClassName("navbar-ul")[0];
     const menu_icon = document.getElementsByClassName("menu-icon")[0];
@@ -99,7 +99,7 @@ function App() {
         <Route path="contact" exact element={<Contact />} />
         <Route path="admin/*" exact element={<ListProjectAdmin />} />
       </Routes>
-      {location.pathname != "/" ? <Footer></Footer> : ""}
+      {(location.pathname != "/" & !(location.pathname.includes("admin"))) ? <Footer></Footer> : ""}
     </div>
   );
 }
