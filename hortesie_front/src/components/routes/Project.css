@@ -2,25 +2,27 @@
   color: white;
   background-color: black;
 }
+
 .projet {
   margin: 10px;
 
 }
-.card{
+
+.card {
   width: 100%;
 }
 
 .projets-container {
   padding: 1rem;
 }
+
 .MuiGrid-item {
   overflow: hidden;
 }
+
 .Grid-container {
   display: flex;
   min-width: 100vw;
-  min-height: calc(100vh - 2.7vw - 50px );
-  padding-top: calc(2.7vw + 50px);
+  padding-top: 4rem;
   background-color: white;
-  position: absolute;
 }

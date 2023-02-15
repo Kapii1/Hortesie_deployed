@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useRef } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import { Routes, Route } from "react-router-dom";
-import IconButton from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -19,7 +18,7 @@ import Login from "./Login";
 import { API_URL } from "../../../url";
 import useToken from "./useToken";
 import { New_Project } from "./New-project";
-
+import Del_button from "./Del_button"
 function useForceUpdate() {
   const [value, setValue] = useState(0); // integer state
   return () => setValue((value) => value + 1); // update state to force render
@@ -30,19 +29,6 @@ function useForceUpdate() {
 export function ListProjectAdmin() {
   const [reRender, setReRender] = useState(false);
 
-  const delProjet = async (id) => {
-    const res = await fetch(API_URL + "/del_projet", {
-      method: "POST",
-      body: JSON.stringify({ id: id }),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
-    console.log("ended res", res);
-    setReRender(!reRender);
-    console.log("reeeer", reRender);
-  };
   const handleReRender = () => {
     setReRender(!reRender); // state change will re-render parent
   };
@@ -123,14 +109,8 @@ export function ListProjectAdmin() {
               return (
                 <div className="del-row-container">
                   <div className="del-button">
-                    <IconButton
-                      onClick={() => {
-                        console.log(item.id);
-                        delProjet(item.id);
-                      }}
-                    >
-                      <DeleteIcon></DeleteIcon>
-                    </IconButton>
+
+                    <Del_button item={item} reRender={handleReRender}></Del_button>
                   </div>
                   <Link
                     style={{
@@ -149,6 +129,7 @@ export function ListProjectAdmin() {
                       key={i}
                     />
                   </Link>
+
                 </div>
               );
             })}

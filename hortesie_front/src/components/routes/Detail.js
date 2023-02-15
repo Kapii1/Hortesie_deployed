@@ -18,9 +18,8 @@ export function Detail(props) {
   }
   return (
     <div className="detail-container">
-      <MDBCarousel showControls interval={3000} className='image-carousel'>
+      <MDBCarousel showControls showIndicators interval={100000} className='image-carousel'>
         {props.item.slice(1).map((items, index) => {
-          console.log(index + 1)
           return (
             <MDBCarouselItem
               className='w-100 d-block'

@@ -112,18 +112,42 @@
     .detail-container {
         display: flex;
         flex-direction: column-reverse;
+        height: 100%;
     }
 
     .text-container {
-        padding-bottom: 2rem;
         width: 80%;
-        height: calc(50vh - 4rem);
+        height: 50%;
     }
 
 
+    .image-carousel {}
 
     .leave {
         height: 5vw;
+    }
+
+    .carousel-inner {
+        margin: 0;
+        width: auto;
+        height: 100%;
+    }
+
+    .carousel {
+        max-width: 90%;
+        max-height: 50%;
+        width: auto;
+        margin: auto;
+        margin-bottom: 8rem;
+    }
+
+    .carousel-item {
+        height: 100%;
+    }
+
+    .carousel-item>img {
+        height: 100%;
+        margin: auto;
     }
 
     .detail-title {

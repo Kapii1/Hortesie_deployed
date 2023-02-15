@@ -53,7 +53,7 @@ export default function Login({ setToken }) {
   return (
     <div className="login-wrapper">
       <div className="login-in-wrapper">
-        <form onSubmit={handleSubmit}>
+        <form className="form-wrapper" onSubmit={handleSubmit}>
           <label>
             <p>Utilisateur</p>
             <TextField

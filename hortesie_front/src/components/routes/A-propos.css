@@ -1,11 +1,12 @@
-.a-propos-container{
-    position: absolute;
-    top: 4rem;
+.a-propos-container {
     align-items: center;
     width: 100%;
-    height: calc(100vh - 4rem);
+    height: 100%;
     background: white;
 }
-.container{
+
+.container-page {
     width: 100%;
+    padding-top: 4rem;
+    height: calc(100vh - 4rem);
 }

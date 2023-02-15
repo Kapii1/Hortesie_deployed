@@ -4,7 +4,16 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useParams } from "react-router-dom";
 import Detailadmin from "./Detailadmin.css";
 import ImageList from "@mui/material/ImageList";
-
+import {
+  MDBBtn,
+  MDBModal,
+  MDBModalDialog,
+  MDBModalContent,
+  MDBModalHeader,
+  MDBModalTitle,
+  MDBModalBody,
+  MDBModalFooter,
+} from 'mdb-react-ui-kit';
 import SaveIcon from "@mui/icons-material/Save";
 import ImageListItem from "@mui/material/ImageListItem";
 import { Button, IconButton } from "@mui/material";
@@ -36,6 +45,9 @@ export function DetailAdmin(props) {
   const [file, setFile] = useState();
   const [fileName, setFileName] = useState("");
   const [vignetteHasChanged, setVignetteHasChanged] = useState();
+  const [basicModal, setBasicModal] = useState(false);
+
+  const toggleShow = () => setBasicModal(!basicModal);
   const removeImage = (nom_img) => {
     var index;
     if (!nom_img) return;
@@ -127,6 +139,19 @@ export function DetailAdmin(props) {
   };
   const imageHandler = async (event) => {
     event.preventDefault();
+    Store.addNotification({
+      title: "Vos images sont en cours d'envoi",
+      message: "Veuillez patienter vos images s'envoient.",
+      type: "default",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animate__animated", "animate__fadeIn"],
+      animationOut: ["animate__animated", "animate__fadeOut"],
+      dismiss: {
+        duration: 5000,
+        onScreen: true
+      }
+    });
     const data2 = new FormData();
     data2.append("idProjet", id);
     const file_photo = event.target.files;
@@ -321,10 +346,31 @@ export function DetailAdmin(props) {
                     <div className="delete-button-img">
                       <IconButton
                         backgroundColor="error"
-                        onClick={() => removeImage(elem.nom)}
+                        onClick={toggleShow}
                       >
+                        {/* () => removeImage(elem.nom) */}
                         <DeleteIcon></DeleteIcon>
                       </IconButton>
+                      <MDBModal show={basicModal} setShow={setBasicModal} className="on-top" tabIndex='-1'>
+                        <MDBModalDialog>
+                          <MDBModalContent>
+                            <MDBModalHeader>
+                              <MDBModalTitle>Êtes-vous sûr ?</MDBModalTitle>
+                              <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
+                            </MDBModalHeader>
+
+                            <MDBModalFooter>
+                              <MDBBtn color='secondary' onClick={toggleShow}>
+                                Fermer
+                              </MDBBtn>
+                              <MDBBtn onClick={() => {
+                                removeImage(elem.nom);
+                                toggleShow()
+                              }}>Supprimer</MDBBtn>
+                            </MDBModalFooter>
+                          </MDBModalContent>
+                        </MDBModalDialog>
+                      </MDBModal>
                     </div>
 
                     <div className="image-container-delete">

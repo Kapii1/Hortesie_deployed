@@ -49,6 +49,10 @@ label {
     padding-bottom: 1rem;
 }
 
+.modal-backdrop {
+    z-index: 50 !important;
+}
+
 .add-photo-button {
     margin: auto;
     padding-bottom: 2rem;

@@ -6,7 +6,8 @@ import { Apropos } from "./components/routes/A-propos";
 import { Contact } from "./components/routes/Contact";
 import { ListProjectAdmin } from "./components/routes/list-admin/List-Project-admin";
 import Login from "./components/routes/list-admin/Login";
-import { ReactComponent as HortesieLogo } from "./components/logo/Hortesie-rouge-et-or.svg"
+import { ReactComponent as HortesieLogo } from "./components/logo/Hortesie-rouge-et-or.svg";
+import Footer from "./footer";
 function App() {
   const [color, changeColor] = useState("#282c34");
   const [collapsed, setCollapsed] = useState(false);
@@ -94,6 +95,7 @@ function App() {
         <Route path="contact" exact element={<Contact />} />
         <Route path="admin/*" exact element={<ListProjectAdmin />} />
       </Routes>
+      <Footer></Footer>
     </div>
   );
 }

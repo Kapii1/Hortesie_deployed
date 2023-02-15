@@ -7,6 +7,7 @@
   padding: 0;
   display: flex;
   height: 100%;
+  overflow: auto;
   flex-direction: column;
 }
 
@@ -54,7 +55,9 @@ ul {
   width: 100%;
   position: fixed;
   top: 4rem;
-  z-index: 51;
+  z-index: 2;
+  height: 1px;
+  background-color: white;
 }
 
 .bar-navbar {
@@ -84,6 +87,12 @@ ul {
   align-items: center;
 }
 
+.navbar-ul {
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-top: auto;
+}
+
 @media (max-width: 800px) {
 
   .navbar-ul {
@@ -93,6 +102,7 @@ ul {
     background-color: white;
     width: 100%;
     top: 0;
+    padding-left: 0;
     height: 33.333vh;
     left: 100vw;
   }
