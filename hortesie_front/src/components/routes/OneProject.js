@@ -12,23 +12,27 @@ export function Projet(props) {
   const [isLoaded, setisLoaded] = useState(false);
   const [allLoaded, setAllLoaded] = [props.allLoaded, props.setAllLoaded]
   return (
-    <motion.div
+    <div
       onClick={() => setIsOpen(!isOpen)}
       className="card"
       style={{ borderRadius: "7px" }}
     >
-      <motion.div className="sub-card">
+      <div className="sub-card">
         <div className="title-container">
-          <motion.div className="title-card">{props.nom_fr}</motion.div>
+          <div className="title-card">{props.nom_fr}</div>
         </div>
 
-        <motion.img
+        <img
           layout="position"
           className="vignette"
-          onLoad={() => { props.setisLoaded(true) }}
+          style={isLoaded ? { opacity: '1' } : { opacity: '0' }}
+          onLoad={() => {
+            props.setisLoaded(true)
+            setisLoaded(true)
+          }}
           src={props.path_image}
-        ></motion.img>
-      </motion.div>
-    </motion.div>
+        ></img>
+      </div>
+    </div>
   );
 }

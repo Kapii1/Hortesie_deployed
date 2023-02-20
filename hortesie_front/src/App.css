@@ -35,6 +35,11 @@ ul {
   flex-wrap: wrap;
 }
 
+.logo-footer {
+  height: 10rem;
+
+}
+
 .modal-header {
   border-bottom: none !important;
 }
