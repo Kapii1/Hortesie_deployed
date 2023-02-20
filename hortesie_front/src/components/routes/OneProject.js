@@ -17,7 +17,8 @@ export function Projet(props) {
       className="card"
       style={{ borderRadius: "7px" }}
     >
-      <div className="sub-card">
+      <div className="sub-card"
+        style={isLoaded ? { opacity: '1' } : { opacity: '0' }}>
         <div className="title-container">
           <div className="title-card">{props.nom_fr}</div>
         </div>
@@ -25,7 +26,6 @@ export function Projet(props) {
         <img
           layout="position"
           className="vignette"
-          style={isLoaded ? { opacity: '1' } : { opacity: '0' }}
           onLoad={() => {
             props.setisLoaded(true)
             setisLoaded(true)
