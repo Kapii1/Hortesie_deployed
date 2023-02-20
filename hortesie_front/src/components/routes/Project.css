@@ -5,7 +5,10 @@
 
 .projet {
   margin: 10px;
+}
 
+.projet-display {
+  display: flex;
 }
 
 .card {
@@ -14,6 +17,14 @@
 
 .projets-container {
   padding: 1rem;
+  opacity: 0;
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s;
+  min-height: 100vh;
+}
+
+.projets-container-loaded {
+  opacity: 1;
 }
 
 .MuiGrid-item {
@@ -21,8 +32,11 @@
 }
 
 .Grid-container {
-  display: flex;
   min-width: 100vw;
   padding-top: 4rem;
   background-color: white;
+}
+
+.MuiGrid-item {
+  overflow: visible;
 }

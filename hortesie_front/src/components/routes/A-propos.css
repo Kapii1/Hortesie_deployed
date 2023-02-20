@@ -1,6 +1,7 @@
 .a-propos-container {
     align-items: center;
-    width: 100%;
+    width: 80%;
+    margin: auto;
     height: 100%;
     background: white;
 }

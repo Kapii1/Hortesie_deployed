@@ -19,19 +19,8 @@ export default function Del_button(props) {
 
     const [reRender, setReRender] = useState(false);
     const [basicModal, setBasicModal] = useState(false);
-    const delProjet = async (id) => {
-        const res = await fetch(API_URL + "/del_projet", {
-            method: "POST",
-            body: JSON.stringify({ id: id }),
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-        });
-        console.log("ended res", res);
-        setReRender(!reRender);
-        console.log("reeeer", reRender);
-    };
+    const delFunction = props.delFunction
+
     const toggleShow = () => setBasicModal(!basicModal);
     return (
         <IconButton
@@ -54,7 +43,7 @@ export default function Del_button(props) {
                             </MDBBtn>
                             <MDBBtn onClick={() => {
                                 console.log(props.item)
-                                delProjet(props.item.id);
+                                delFunction(props.item);
                                 toggleShow();
                                 props.reRender()
                             }}>Supprimer</MDBBtn>

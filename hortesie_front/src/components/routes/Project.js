@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Project.css";
+import $ from 'jquery';
 import Card from "@mui/material/Card";
 import { AnimatePresence, motion } from "framer-motion";
 import Grid from "@mui/material/Grid";
@@ -15,7 +16,8 @@ import { API_URL } from "../../url";
 
 export function Projets(props) {
   const location = useLocation();
-  const [items, setItems] = useState();
+  const [items, setItems] = useState([]);
+  const allLoaded = Array(items.length).fill(useState(false))
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -29,10 +31,21 @@ export function Projets(props) {
     };
     const a = fetchData();
   }, [setItems]);
+
+  useEffect(() => {
+    if (allLoaded.every((items) => {
+      return (items[0] == true)
+    })) {
+      console.log($(".projets-container"))
+      $("#projets-grid-container").addClass("projets-container-loaded")
+    }
+  }, [allLoaded])
   return (
-    <div className="Grid-container">
+    <div className="Grid-container"
+      id="grid-projet">
       <Grid
         className="projets-container"
+        id="projets-grid-container"
         container
         spacing={{ xs: 2, sm: 4, md: 6 }}
         columns={{ xs: 4, sm: 9, md: 11 }}
@@ -45,11 +58,12 @@ export function Projets(props) {
               <Link to={item.id}>
                 <motion.div key={i}>
                   <Projet
+                    i={i}
                     id={item.id}
                     nom_fr={item.nom}
                     path_image={item.vignette}
                     description={item.description}
-                    i={i}
+                    setisLoaded={allLoaded[i][1]}
                   />
                 </motion.div>
               </Link>

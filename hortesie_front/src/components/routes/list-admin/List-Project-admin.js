@@ -77,7 +77,19 @@ export function ListProjectAdmin() {
   if (!token) {
     return <Login setToken={setToken} />;
   }
-
+  const delProjet = async (id) => {
+    const res = await fetch(API_URL + "/del_projet", {
+      method: "POST",
+      body: JSON.stringify({ id: id }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    console.log("ended res", res);
+    setReRender(!reRender);
+    console.log("reeeer", reRender);
+  };
   return (
     <div className="all-admin-container">
       <div className="admin-button-container">
@@ -110,7 +122,7 @@ export function ListProjectAdmin() {
                 <div className="del-row-container">
                   <div className="del-button">
 
-                    <Del_button item={item} reRender={handleReRender}></Del_button>
+                    <Del_button item={item.id} delFunction={delProjet} reRender={handleReRender}></Del_button>
                   </div>
                   <Link
                     style={{

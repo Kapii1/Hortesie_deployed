@@ -1,71 +1,81 @@
-.Detail-container{
+.Detail-container {
     overflow: scroll;
     border: solid;
     border-width: 1px;
     background-color: transparent;
-    width: 50%; 
+    width: 50%;
     max-height: 100vh;
 }
-.button-admin{
+
+.button-admin {
     margin-left: 50%;
 }
-.form-projet{
+
+.form-projet {
     padding-left: 2rem !important;
     padding-right: 2rem !important;
 }
-.titre-container{
+
+.titre-container {
     height: 4rem;
 }
-.titre-modif{
+
+.titre-modif {
     font-weight: bold;
 }
-.label-detail{
+
+.label-detail {
     margin: auto;
     margin-top: 2rem;
     padding-bottom: 1rem;
 }
-.add-photo-button{
+
+.add-photo-button {
     margin: auto;
     padding-bottom: 2rem;
     padding-top: 1rem;
 }
-.field-container{
+
+.field-container {
     display: flex;
     flex-direction: column;
 
 }
-.titre-ajout{
-    display: flex   ;
-    height:100%;    
-align-items: center;
-justify-content: center;  
-font-weight: bold;  
-font-size: large;
-}
 
-.image-admin{
-    height: 15rem;
-    width:auto;
-}
-.image-admin-container{
+.titre-ajout {
     display: flex;
-    flex-direction:column;
-    margin: auto;
-    padding-top: 15px ;
-    width: 100%;
-    margin-bottom: 20rem;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: large;
 }
 
-.vignette-admin{
+.image-admin {
+    height: 15rem;
+    width: auto;
+}
+
+.image-admin-container {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding-top: 15px;
+    width: 100%;
+}
+
+.vignette-admin {
     width: auto;
     height: 30rem;
     margin: auto;
 }
-.image-vignette{
+
+.image-vignette {
     display: flex;
     flex-direction: column;
 }
-.change-vignette{
+
+.change-vignette {
     margin: auto !important;
     margin-bottom: 10px !important;
 }

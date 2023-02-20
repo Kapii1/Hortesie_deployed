@@ -35,6 +35,14 @@ ul {
   flex-wrap: wrap;
 }
 
+.modal-header {
+  border-bottom: none !important;
+}
+
+.modal-footer {
+  border-top: none !important;
+}
+
 .navbar-logo {
   justify-content: space-between;
   display: flex;

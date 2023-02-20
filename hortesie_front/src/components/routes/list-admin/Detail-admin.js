@@ -26,6 +26,7 @@ import { Store } from 'react-notifications-component';
 // it is compulsory method.
 import { v4 as uuidv4 } from "uuid";
 import { API_URL } from "../../../url";
+import Del_button from "./Del_button";
 function useForceUpdate() {
   const [value, setValue] = useState(0); // integer state
   return () => setValue((value) => value + 1); // update state to force render
@@ -344,33 +345,7 @@ export function DetailAdmin(props) {
                     </div>
 
                     <div className="delete-button-img">
-                      <IconButton
-                        backgroundColor="error"
-                        onClick={toggleShow}
-                      >
-                        {/* () => removeImage(elem.nom) */}
-                        <DeleteIcon></DeleteIcon>
-                      </IconButton>
-                      <MDBModal show={basicModal} setShow={setBasicModal} className="on-top" tabIndex='-1'>
-                        <MDBModalDialog>
-                          <MDBModalContent>
-                            <MDBModalHeader>
-                              <MDBModalTitle>Êtes-vous sûr ?</MDBModalTitle>
-                              <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
-                            </MDBModalHeader>
-
-                            <MDBModalFooter>
-                              <MDBBtn color='secondary' onClick={toggleShow}>
-                                Fermer
-                              </MDBBtn>
-                              <MDBBtn onClick={() => {
-                                removeImage(elem.nom);
-                                toggleShow()
-                              }}>Supprimer</MDBBtn>
-                            </MDBModalFooter>
-                          </MDBModalContent>
-                        </MDBModalDialog>
-                      </MDBModal>
+                      <Del_button item={elem.nom} delFunction={removeImage} reRender={forceUpdate}></Del_button>
                     </div>
 
                     <div className="image-container-delete">
