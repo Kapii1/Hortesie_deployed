@@ -37,8 +37,10 @@
 .admin-list {
     align-items: center;
     width: 50%;
-    max-height: 85vh;
+    height: calc(100vh);
 }
+
+
 
 .one-row-header {
     display: flex;
