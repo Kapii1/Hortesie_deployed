@@ -17,7 +17,6 @@ const s4 = () => {
     .toString(16)
     .substring(1);
 };
-
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 process.env.NODE_ENV = "production";
@@ -54,21 +53,15 @@ const Log = async (req, res) => {
     "SELECT * from mdp where username=?",
     [req.body.username],
     async function (err, rows) {
-      console.log(rows);
-
       if (rows.length == 0) {
         return res.status(400).json({ msg: "Wrong Password" });
       }
       if (rows.length > 0) {
-        const saltRounds = 10;
-        const pw = req.body.password;
-        const bcryptPassword = await bcrypt.hashSync(pw, 10);
         const match = await bcrypt.compare(req.body.password, rows[0].mdp);
 
         if (!match) return res.status(400).json({ msg: "Wrong Password" });
 
         const name = rows[0].username;
-        const mdp = rows[0].mdp;
         const token = jwt.sign({ name }, process.env.ACCESS_TOKEN_SECRET, {
           expiresIn: "2h",
         });
@@ -83,43 +76,25 @@ const Log = async (req, res) => {
   );
 };
 
-const storage_vignette = multer.diskStorage({
-  destination: URL_DEST + "images/vignettes/",
-  filename: (req, file, cb) => {
-    console.log("enter file");
-    const files = fs.readdirSync(dir_vignette);
-    for (i in files) {
-      if (files[i].includes(req.body.idProjet)) {
-        console.log("in del file", dir_vignette, files[i]);
-        fs.unlinkSync(dir_vignette + files[i]);
-      }
-    }
-    db.all(`UPDATE projets_corrected SET vignette = ? WHERE id= ?  `, [
-      "images/vignettes/" + req.body.idProjet + "_" + file.originalname,
-      req.body.idProjet,
-    ]);
-    cb(null, req.body.idProjet + "_" + file.originalname);
-  },
-});
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, URL_DEST + "images/projets/" + req.body.idProjet);
   },
   filename: (req, file, cb) => {
-    let id = s4() + s4() + s4();
+    var id = s4() + s4() + s4();
     db.all(
       `SELECT * from photos WHERE id= ?`,
       [id],
       (err, rows) => {
         if (rows.length !== 0) {
-          let id = s4() + s4() + s4();
+          id = s4() + s4() + s4();
         }
       }
     )
     let name = file.originalname;
     let path = "images/projets/" + req.body.idProjet + "/" + name;
-    console.log("Update in project", id, name, path);
+    console.log("Update in project ", req.body.idProjet, " new photo : ", name, " stored : ", path);
     db.all(
       `INSERT INTO photos VALUES (?,?,?)`,
       [id, req.body.idProjet, path],
@@ -127,10 +102,7 @@ const storage = multer.diskStorage({
         if (err) {
           console.log("Error in database adding image : ", err);
         } else {
-          rows.forEach((row) => {
-            console.log(row.nom);
-          });
-          console.log("all added", [id, req.body.idProjet, path]);
+          console.log("All photos added successfully ", [id, req.body.idProjet, path]);
         }
       }
     );
@@ -140,7 +112,6 @@ const storage = multer.diskStorage({
 
 const uploads = multer({ storage: storage }).array("file");
 
-const upload_vignette = multer({ storage: storage_vignette });
 app.use("/static", express.static(path.join(__dirname, "/static")));
 app.use(
   cors({
@@ -149,16 +120,14 @@ app.use(
 );
 app.use(express.json());
 app.get("/", function (req, res, next) {
-  console.log(req.originalUrl);
-
   res.send("API is working properly");
 });
 app.all("/secret", (req, res, next) => {
   console.log("Accessing the secret section ...");
-  next(); // pass control to the next handler
+  next();
 });
+
 app.get("/projets", (req, res) => {
-  console.log("nice");
   db.all("SELECT * FROM projets_corrected", function (err, rows) {
     var output = [];
     if (err) {
@@ -180,7 +149,7 @@ app.get("/projets", (req, res) => {
             ordre: row.position,
           });
         });
-        res.send(
+        res.status(200).send(
           output.sort(function (first, second) {
             return first.ordre - second.ordre;
           })
@@ -189,9 +158,9 @@ app.get("/projets", (req, res) => {
     }
   });
 });
+
 app.get("/projets/:id", (req, res) => {
   var output = [];
-  console.log("id is " + req.params.id);
   db.all(
     "SELECT * from projets_corrected WHERE id ='" + req.params.id + "'",
     function (err, rows) {
@@ -225,7 +194,6 @@ app.get("/projets/:id", (req, res) => {
         console.log(err);
       } else {
         if (rows.length === 0) {
-          console.log("bug pas de photos", req.params.id);
           output.push({ nom: "" });
         } else {
           rows.forEach(function (row) {
@@ -236,8 +204,7 @@ app.get("/projets/:id", (req, res) => {
           });
         }
       }
-      console.log("PROJET RESP", output);
-      res.send(output);
+      res.status(200).send(output);
     }
   );
 });
@@ -256,10 +223,6 @@ app.post("/save_modif_project", (req, res) => {
       .toString(16)
       .substring(1);
   };
-
-  console.log(id, nom, ville, images, vignette);
-  console.log("ORDRE OF project", ordre);
-  //db.all("DELETE FROM projets_corrected WHERE id='" + id + "'");
   db.all(`UPDATE projets_corrected 
 	  SET titre = ?,
 	  date = ?,
@@ -269,33 +232,7 @@ app.post("/save_modif_project", (req, res) => {
 	  position = ?
 	  WHERE id = ?`, [nom, date, ville, description, vignette, ordre, id]
   )
-  // db.all(`INSERT INTO projets_corrected VALUES ('${id}','${nom}','','${date}','projet','${vignette}','','','${description}','','','${nom}','','','${description}','','','${nom}','${ville}','France')`)
-  //db.all(
-  //  `INSERT INTO projets_corrected VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
-  //  [
-  //   id,
-  //    nom,
-  //    "",
-  //    date,
-  //    "projet",
-  //    vignette,
-  //    "",
-  //    "",
-  //    description,
-  //    "",
-  //    "",
-  //    nom,
-  //    "",
-  //    "",
-  //    description,
-  //    ordre,
-  //    nom,
-  //    ville,
-  //    "France",
-  //  ]
-  // );
-
-  res.send({ msg: "done" });
+  res.status(200).send({ msg: "done" });
 });
 
 app.use("/login", Log);
@@ -324,15 +261,7 @@ app.post("/add_image", (req, res) => {
   });
 });
 
-app.post(
-  "/add_vignette",
-  upload_vignette.array("file_vignette"),
-  async (req, res) => {
-    if (req.files.length > 0) {
-      res.send(req.files[0].path.replace(URL_DEST, ""));
-    }
-  }
-);
+
 
 app.post("/set_vignette", async (req, res) => {
   console.log("enter", req.body);
@@ -345,7 +274,6 @@ app.post("/set_vignette", async (req, res) => {
 
 app.post("/welcome_admin", verifyToken, (req, res) => {
   if (req.user == "expired") {
-    console.log("expired welcome");
     res.status(401).send("not good");
     return;
   }
@@ -354,7 +282,6 @@ app.post("/welcome_admin", verifyToken, (req, res) => {
 
 app.post("/del_image", (req, res) => {
   if (req.body.id === null) { return }
-  console.log(req.body.id)
   db.all("DELETE FROM photos WHERE nom=?", [req.body.img]);
   try {
     fs.unlinkSync(URL_DEST + req.body.img);
@@ -362,7 +289,6 @@ app.post("/del_image", (req, res) => {
   catch {
 
   }
-  console.log("le body", req.body);
   res.sendStatus(200);
 });
 
@@ -373,7 +299,6 @@ app.post("/add_project", (req, res) => {
     [req.body.id],
     (err, rows) => {
       if (rows.length == 0) {
-        console.log("creation");
         db.all(
           "INSERT INTO projets_corrected VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
           [
@@ -398,36 +323,29 @@ app.post("/add_project", (req, res) => {
             "",
           ],
           (err, rows) => {
-            console.log("ici" + err);
           }
         );
         const folderName = URL_DEST + "images/projets/" + req.body.id;
         if (!fs.existsSync(folderName)) {
-          console.log("Creating folder : ", folderName);
           fs.mkdirSync(folderName);
         }
-        console.log("created");
-        res.send({ msg: "creation" });
+        res.status(200).send({ msg: "creation" });
       }
     }
   );
 });
 
 app.post("/del_projet", (req, res) => {
-  console.log("before req body");
-  console.log("idd to del is ", req.body);
   if (req.body.id === null) return;
   db.all(`DELETE FROM photos WHERE idProjet=?`, [req.body.id]);
   db.all(`DELETE FROM projets_corrected WHERE id=?`, [req.body.id]);
 
   const dir = URL_DEST + "images/projets/" + req.body.id;
-  console.log(dir);
   fs.rm(dir, { recursive: true }, (err) => {
     if (err) {
       throw err;
     }
 
-    console.log(`${dir} is deleted!`);
     const files = fs.readdirSync(dir_vignette);
     for (i in files) {
       if (files[i].includes(req.body.id)) {
@@ -435,7 +353,6 @@ app.post("/del_projet", (req, res) => {
       }
     }
   });
-  console.log("sending");
   res.send({ msg: "deleted" });
 });
 app.listen(PORT, console.log(`Server started on port ${PORT}`));

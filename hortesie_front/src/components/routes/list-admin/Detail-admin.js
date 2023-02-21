@@ -113,7 +113,25 @@ export function DetailAdmin(props) {
       },
 
       body: JSON.stringify(new_data),
-    });
+    }).then(
+      (res) => {
+        if (res.status === 200) {
+          Store.addNotification({
+            title: "Sauvegardé",
+            message: "Les modifications ont bien été enregistrées.",
+            type: "success",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 5000,
+              onScreen: true
+            }
+          });
+        }
+      }
+    );
 
     onReRender();
     console.log("post toast");
@@ -125,7 +143,6 @@ export function DetailAdmin(props) {
       idProjet: idProjet,
       path_vignette: path_vignette,
     };
-    console.log(new_data);
     const res = await fetch(API_URL + "/set_vignette", {
       method: "POST",
       headers: {
@@ -214,17 +231,7 @@ export function DetailAdmin(props) {
       console.log("Error : ", error);
     }
   };
-  const mod_vignette = async (event) => {
-    const data_to_send = new FormData();
-    data_to_send.append("idProjet", id);
-    data_to_send.append("file_vignette", event.target.files[0]);
-    let oo = await fetch(API_URL + "/add_vignette", {
-      method: "POST",
-      body: data_to_send,
-    })
-      .then((res) => res.text())
-      .then((res) => setVignetteHasChanged(!vignetteHasChanged));
-  };
+
   const hiddenFileInput = React.useRef(null);
   const hiddenFileInput_photos = React.useRef(null);
   const handleClick = (event) => {

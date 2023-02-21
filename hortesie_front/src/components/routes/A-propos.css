@@ -1,13 +1,13 @@
 .a-propos-container {
-    align-items: center;
-    width: 80%;
+    width: 50%;
     margin: auto;
-    height: 100%;
-    background: white;
+    text-align: justify;
+    margin-top: 2rem;
 }
 
 .container-page {
     width: 100%;
-    padding-top: 4rem;
-    height: calc(100vh - 4rem);
+    padding-top: 6rem;
+    background: white;
+    padding-bottom: 6rem;
 }
