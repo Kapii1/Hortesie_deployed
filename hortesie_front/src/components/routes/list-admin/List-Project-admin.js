@@ -37,24 +37,16 @@ export function ListProjectAdmin() {
   const [data, setData] = useState();
 
   async function fetchData() {
-    console.log("fetching");
-    setLoading(true);
     fetch(API_URL + "/projets", { method: "GET" })
       .then((response) => response.json())
       .then((responseJson) => {
         setData(responseJson);
-        setLoading(false);
       })
       .catch((error) => {
-        console.error(error);
-        setLoading(false);
       });
   }
 
   const { token, setToken } = useToken();
-  const [deleted, isDeleted] = useState();
-  const [, updateState] = React.useState();
-  const forceUpdate = React.useCallback(() => updateState({}), []);
   useEffect(() => {
     fetch(API_URL + "/welcome_admin", {
       method: "POST",
@@ -86,9 +78,6 @@ export function ListProjectAdmin() {
         "Content-Type": "application/json",
       },
     });
-    console.log("ended res", res);
-    setReRender(!reRender);
-    console.log("reeeer", reRender);
   };
   return (
     <div className="all-admin-container">
