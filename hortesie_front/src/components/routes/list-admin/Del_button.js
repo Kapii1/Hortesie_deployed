@@ -16,8 +16,6 @@ import IconButton from "@mui/material/IconButton";
 
 
 export default function Del_button(props) {
-
-    const [reRender, setReRender] = useState(false);
     const [basicModal, setBasicModal] = useState(false);
     const delFunction = props.delFunction
 
@@ -45,7 +43,6 @@ export default function Del_button(props) {
                                 console.log(props.item)
                                 delFunction(props.item);
                                 toggleShow();
-                                props.reRender()
                             }}>Supprimer</MDBBtn>
                         </MDBModalFooter>
                     </MDBModalContent>

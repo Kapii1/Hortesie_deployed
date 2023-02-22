@@ -35,7 +35,7 @@ export function ListProjectAdmin() {
   const location = useLocation();
   const [loading, setLoading] = useState();
   const [data, setData] = useState();
-
+  const forceUpdate = useForceUpdate();
   async function fetchData() {
     fetch(API_URL + "/projets", { method: "GET" })
       .then((response) => response.json())
@@ -78,6 +78,9 @@ export function ListProjectAdmin() {
         "Content-Type": "application/json",
       },
     });
+    fetchData();
+    forceUpdate();
+
   };
   return (
     <div className="all-admin-container">
