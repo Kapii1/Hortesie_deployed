@@ -290,7 +290,6 @@ app.post("/del_image", (req, res) => {
   catch {
 
   }
-  console.log("Deleted project : ", req.body.id)
   res.sendStatus(200);
 });
 
@@ -348,6 +347,7 @@ app.post("/del_projet", (req, res) => {
       throw err;
     }
 
+
     const files = fs.readdirSync(dir_vignette);
     for (i in files) {
       if (files[i].includes(req.body.id)) {
@@ -355,6 +355,7 @@ app.post("/del_projet", (req, res) => {
       }
     }
   });
+  console.log("Deleted project : ", req.body.id)
   res.send({ msg: "deleted" });
 });
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
