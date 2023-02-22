@@ -106,7 +106,7 @@ ul {
   margin-top: auto;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1000px) and (orientation:portrait) {
 
   .navbar-ul {
     transition: 1s;

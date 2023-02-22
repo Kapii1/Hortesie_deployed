@@ -282,6 +282,7 @@ app.post("/welcome_admin", verifyToken, (req, res) => {
 
 app.post("/del_image", (req, res) => {
   if (req.body.id === null) { return }
+
   db.all("DELETE FROM photos WHERE nom=?", [req.body.img]);
   try {
     fs.unlinkSync(URL_DEST + req.body.img);
@@ -289,6 +290,7 @@ app.post("/del_image", (req, res) => {
   catch {
 
   }
+  console.log("Deleted project : ", req.body.id)
   res.sendStatus(200);
 });
 

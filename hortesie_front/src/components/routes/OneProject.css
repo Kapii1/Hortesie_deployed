@@ -12,7 +12,7 @@
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
 }
 
-@media (min-width: 800px) {
+@media (min-width: 1000px) {
   .card:hover {
     transform: scale(1.04);
     filter: grayscale(0%);
@@ -41,7 +41,7 @@
 
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1000px) and (orientation:portrait) {
   .title-card {
     position: absolute;
     text-decoration: none;
