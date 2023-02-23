@@ -10,14 +10,16 @@ import { GridComponent } from "react-spring-animated-grid";
 import { SpringGrid } from "react-stonecutter";
 import Details from "./Details";
 import { Link, useLocation } from "react-router-dom";
-
+import { after } from "underscore";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { API_URL } from "../../url";
 
 export function Projets(props) {
   const location = useLocation();
   const [items, setItems] = useState([]);
-  const allLoaded = Array(items.length).fill(useState(false))
+  const onLoad = after(items.length, () => {
+    $("#projets-grid-container").addClass("projets-container-loaded")
+  });
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -29,17 +31,9 @@ export function Projets(props) {
         console.log("error", error);
       }
     };
-    const a = fetchData();
-  }, [setItems]);
+    fetchData();
+  }, []);
 
-  useEffect(() => {
-    if (allLoaded.every((items) => {
-      return (items[0] == true)
-    })) {
-      console.log($(".projets-container"))
-      $("#projets-grid-container").addClass("projets-container-loaded")
-    }
-  }, [allLoaded])
   return (
     <div className="Grid-container"
       id="grid-projet">
@@ -63,7 +57,7 @@ export function Projets(props) {
                     nom_fr={item.nom}
                     path_image={item.vignette}
                     description={item.description}
-                    setisLoaded={allLoaded[i][1]}
+                    onLoad={onLoad}
                   />
                 </motion.div>
               </Link>
