@@ -11,27 +11,32 @@
 .pair {
     background-color: rgb(233, 233, 233);
 }
-.image-elem{
+
+.image-elem {
     height: 100%;
 }
-.mini{
+
+.mini {
     width: 100%;
-    padding:0 !important;
+    padding: 0 !important;
 }
+
 .one-row:hover {
     background-color: green;
 }
-.poubelle{
-    position:relative;
+
+.poubelle {
+    position: relative;
 }
+
 .elem {
     width: 25%;
     margin: auto;
     text-align: center;
     text-decoration: none;
-    }
+}
 
-.vignette {
+.vignette-admin-list {
     width: auto;
     height: 100%;
     max-width: 100%;

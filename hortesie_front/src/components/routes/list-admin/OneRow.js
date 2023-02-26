@@ -13,20 +13,20 @@ export const OneRowAdmin = (props) => {
   if (props.ind % 2 == 0) {
     return (
       <div className="one-row pair">
-      <div className="elem ">{props.ordre}</div>
+        <div className="elem ">{props.ordre}</div>
         <div className="elem image-elem">
-          <img className="vignette" src={props.vignette}></img>
+          <img className="vignette-admin-list" src={props.vignette}></img>
         </div>
         <div className="elem">{props.nom} </div>
         <div className="elem">{props.ville} </div>
-      </div>
+      </div >
     );
   } else {
     return (
       <div className="one-row">
         <div className="elem ">{props.ordre}</div>
         <div className="elem image-elem">
-          <img className="vignette" src={props.vignette}></img>
+          <img className="vignette-admin-list" src={props.vignette}></img>
         </div>
         <div className="elem">{props.nom} </div>
         <div className="elem">{props.ville} </div>

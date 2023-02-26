@@ -14,7 +14,7 @@ import { after } from "underscore";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { API_URL } from "../../url";
 
-export function Projets(props) {
+export function Projets() {
   const location = useLocation();
   const [items, setItems] = useState([]);
   const onLoad = after(items.length, () => {
