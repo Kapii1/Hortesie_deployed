@@ -55,7 +55,7 @@ export default function Login({ setToken }) {
       <div className="login-in-wrapper">
         <form className="form-wrapper" onSubmit={handleSubmit}>
           <label>
-            <p>Utilisateur T1STS</p>
+            <p>Utilisateur T1rSTS</p>
             <TextField
               type="text"
               onChange={(e) => setUserName(e.target.value)}
