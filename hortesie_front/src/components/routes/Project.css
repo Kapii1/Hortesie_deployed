@@ -17,10 +17,10 @@
 
 .projets-container {
   padding: 1rem;
-  opacity: 0;
   -webkit-transition: opacity 2s;
   transition: opacity 2s;
   min-height: 100vh;
+  opacity: 0;
 }
 
 .projets-container-loaded {
@@ -34,6 +34,7 @@
 .Grid-container {
   min-width: 100vw;
   padding-top: 4rem;
+  padding-bottom: 4rem;
   background-color: white;
 }
 

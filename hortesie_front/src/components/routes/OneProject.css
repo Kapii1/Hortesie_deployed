@@ -1,15 +1,17 @@
 .vignette {
-  width: 100%;
   border-radius: 2px;
+  width: 100%;
 }
 
 .card {
   display: flex;
   flex-direction: row;
   overflow: visible;
-  transition: 0.4s transform;
+  transition: 0.4s;
+  max-height: 25vh;
   filter: grayscale(80%);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+
 }
 
 @media (min-width: 1000px) {

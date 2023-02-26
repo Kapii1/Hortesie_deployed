@@ -9,8 +9,6 @@ import "./OneProject.css";
 
 export function Projet(props) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoaded, setisLoaded] = useState(false);
-  const [allLoaded, setAllLoaded] = [props.allLoaded, props.setAllLoaded]
   return (
     <div
       onClick={() => setIsOpen(!isOpen)}
@@ -18,7 +16,7 @@ export function Projet(props) {
       style={{ borderRadius: "7px" }}
     >
       <div className="sub-card"
-        style={isLoaded ? { opacity: '1' } : { opacity: '0' }}>
+      >
         <div className="title-container">
           <div className="title-card">{props.nom_fr}</div>
         </div>
@@ -27,8 +25,7 @@ export function Projet(props) {
           layout="position"
           className="vignette"
           onLoad={() => {
-            props.setisLoaded(true)
-            setisLoaded(true)
+            props.onLoad()
           }}
           src={props.path_image}
         ></img>
