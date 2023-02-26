@@ -38,13 +38,8 @@
     "react-svg": "^15.0.1",
     "react-transition-group": "^4.4.2",
     "slick-carousel": "^1.8.1",
-<<<<<<< HEAD
-    "web-vitals": "^2.1.4",
-    "yarn": "^1.22.19"
-=======
     "underscore": "^1.13.6",
     "web-vitals": "^2.1.4"
->>>>>>> 2f7523f3f3277b69cd9c6b8bf1a55d5708b7a8aa
   },
   "scripts": {
     "start": "react-scripts start",
