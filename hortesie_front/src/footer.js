@@ -20,7 +20,7 @@ export default function Footer() {
                             <h6 className='text-uppercase fw-bold mb-4'>Articles</h6>
                             <p>
                                 <a href='/doc/apce15ans.pdf' target="_blank" className='text-reset'>
-                                    Paysagistes conseil test
+                                    Paysagistes conseil test2
                                 </a>
                             </p>
                             <p>
