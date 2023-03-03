@@ -11,9 +11,7 @@ export default function Footer() {
                 <MDBContainer className='text-center text-md-start mt-5'>
                     <MDBRow className='mt-3'>
                         <MDBCol md="3" lg="4" xl="3" className='mx-auto mb-4'>
-
                             <img className="logo-footer" src={require('./logo.png')}></img>
-
                         </MDBCol>
 
                         <MDBCol md="2" lg="2" xl="2" className='mx-auto mb-4'>
