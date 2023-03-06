@@ -204,7 +204,8 @@ app.get("/projets/:id", (req, res) => {
           });
         }
       }
-      res.status(200).send(output);
+      res.setHeader('X-Robots-Tag', 'noindex')
+      res.status(200).send(output)
     }
   );
 });
