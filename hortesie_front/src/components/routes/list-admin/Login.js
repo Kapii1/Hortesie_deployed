@@ -62,7 +62,7 @@ export default function Login({ setToken }) {
             />
           </label>
           <label>
-            <p>Mot de passe t</p>
+            <p>Mot de passe</p>
             <TextField
               type="password"
               onChange={(e) => setPassword(e.target.value)}

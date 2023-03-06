@@ -16,7 +16,6 @@ function Details() {
     });
     res.json().then((res) => {
       updateItems(res);
-
     })
 
   }
