@@ -14,23 +14,30 @@ import { after } from "underscore";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { API_URL } from "../../url";
 
+
+
+
+
 export function Projets() {
   const location = useLocation();
   const [items, setItems] = useState([]);
+  const gridRef = useRef()
   const onLoad = after(items.length, () => {
-    $("#projets-grid-container").addClass("projets-container-loaded")
+    gridRef.current.className += " projets-container-loaded"
   });
+
+  const fetchData = async () => {
+    try {
+      const res = await fetch(API_URL + "/projets", { method: "GET" });
+      const json = await res.json();
+      setItems(json);
+      return json;
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(API_URL + "/projets", { method: "GET" });
-        const json = await res.json();
-        setItems(json);
-        return json;
-      } catch (error) {
-        console.log("error", error);
-      }
-    };
     fetchData();
   }, []);
 
@@ -38,6 +45,7 @@ export function Projets() {
     <div className="Grid-container"
       id="grid-projet">
       <Grid
+        ref={gridRef}
         className="projets-container"
         id="projets-grid-container"
         container

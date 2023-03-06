@@ -14,8 +14,13 @@ function Details() {
     const res = await fetch(API_URL + "/projets/" + id, {
       method: "GET",
     });
-    res.json().then((res) => updateItems(res));
+    res.json().then((res) => {
+      updateItems(res);
+
+    })
+
   }
+
 
   useEffect(() => {
     fetchData();
