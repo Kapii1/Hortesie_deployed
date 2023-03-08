@@ -3,8 +3,8 @@ import Image from "./Image"
 
 export default function CustomCarouselItem({ src, index, onAllLoad }) {
 
-    return (<div>
+    return (<>
         <Image src={src} load={onAllLoad} />
-    </div>
+    </>
     )
 }
