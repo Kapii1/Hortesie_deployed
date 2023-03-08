@@ -25,7 +25,13 @@ export function Detail(props) {
   return (
     <div className="detail-container">
       <div ref={carouselRef} className="carousel-container">
-        <Carousel onClickItem={() => { console.log("test") }} showThumbs={false} emulateTouch infiniteLoop showStatus={false} showIndicators={false} >
+        <Carousel onClickItem={() => { console.log("test") }}
+          showThumbs={false}
+          emulateTouch
+          infiniteLoop
+          showStatus={false}
+          showIndicators={false}
+          dynamicHeight >
           {props.item.slice(1).map((items, index) =>
             <CustomCarouselItem src={items.nom} onAllLoad={onAllLoad} index={index} />
           )}

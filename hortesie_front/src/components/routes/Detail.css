@@ -78,6 +78,18 @@
     overflow-y: scroll;
 }
 
+.carousel .control-next.control-arrow:before {
+    border-left: 8px solid gray !important;
+}
+
+.carousel .control-prev.control-arrow:before {
+    border-right: 8px solid gray !important;
+}
+
+.carousel.carousel-slider .control-arrow:hover {
+    background: rgba(255, 255, 255, .5) !important;
+}
+
 .img-container {
     width: 40%;
     margin: auto;
