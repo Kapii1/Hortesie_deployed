@@ -27,7 +27,7 @@
   margin: 6px 0;
 }
 
-ul {
+.navbar-ul {
   margin: 0;
   padding: 0;
   display: inline-block;
@@ -68,7 +68,7 @@ ul {
   width: 100%;
   position: fixed;
   top: 4rem;
-  z-index: 2;
+  z-index: 50;
   height: 1px;
   background-color: white;
 }
@@ -185,7 +185,7 @@ ul {
   color: white;
 }
 
-ul {
+.navbar-ul {
   display: flex;
   width: 60%;
   align-items: center;

@@ -1,36 +1,36 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./Detail.css";
 import { Link } from "react-router-dom";
 import { SimpleSlider } from "./SimpleSlider";
 import { motion } from "framer-motion";
-import { Carousel } from 'primereact/carousel';
+import { Carousel } from 'react-responsive-carousel';
+import styles from 'react-responsive-carousel/lib/styles/carousel.min.css';
 import {
   MDBCarousel,
   MDBCarouselItem,
 } from 'mdb-react-ui-kit';
+import CustomCarouselItem from "./CustomCarouselItem";
+import { after } from "underscore";
 export function Detail(props) {
-  console.log(props.item.slice(1));
+
+  const carouselRef = useRef()
+  const onAllLoad = after(props.item.length - 1, () => {
+    carouselRef.current.className += " projets-container-loaded"
+  });
   const photoTemplate = (photo) => {
-    console.log("jjjjj", photo)
     return (
       <img className="image-carousel" src={photo.nom}></img>
     )
   }
   return (
     <div className="detail-container">
-      <MDBCarousel showControls showIndicators interval={500000} className='image-carousel'>
-        {props.item.slice(1).map((items, index) => {
-          return (
-            <MDBCarouselItem
-              className='d-block img-carousel'
-              itemId={index + 1}
-              src={items.nom}
-              alt='...'
-            />
-          )
-        })}
-      </MDBCarousel>
-
+      <div ref={carouselRef} className="carousel-container">
+        <Carousel onClickItem={() => { console.log("test") }} showThumbs={false} emulateTouch infiniteLoop showStatus={false} showIndicators={false} >
+          {props.item.slice(1).map((items, index) =>
+            <CustomCarouselItem src={items.nom} onAllLoad={onAllLoad} index={index} />
+          )}
+        </Carousel>
+      </div>
 
       <motion.div className="text-container">
         <div className="detail-title">{props.item[0].nom}</div>

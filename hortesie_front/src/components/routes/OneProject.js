@@ -6,6 +6,7 @@ import { CardActionArea, CardHeader } from "@mui/material";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import "./OneProject.css";
+import Image from "./Image";
 
 export function Projet(props) {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,15 +21,7 @@ export function Projet(props) {
         <div className="title-container">
           <div className="title-card">{props.nom_fr}</div>
         </div>
-
-        <img
-          layout="position"
-          className="vignette"
-          onLoad={() => {
-            props.onLoad()
-          }}
-          src={props.path_image}
-        ></img>
+        <Image src={props.path_image} className="vignette" load={props.onLoad}></Image>
       </div>
     </div>
   );

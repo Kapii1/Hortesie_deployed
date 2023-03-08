@@ -5,6 +5,10 @@
         margin-bottom: 5%;
     }
 
+    .carousel-root {
+        width: 50vw;
+    }
+
     .detail-ville {
         display: flex;
         margin-right: 20px;
@@ -16,6 +20,22 @@
         margin: 0;
         margin-right: 5rem;
     }
+
+    .carousel-container {
+        width: 50%;
+        margin-left: 1rem;
+        display: flex;
+    }
+
+    .carousel-root {
+        margin: auto;
+    }
+
+    .text-container {
+
+        margin-right: 1rem;
+    }
+
 }
 
 .carousel-control-next-icon::after,
@@ -81,14 +101,12 @@
     margin: auto;
 }
 
-.carousel-inner {
-    overflow: hidden;
-    height: 50vh;
+
+
+.carousel {
+    width: 50vw;
 }
 
-.carousel-item {
-    height: 100%;
-}
 
 .detail-ville {
     font-size: 1.5rem;
@@ -99,6 +117,9 @@
     width: 100%;
 }
 
+.slide {
+    display: flex;
+}
 
 .ville-p {
     margin: auto;
@@ -109,23 +130,8 @@
     margin: auto;
 }
 
-.p-carousel {
-    width: 50vw;
-    margin: auto;
-    height: 50vh;
-}
 
-.carousel-control-next-icon:after {
-    content: "";
-}
 
-.carousel {
-    display: flex;
-}
-
-.carousel-inner {
-    margin: auto;
-}
 
 @media (max-width: 1000px) and (orientation:portrait) {
     .detail-ville {
@@ -144,36 +150,35 @@
         height: 50%;
     }
 
-
-    .image-carousel {}
-
     .leave {
         height: 5vw;
     }
 
-    .carousel-inner {
-        margin: 0;
+
+    .carousel .slide img,
+    .carousel img {
+        width: auto !important;
+    }
+
+    .carousel.carousel-slider {
+        margin: auto !important;
+        max-height: 40vh;
+    }
+
+    img {
         width: auto;
-        height: 100%;
+        max-height: 40vh;
+        max-width: 100%;
     }
 
-    .carousel {
-        max-width: 90%;
-        max-height: 50%;
-        margin-bottom: 3vw;
-        margin-top: 3vw;
-        margin-left: auto;
-        margin-right: auto;
-        width: 70%;
+    .carousel-container {
+        height: 45vh;
+        margin: 1rem;
     }
 
-    .carousel-item {
-        height: 100%;
-    }
 
-    .carousel-item>img {
-        height: 100%;
-        margin: auto;
+    .carousel-root {
+        max-height: 30vh;
     }
 
     .detail-title {
@@ -183,7 +188,7 @@
 
     .description {
         font-size: 1rem;
-        height: auto;
+        height: 25vh;
         margin-bottom: 4rem;
     }
 
