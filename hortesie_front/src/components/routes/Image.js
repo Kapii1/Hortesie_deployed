@@ -16,7 +16,7 @@ export default function Image({ src, className, load, spinner = false }) {
                 <div className="spinner-loading">
                     <Spinner text={"Chargement..."} bgColor={"#FFF"} center={false} height={"100px"} />
                 </div> : ''}
-            {/* <img src={src} style={{ display: isLoaded ? "" : "none" }} className={className} onLoad={imageLoaded} /> */}
+            <img src={src} style={{ display: isLoaded ? "" : "none" }} className={className} onLoad={imageLoaded} />
         </>
     )
 }
