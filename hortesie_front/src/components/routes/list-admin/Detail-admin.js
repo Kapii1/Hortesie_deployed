@@ -337,6 +337,7 @@ export function DetailAdmin(props) {
                       <input
                         type="checkbox"
                         className="checkbox-vignette"
+                        readOnly
                         checked={data[0].vignette
                           .split("/")
                           .slice(-1)[0]

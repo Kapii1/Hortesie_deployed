@@ -209,6 +209,35 @@ app.get("/projets/:id", (req, res) => {
     }
   );
 });
+
+app.post("/set_new_index", async (req, res) => {
+  const old_index = req.body.from_index;
+  const new_index = req.body.to_index;
+  let id_new = [], id_old = []
+  function done_new(row) {
+    id_new.push(row[0].id)
+  }
+  await db.all(`SELECT id, position FROM projets_corrected WHERE position= ? OR position = ?  `, [
+    new_index,
+    old_index,
+  ], (err, rows) => {
+    res.status(200).send(JSON.stringify(rows))
+  })
+})
+
+app.post("/replace_index", async (req, res) => {
+  const new_index = req.body.to_index;
+  const id = req.body.id
+  console.log("Replacing...")
+  await db.all(`UPDATE projets_corrected SET position = ? WHERE id= ?`, [
+    new_index,
+    id,
+  ], (err, rows) => {
+    res.status(200).send({ msg: "Changed" })
+  })
+})
+
+
 app.post("/save_modif_project", (req, res) => {
   const id = req.body.id;
   const nom = req.body.nom;

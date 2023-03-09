@@ -19,21 +19,69 @@ import { API_URL } from "../../../url";
 import useToken from "./useToken";
 import { New_Project } from "./New-project";
 import Del_button from "./Del_button"
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
+
 function useForceUpdate() {
   const [value, setValue] = useState(0); // integer state
   return () => setValue((value) => value + 1); // update state to force render
   // An function that increment 👆🏻 the previous state like here
   // is better than directly setting `value + 1`
 }
+async function get_id_update_index(from_index, to_index) {
+
+  const res = await fetch(API_URL + "/set_new_index", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ "from_index": from_index, "to_index": to_index }),
+  })
+
+  const json = await res.json()
+  return json
+}
+
+function change_index(id, to_index) {
+  const res = fetch(API_URL + "/replace_index", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ "id": id, "to_index": to_index }),
+  })
+}
 
 export function ListProjectAdmin() {
+
+
+  const handleDrop = async (droppedItem) => {
+
+    if (!droppedItem.destination) return;
+    var updatedList = [...data];
+
+    const [reorderedItem] = updatedList.splice(droppedItem.source.index, 1);
+
+    updatedList.splice(droppedItem.destination.index, 0, reorderedItem);
+
+    const index_to_be_updated = [droppedItem.source.index, droppedItem.destination.index]
+
+    const [item_1, item_2] = await get_id_update_index(droppedItem.source.index + 1, droppedItem.destination.index + 1)
+
+    change_index(item_1.id, item_2.position)
+    change_index(item_2.id, item_1.position)
+
+    setData(updatedList);
+  };
+
   const [reRender, setReRender] = useState(false);
 
   const handleReRender = () => {
-    setReRender(!reRender); // state change will re-render parent
+    setReRender(!reRender);
   };
   const location = useLocation();
-  const [loading, setLoading] = useState();
   const [data, setData] = useState();
   const forceUpdate = useForceUpdate();
   async function fetchData() {
@@ -66,6 +114,7 @@ export function ListProjectAdmin() {
   useEffect(() => {
     fetchData();
   }, [reRender]);
+
   if (!token) {
     return <Login setToken={setToken} />;
   }
@@ -107,36 +156,56 @@ export function ListProjectAdmin() {
             <div className="elem-title"> Nom Projet</div>
             <div className="elem-title"> Ville </div>
           </div>
+          < DragDropContext onDragEnd={handleDrop}>
+            <Droppable droppableId="list-container">
+              {(provided) =>
+                <div
+                  className="list-container"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  {data && data.map((item, index) => (
+                    <Draggable key={item.id} draggableId={item.id} index={index}>
+                      {(provided) => (
+                        <div
+                          className="item-container"
+                          ref={provided.innerRef}
+                          {...provided.dragHandleProps}
+                          {...provided.draggableProps}
+                        >
+                          <div className="del-row-container" key={item.id} >
 
-          {data &&
-            data.map((item, i) => {
-              return (
-                <div className="del-row-container">
-                  <div className="del-button">
+                            <div className="del-button">
+                              <Del_button item={item.id} delFunction={delProjet} reRender={handleReRender}></Del_button>
+                            </div>
+                            <Link
+                              style={{
+                                textDecoration: "none",
+                                color: "black",
+                                width: "95%",
+                              }}
+                              to={item.id}
+                            >
+                              <OneRowAdmin
+                                nom={item.nom}
+                                vignette={item.vignette}
+                                ind={index}
+                                ville={item.ville}
+                                ordre={index + 1}
+                                key={item.id}
+                              />
+                            </Link>
 
-                    <Del_button item={item.id} delFunction={delProjet} reRender={handleReRender}></Del_button>
-                  </div>
-                  <Link
-                    style={{
-                      textDecoration: "none",
-                      color: "black",
-                      width: "95%",
-                    }}
-                    to={item.id}
-                  >
-                    <OneRowAdmin
-                      nom={item.nom}
-                      vignette={item.vignette}
-                      ind={i}
-                      ville={item.ville}
-                      ordre={item.ordre}
-                      key={i}
-                    />
-                  </Link>
-
+                          </div>
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
                 </div>
-              );
-            })}
+              }
+            </Droppable>
+          </DragDropContext>
         </div>
 
         <Routes location={location} key={location.key}>

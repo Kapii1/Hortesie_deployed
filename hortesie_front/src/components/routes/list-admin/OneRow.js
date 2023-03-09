@@ -10,9 +10,11 @@ import OneRow from "./OneRow.css";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton } from "@mui/material";
 export const OneRowAdmin = (props) => {
+
+
   if (props.ind % 2 == 0) {
     return (
-      <div className="one-row pair">
+      <div className="one-row pair"  >
         <div className="elem ">{props.ordre}</div>
         <div className="elem image-elem">
           <img className="vignette-admin-list" src={props.vignette}></img>
@@ -23,7 +25,7 @@ export const OneRowAdmin = (props) => {
     );
   } else {
     return (
-      <div className="one-row">
+      <div className="one-row"  >
         <div className="elem ">{props.ordre}</div>
         <div className="elem image-elem">
           <img className="vignette-admin-list" src={props.vignette}></img>
