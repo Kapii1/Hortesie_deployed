@@ -8,6 +8,7 @@ import { ListProjectAdmin } from "./components/routes/list-admin/List-Project-ad
 import Login from "./components/routes/list-admin/Login";
 import { ReactComponent as HortesieLogo } from "./components/logo/Hortesie-rouge-et-or.svg";
 import { useLocation } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async';
 
 import Footer from "./footer";
 function App() {
@@ -25,6 +26,10 @@ function App() {
   }, [collapsed]);
   return (
     <div className="App">
+      <Helmet>
+        <title>{"Hortesie"}</title>
+        <link rel="canonical" href={"https://hortesie.fr"} />
+      </Helmet>
       <div className="top-container">
         <nav className="NavbarItems">
           <Link to="/" className="nav-title">

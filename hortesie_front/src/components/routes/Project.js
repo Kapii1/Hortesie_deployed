@@ -13,6 +13,7 @@ import { Link, useLocation } from "react-router-dom";
 import { after } from "underscore";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { API_URL } from "../../url";
+import { Helmet } from 'react-helmet-async';
 
 
 
@@ -44,6 +45,10 @@ export function Projets() {
   return (
     <div className="Grid-container"
       id="grid-projet">
+      <Helmet>
+        <title>{"Hortésie : Projets"}</title>
+        <link rel="canonical" href={"https://hortesie.fr/projets"} />
+      </Helmet>
       <Grid
         ref={gridRef}
         className="projets-container"

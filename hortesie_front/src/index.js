@@ -13,6 +13,7 @@ import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 //theme
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 //core
 import "primereact/resources/primereact.min.css";
 
@@ -21,8 +22,10 @@ import "primeicons/primeicons.css";
 
 ReactDOM.render(
   <Router>
-    <ReactNotifications />
-    <App />
+    <HelmetProvider>
+      <ReactNotifications />
+      <App />
+    </HelmetProvider>
   </Router>,
 
   document.getElementById("root")

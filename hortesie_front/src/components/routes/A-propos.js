@@ -1,8 +1,13 @@
 import React from "react";
 import "./A-propos.css";
+import { Helmet } from "react-helmet-async";
 export const Apropos = (props) => {
     return (
         <div className="container-page">
+            <Helmet>
+                <title>{"Hortésie : Projets"}</title>
+                <link rel="canonical" href={"https://hortesie.fr/a-propos"} />
+            </Helmet>
             <h1>A propos d'Hortésie</h1>
             <div className="a-propos-container">
                 L’Agence Hortésie développe depuis trente ans des projets de paysage.s : conception, maîtrise d’œuvre, études et conseils pour l’aménagement des espaces publics et des territoires.
