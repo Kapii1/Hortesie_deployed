@@ -37,7 +37,7 @@
 .admin-list {
     align-items: center;
     width: 50%;
-    height: calc(100vh);
+    height: calc(100dvh);
 }
 
 

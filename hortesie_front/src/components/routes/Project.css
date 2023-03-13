@@ -19,7 +19,7 @@
   padding: 1rem;
   -webkit-transition: opacity 2s;
   transition: opacity 2s;
-  min-height: 100vh;
+  min-height: 100dvh;
   opacity: 0;
 }
 
