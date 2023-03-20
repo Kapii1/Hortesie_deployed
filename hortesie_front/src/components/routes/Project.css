@@ -15,6 +15,10 @@
   width: 100%;
 }
 
+.MuiGrid-root {
+  margin-top: 0 !important;
+}
+
 .projets-container {
   padding: 1rem;
   -webkit-transition: opacity 2s;
@@ -40,4 +44,22 @@
 
 .MuiGrid-item {
   overflow: visible;
+}
+
+.searching-container {
+  height: 8vh;
+  background-color: rgb(243, 243, 243);
+  width: 80dvw;
+  margin: auto;
+  margin-top: 1rem;
+  border-radius: 5px;
+  display: flex;
+}
+
+.input-search {
+  width: 75%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr;
+  gap: 2rem;
 }
