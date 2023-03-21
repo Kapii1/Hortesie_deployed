@@ -82,6 +82,9 @@
     grid-column: span 2;
   }
 
+  .searching-container {
+    transform: translate(85%);
+  }
 
 }
 
