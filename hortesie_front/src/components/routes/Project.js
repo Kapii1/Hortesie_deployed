@@ -93,13 +93,12 @@ export function Projets() {
   }, []);
 
   useEffect(() => {
-    console.log("expand")
     if (state.isExpanded) {
       expander.current.style.transform = "none"
     } else if (window.innerWidth < 800) {
       expander.current.style.transform = "translate(80%)"
     } else {
-      expander.current.style.transform = "translate(90%)"
+      expander.current.style.transform = "translate(87%)"
     }
 
   }, [state.isExpanded])
@@ -115,7 +114,7 @@ export function Projets() {
         id="grid-projet" >
         <div className="searching-container" ref={expander}>
           <div className="expander-search" >
-            {!state.isExpanded && <MDBIcon fas icon="angle-left" size="2x" onClick={() => {
+            {!state.isExpanded && <MDBIcon fas icon="search" size="2x" onClick={() => {
               dispatch({ type: 'TOGGLE_EXPAND_SEARCH' })
             }} />}
             {state.isExpanded && <MDBIcon fas icon="angle-right" size="2x" onClick={() => {

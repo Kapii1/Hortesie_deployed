@@ -12,18 +12,18 @@
     .detail-ville {
         display: flex;
         margin-right: 20px;
+        flex-direction: column;
     }
 
     .annee-p {
-        position: absolute;
-        right: 0;
-        margin: 0;
-        margin-right: 5rem;
+        margin: auto;
+
     }
 
     .carousel-container {
         width: 50%;
         margin-left: 1rem;
+        margin-right: 1rem;
         display: flex;
     }
 
@@ -145,7 +145,7 @@
 
 
 
-@media (max-width: 1000px) and (orientation:portrait) {
+@media (max-width: 1000px) {
     .detail-ville {
         display: flex;
         flex-direction: column;
@@ -153,7 +153,7 @@
 
     .detail-container {
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: column;
         height: calc(100dvh - 4rem);
     }
 
@@ -176,17 +176,16 @@
 
     .carousel.carousel-slider {
         margin: auto !important;
-        max-height: 40vh;
+        max-height: 30vh;
     }
 
     img {
         width: auto;
-        max-height: 40vh;
+        max-height: 30vh;
         max-width: 100%;
     }
 
     .carousel-container {
-        height: 45vh;
         margin: 1rem;
     }
 

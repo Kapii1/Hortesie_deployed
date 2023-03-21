@@ -48,10 +48,10 @@
 
 .searching-container {
   background-color: rgb(253, 253, 253);
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 30px 40px -15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   position: fixed;
   transition: transform .7s ease-in-out;
-  z-index: 999;
+  z-index: 19;
   right: 0;
   margin: auto;
   margin-top: 1rem;
@@ -68,7 +68,7 @@
   }
 
   .searching-container {
-    transform: translate(90%);
+    transform: translate(87%);
   }
 }
 
@@ -109,4 +109,5 @@
   margin-top: auto;
   margin-bottom: auto;
   width: 10%;
+  cursor: pointer;
 }

@@ -43,7 +43,7 @@
 
 }
 
-@media (max-width: 1000px) and (orientation:portrait) {
+@media (max-width: 1000px) {
   .title-card {
     position: absolute;
     text-decoration: none;
