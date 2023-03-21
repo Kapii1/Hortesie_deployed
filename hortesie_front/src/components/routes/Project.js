@@ -25,20 +25,29 @@ export function Projets() {
     loading: true,
     error: '',
     items: [],
-    visibleItems: []
+    visibleItems: [],
+    isExpanded: false
   }
   const [isLoaded, setIsLoaded] = useState(false)
 
   const [state, dispatch] = useReducer(reducer, initialState)
+  const expander = useRef()
+
 
   function reducer(state, action) {
     switch (action.type) {
+      case 'TOGGLE_EXPAND_SEARCH':
+        return {
+          ...state,
+          isExpanded: !state.isExpanded
+        }
       case 'FETCH_SUCCESS':
         return {
+          ...state,
           loading: false,
           items: action.payload,
           error: '',
-          visibleItems: action.payload,
+          visibleItems: action.payload
         }
       case 'ORDER_BY_YEAR_ASC':
         return {
@@ -83,6 +92,18 @@ export function Projets() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    console.log("expand")
+    if (state.isExpanded) {
+      expander.current.style.transform = "none"
+    } else if (window.innerWidth < 800) {
+      expander.current.style.transform = "translate(80%)"
+    } else {
+      expander.current.style.transform = "translate(90%)"
+    }
+
+  }, [state.isExpanded])
+
   return (
     <>
       {!isLoaded ? <div className="spinner-loading">
@@ -92,8 +113,17 @@ export function Projets() {
 
       < div className="Grid-container"
         id="grid-projet" >
-        <div className="searching-container">
+        <div className="searching-container" ref={expander}>
+          <div className="expander-search" >
+            {!state.isExpanded && <MDBIcon fas icon="angle-left" size="2x" onClick={() => {
+              dispatch({ type: 'TOGGLE_EXPAND_SEARCH' })
+            }} />}
+            {state.isExpanded && <MDBIcon fas icon="angle-right" size="2x" onClick={() => {
+              dispatch({ type: 'TOGGLE_EXPAND_SEARCH' })
+            }} />}
+          </div>
           <div className="input-search">
+
             <input onChange={(e) => {
               dispatch({ type: "SEARCH", searchAttr: e.target.value.toLocaleLowerCase() })
             }}></input>
