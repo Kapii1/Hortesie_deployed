@@ -98,8 +98,9 @@ export function Projets() {
               dispatch({ type: "SEARCH", searchAttr: e.target.value.toLocaleLowerCase() })
             }}></input>
 
-            <MDBBtn onClick={() => { dispatch({ type: 'ORDER_BY_YEAR_ASC' }) }}><MDBIcon fas icon="sort-amount-up" /></MDBBtn>
-            <MDBBtn onClick={() => { dispatch({ type: 'ORDER_BY_YEAR_DESC' }) }}><MDBIcon fas icon="sort-amount-down" /></MDBBtn>
+            <MDBBtn className='btn-float' floating onClick={() => { dispatch({ type: 'ORDER_BY_YEAR_ASC' }) }}><MDBIcon fas icon="sort-amount-up" /></MDBBtn>
+            <MDBBtn className='btn-float' floating onClick={() => { dispatch({ type: 'ORDER_BY_YEAR_DESC' }) }}><MDBIcon fas icon="sort-amount-down" /></MDBBtn>
+
           </div>
 
         </div>
