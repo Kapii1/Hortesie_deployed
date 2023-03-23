@@ -1,13 +1,9 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
 import "./Project.css";
-import $ from 'jquery';
-import Card from "@mui/material/Card";
 import { AnimatePresence, motion } from "framer-motion";
 import Grid from "@mui/material/Grid";
 import { Routes, Route } from "react-router-dom";
 import { Projet } from "./OneProject";
-import { GridComponent } from "react-spring-animated-grid";
-import { SpringGrid } from "react-stonecutter";
 import Details from "./Details";
 import { Link, useLocation } from "react-router-dom";
 import { after } from "underscore";
@@ -16,7 +12,8 @@ import { API_URL } from "../../url";
 import { Helmet } from 'react-helmet-async';
 import { Spinner } from "react-spinner-animated";
 import { MDBIcon, MDBBtn } from "mdb-react-ui-kit";
-
+import CustomGrid from "./CustomGrid";
+import { CustomGridItem } from "./CustomGridItem";
 
 
 export function Projets() {
@@ -32,7 +29,7 @@ export function Projets() {
 
   const [state, dispatch] = useReducer(reducer, initialState)
   const expander = useRef()
-
+  const searchbar = useRef()
 
   function reducer(state, action) {
     switch (action.type) {
@@ -73,8 +70,10 @@ export function Projets() {
   }
   const gridRef = useRef()
   const onLoad = after(state.items.length, () => {
-    gridRef.current.className += " projets-container-loaded"
+    console.log('ok')
     setIsLoaded(true)
+    gridRef.current.className += " projets-container-loaded"
+
   });
 
   const fetchData = async () => {
@@ -113,17 +112,14 @@ export function Projets() {
       < div className="Grid-container"
         id="grid-projet" >
         <div className="searching-container" ref={expander}>
-          <div className="expander-search" >
-            {!state.isExpanded && <MDBIcon fas icon="search" size="2x" onClick={() => {
-              dispatch({ type: 'TOGGLE_EXPAND_SEARCH' })
-            }} />}
-            {state.isExpanded && <MDBIcon fas icon="angle-right" size="2x" onClick={() => {
-              dispatch({ type: 'TOGGLE_EXPAND_SEARCH' })
-            }} />}
+          <div className="expander-search" onClick={() => {
+            if (!state.isExpanded) { searchbar.current.focus() }
+            dispatch({ type: 'TOGGLE_EXPAND_SEARCH' })
+          }}>
+            <MDBIcon fas icon={!state.isExpanded ? "search" : "angle-right"} size="2x" />
           </div>
           <div className="input-search">
-
-            <input onChange={(e) => {
+            <input ref={searchbar} onChange={(e) => {
               dispatch({ type: "SEARCH", searchAttr: e.target.value.toLocaleLowerCase() })
             }}></input>
 
@@ -138,19 +134,13 @@ export function Projets() {
           <link rel="canonical" href={"https://hortesie.fr/projets"} />
         </Helmet>
 
-        <Grid
+
+        <CustomGrid
           ref={gridRef}
-          className="projets-container"
-          id="projets-grid-container"
-          container
-          spacing={{ xs: 2, sm: 4, md: 6 }}
-          columns={{ xs: 4, sm: 9, md: 11 }}
-          justifyContent="center"
-          alignItems="center"
-        >
+          className="projets-container">
           {state.visibleItems &&
             state.visibleItems.map((item, i) => (
-              <Grid className="projet" item xs={2} sm={4} md={2.5}>
+              <CustomGridItem className="projet" >
                 <Link to={item.id}>
                   <motion.div key={i}>
                     <Projet
@@ -163,9 +153,12 @@ export function Projets() {
                     />
                   </motion.div>
                 </Link>
-              </Grid>
+              </CustomGridItem>
             ))}
-        </Grid>
+
+        </CustomGrid>
+
+
         <Routes location={location} key={location.key}>
           <Route path="/" />
           <Route path="/:id" element={<Details />} />

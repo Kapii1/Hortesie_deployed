@@ -1,26 +1,23 @@
 .vignette {
-  border-radius: 2px;
   width: 100%;
 }
 
-.card {
-  display: flex;
-  flex-direction: row;
-  overflow: visible;
+.card-grid {
   transition: 0.4s;
-  max-height: 25vh;
+  overflow: hidden;
   filter: grayscale(80%);
+  border-radius: 3px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
 
 }
 
 @media (min-width: 1000px) {
-  .card:hover {
+  .card-grid:hover {
     transform: scale(1.04);
     filter: grayscale(0%);
   }
 
-  .card:hover .title-card {
+  .card-grid:hover .title-card {
     opacity: 1;
     transform: translate(0, 0);
   }
@@ -64,7 +61,6 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
   transition: 2s;
 }
 

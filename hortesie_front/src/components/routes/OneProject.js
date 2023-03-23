@@ -13,8 +13,7 @@ export function Projet(props) {
   return (
     <div
       onClick={() => setIsOpen(!isOpen)}
-      className="card"
-      style={{ borderRadius: "7px" }}
+      className="card-grid"
     >
       <div className="sub-card"
       >

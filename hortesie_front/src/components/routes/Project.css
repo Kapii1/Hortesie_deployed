@@ -1,8 +1,3 @@
-.test {
-  color: white;
-  background-color: black;
-}
-
 .projet {
   margin: 10px;
 }
@@ -12,39 +7,33 @@
 }
 
 .card {
-  width: 100%;
+  width: fit-content;
 }
 
-.MuiGrid-root {
-  margin-top: 0 !important;
-}
 
 .projets-container {
+  display: grid;
   padding: 1rem;
+  margin: 2rem;
   -webkit-transition: opacity 2s;
   transition: opacity 2s;
-  min-height: 100dvh;
-  opacity: 0;
+  min-height: 60svh;
 }
+
 
 .projets-container-loaded {
   opacity: 1;
 }
 
-.MuiGrid-item {
-  overflow: hidden;
-}
 
 .Grid-container {
-  min-width: 100vw;
+  min-width: 100svw;
   padding-top: 4rem;
   padding-bottom: 4rem;
   background-color: white;
 }
 
-.MuiGrid-item {
-  overflow: visible;
-}
+
 
 .searching-container {
   background-color: rgb(253, 253, 253);
@@ -67,8 +56,25 @@
     gap: 2vw;
   }
 
+  .projets-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: max-content;
+    gap: 3em;
+  }
+
   .searching-container {
     transform: translate(87%);
+  }
+}
+
+@media (min-width:800px) and (max-width: 1000px) {
+  .projets-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: max-content;
+
+    gap: 3em;
   }
 }
 
@@ -76,6 +82,13 @@
   .input-search {
     grid-template-columns: 1fr 1fr;
     gap: 2vw;
+  }
+
+  .projets-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: max-content;
+    gap: 2em;
   }
 
   .input-search input {
