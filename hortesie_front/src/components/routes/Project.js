@@ -60,7 +60,6 @@ export function Projets() {
         return {
           ...state,
           visibleItems: state.items.filter((item) => {
-            console.log(item.nom)
             return (item.nom.toLowerCase().includes(action.searchAttr) | item.ville.toLowerCase().includes(action.searchAttr))
           })
         }
