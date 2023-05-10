@@ -63,6 +63,20 @@ export function Projets() {
             return (item.nom.toLowerCase().includes(action.searchAttr) | item.ville.toLowerCase().includes(action.searchAttr))
           })
         }
+      case 'PROJECTS':
+        return {
+          ...state,
+          visibleItems: state.items.filter(
+            (item) => item.type === "projet"
+          )
+        }
+      case 'ETUDES':
+        return {
+          ...state,
+          visibleItems: state.items.filter(
+            (item) => item.type === "etudes"
+          )
+        }
       default:
         return state
     }
@@ -96,11 +110,11 @@ export function Projets() {
     } else if (window.innerWidth < 800) {
       expander.current.style.transform = "translate(80%)"
     } else {
-      expander.current.style.transform = "translate(87%)"
+      expander.current.style.transform = "translate(86%)"
     }
 
   }, [state.isExpanded])
-
+  console.log(state)
   return (
     <>
       {!isLoaded ? <div className="spinner-loading">
@@ -124,7 +138,10 @@ export function Projets() {
 
             <MDBBtn className='btn-float' floating onClick={() => { dispatch({ type: 'ORDER_BY_YEAR_ASC' }) }}><MDBIcon fas icon="sort-amount-up" /></MDBBtn>
             <MDBBtn className='btn-float' floating onClick={() => { dispatch({ type: 'ORDER_BY_YEAR_DESC' }) }}><MDBIcon fas icon="sort-amount-down" /></MDBBtn>
-
+            <div className="btn-container">
+              <MDBBtn onClick={() => { dispatch({ type: 'PROJECTS' }) }}>Projets</MDBBtn>
+              <MDBBtn onClick={() => { dispatch({ type: 'ETUDES' }) }}>Etudes</MDBBtn>
+            </div>
           </div>
 
         </div>

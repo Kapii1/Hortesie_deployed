@@ -10,6 +10,12 @@
   width: fit-content;
 }
 
+.btn-container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+
+  gap: 1em;
+}
 
 .projets-container {
   display: grid;
@@ -122,6 +128,6 @@
   display: flex;
   margin-top: auto;
   margin-bottom: auto;
-  width: 10%;
   cursor: pointer;
+  width: 20px;
 }
