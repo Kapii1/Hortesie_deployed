@@ -234,6 +234,7 @@ app.post("/replace_index", async (req, res) => {
     id,
   ], (err, rows) => {
     res.status(200).send({ msg: "Changed" })
+    console.log(err)
   })
 })
 
