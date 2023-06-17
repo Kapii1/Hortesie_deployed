@@ -58,7 +58,14 @@
   color: white;
 }
 
+.arrow-link {
+  position: relative;
+}
 
+.arrow-icon {
+  position: absolute;
+  right: 10%;
+}
 
 .title {
   text-align: center;
