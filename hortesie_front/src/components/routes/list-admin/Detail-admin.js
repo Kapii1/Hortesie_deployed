@@ -272,13 +272,7 @@ export function DetailAdmin(props) {
             className="form-projet"
             defaultValue={data[0].ville}
           ></TextField>
-          <label className="label-detail">Position du projet</label>
-          <TextField
-            id="ordre-projet"
-            className="form-projet"
-            defaultValue={data[0].ordre}
-            inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-          ></TextField>
+
           <div className="image-admin-container">
             <div className="add-photo-button">
 
