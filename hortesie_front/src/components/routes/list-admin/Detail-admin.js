@@ -1,32 +1,17 @@
 import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { useParams } from "react-router-dom";
-import Detailadmin from "./Detailadmin.css";
-import ImageList from "@mui/material/ImageList";
-import {
-  MDBBtn,
-  MDBModal,
-  MDBModalDialog,
-  MDBModalContent,
-  MDBModalHeader,
-  MDBModalTitle,
-  MDBModalBody,
-  MDBModalFooter,
-} from 'mdb-react-ui-kit';
 import SaveIcon from "@mui/icons-material/Save";
-import ImageListItem from "@mui/material/ImageListItem";
-import { Button, IconButton } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+import { Button } from "@mui/material";
 import { Store } from 'react-notifications-component';
 
 // Import toastify css file
 
 // toast-configuration method,
 // it is compulsory method.
-import { v4 as uuidv4 } from "uuid";
 import { API_URL } from "../../../url";
 import Del_button from "./Del_button";
+import Dndbutton from "./Dndbutton";
 function useForceUpdate() {
   const [value, setValue] = useState(0); // integer state
   return () => setValue((value) => value + 1); // update state to force render
@@ -155,8 +140,8 @@ export function DetailAdmin(props) {
     onReRender();
     setVignetteHasChanged(!vignetteHasChanged);
   };
-  const imageHandler = async (event) => {
-    event.preventDefault();
+  const imageHandler = async (file) => {
+
     Store.addNotification({
       title: "Vos images sont en cours d'envoi",
       message: "Veuillez patienter vos images s'envoient.",
@@ -172,7 +157,7 @@ export function DetailAdmin(props) {
     });
     const data2 = new FormData();
     data2.append("idProjet", id);
-    const file_photo = event.target.files;
+    const file_photo = file;
 
     for (let i = 0; i < file_photo.length; i++) {
       data2.append("file", file_photo[i]);
@@ -232,14 +217,7 @@ export function DetailAdmin(props) {
     }
   };
 
-  const hiddenFileInput = React.useRef(null);
-  const hiddenFileInput_photos = React.useRef(null);
-  const handleClick = (event) => {
-    hiddenFileInput.current.click();
-  };
-  const handleClick_photo = (event) => {
-    hiddenFileInput_photos.current.click();
-  };
+
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(API_URL + "/projets/" + id, {
@@ -303,25 +281,8 @@ export function DetailAdmin(props) {
           ></TextField>
           <div className="image-admin-container">
             <div className="add-photo-button">
-              <input
-                multiple
-                name="file"
-                style={{ display: "none" }}
-                accept="image/*"
-                ref={hiddenFileInput_photos}
-                type="file"
-                onChange={(event) => {
-                  const file = event.target.files;
-                  imageHandler(event);
-                }}
-              />
-              <Button
-                endIcon={<AddIcon></AddIcon>}
-                type="button"
-                onClick={handleClick_photo}
-              >
-                Ajouter des photos
-              </Button>
+
+              <Dndbutton handleClick_photo={imageHandler} />
             </div>
             <div className="header-admin-container">
               <th className="header-admin">Vignette</th>
