@@ -15,12 +15,7 @@ import mimetypes
 def generate_uid():
     return str(uuid.uuid1())
 
-def update_toc(docx_file):
-    word = win32com.client.DispatchEx("Word.Application")
-    doc = word.Documents.Open(docx_file)
-    doc.TablesOfContents(1).Update()
-    doc.Close(SaveChanges=True)
-    word.Quit()
+
 def extract_headings_with_content(doc):
     headings = []
     current_heading = None
@@ -119,21 +114,38 @@ def delete_all_title(doc,match_dict):
 
 
      headings= get_structure(doc)
-     for index, heading in enumerate(headings):
-        if any(heading["title"] == item.get('title') and  len(heading["content"]) > 0 and  heading["content"][0][:10] == item.get('content')[0][:10] for item in match_dict):
-            print('deleting', heading) 
+     index = 0
+     print(len(headings))
+     while index <len(headings):
+        heading = headings[index]
+        if any(heading["title"] == item.get('title')  and  heading["content"] == item.get('content') for item in match_dict):
             for parag in heading["paragraph"]:
                 p = parag._element
                 p.getparent().remove(p)
                 p._element = None
-     
-     headings= get_structure(doc)
-     for index, heading in enumerate(headings):
-        if heading["content"] == [] and index+1< len(headings) and headings[index+1]['depth'] == heading["depth"]:
-            for parag in heading["paragraph"]:
-                p = parag._element
-                p.getparent().remove(p)
-                p._element = None
+            del headings[index]
+            index -=1
+        index +=1
+    #  headings= get_structure(doc)
+    #  index = 0
+    #  while index <len(headings):
+    #     reverse_index = len(headings) - index - 1
+    #     heading = headings[reverse_index]
+    #     if heading["content"] == [] and reverse_index+1< len(headings) and headings[reverse_index+1]['depth'] <= heading["depth"]:
+    #         print("in")
+    #         to_del= False
+    #         for parag in heading["paragraph"]:
+    #             p = parag._element
+
+    #             if p.getparent() is not None:
+    #                 p.getparent().remove(p)
+    #                 to_del=True
+    #             p._element = None
+    #         del headings[index]
+    #         if to_del:
+    #             index -=1
+    #     index += 1
+    #  print(len(headings))
      return headings
 
 def remove_heading(doc, match_dict):
