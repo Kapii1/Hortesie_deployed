@@ -28,7 +28,7 @@ export default function Toolpage() {
     const handleClickFile = () => {
         setLoading(true)
         setDownloadAsked(true)
-        fetch("http://127.0.0.1:8000/cctp_file/", {
+        fetch("https://hortesie.fr:8000/cctp_file/", {
             method: "POST",
             body: JSON.stringify({ values: unChecked }),
             headers: {
@@ -52,7 +52,7 @@ export default function Toolpage() {
         }, 2000)
     }
     useEffect(() => {
-        const res = fetch("http://127.0.0.1:8000/cctp_file/", {
+        const res = fetch("https://hortesie.fr:8000/cctp_file/", {
             method: "GET"
         }).then(res => {
             console.log(res.data)
