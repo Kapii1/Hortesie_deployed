@@ -105,7 +105,7 @@ function App() {
         <Route path="projets/*" exact element={<Projets />} />
         <Route path="contact" exact element={<Contact />} />
         <Route path="admin" exact element={<AdminAccueil />} />
-        <Route path="admin/projets" exact element={<ListProjectAdmin />} />
+        <Route path="admin/projets/*" exact element={<ListProjectAdmin />} />
         <Route path="admin/tools" exact element={<Toolpage />} />
       </Routes>
       {(location.pathname != "/" & !(location.pathname.includes("admin"))) ? <Footer></Footer> : ""}
