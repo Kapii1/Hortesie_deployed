@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-2@ay69s+t9h$v#+4x(-=!)&uwykea+t+ivs$c3kjioc)12jtyo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://hortesie.fr/*"]
+ALLOWED_HOSTS = ["https://hortesie.fr/*","hortesiedjango"]
 
 # Use in-memory caching for development (for production, consider using a more robust cache backend)
 CACHES = {
