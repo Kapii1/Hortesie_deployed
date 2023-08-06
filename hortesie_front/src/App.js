@@ -9,6 +9,8 @@ import Login from "./components/routes/list-admin/Login";
 import { ReactComponent as HortesieLogo } from "./components/logo/Hortesie-rouge-et-or.svg";
 import { useLocation } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async';
+import AdminAccueil from "./components/routes/list-admin/AdminAccueil";
+import Toolpage from "./components/routes/list-admin/EZtool/PageTools";
 
 import Footer from "./footer";
 function App() {
@@ -102,7 +104,9 @@ function App() {
         <Route path="a-propos" exact element={<Apropos />} />
         <Route path="projets/*" exact element={<Projets />} />
         <Route path="contact" exact element={<Contact />} />
-        <Route path="admin/*" exact element={<ListProjectAdmin />} />
+        <Route path="admin" exact element={<AdminAccueil />} />
+        <Route path="admin/projets" exact element={<ListProjectAdmin />} />
+        <Route path="admin/tools" exact element={<Toolpage />} />
       </Routes>
       {(location.pathname != "/" & !(location.pathname.includes("admin"))) ? <Footer></Footer> : ""}
     </div>

@@ -1,0 +1,27 @@
+.tool-container {
+    margin-top: 4rem;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+}
+
+.one-checkbox-item {
+    display: grid;
+    grid-template-columns: 15% 10% 80%;
+    align-items: center;
+}
+
+.list-title {
+    margin-top: 5vh;
+    margin-left: 5vw;
+    max-height: 91vh;
+    overflow: scroll;
+}
+
+.checkbox-input {
+    height: 20px;
+}
+
+.tool-control {
+    margin-top: 5vh;
+}

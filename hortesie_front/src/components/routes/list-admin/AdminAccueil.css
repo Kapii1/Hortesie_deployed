@@ -1,0 +1,22 @@
+.accueil {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Style the child elements (div) inside the accueil container */
+.accueil>div {
+    margin: 20px;
+    /* Add some margin between the child elements */
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+/* Optional: Make the child elements have the same width */
+.accueil>div {
+    flex: 1;
+}

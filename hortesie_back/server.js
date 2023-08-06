@@ -22,7 +22,6 @@ const jwt = require("jsonwebtoken");
 process.env.NODE_ENV = "production";
 const URL_DEST = require("./url_back").URL_DEST;
 const dir_vignette = URL_DEST + "images/vignettes/";
-console.log(URL_DEST);
 const verifyToken = (req, res, next) => {
   const token =
     req.body.token || req.query.token || req.headers["x-access-token"];
@@ -109,8 +108,19 @@ const storage = multer.diskStorage({
     cb(null, name);
   },
 });
+const doc_file_storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    // Set the destination folder where uploaded files will be stored
+    cb(null, "../hortesie_djangoapp/hortesie_django/files");
+  },
+  filename: (req, file, cb) => {
+    // Set the filename for the uploaded file
+    cb(null, "TEMPLATE_WORD_CCTP.docx");
+  }
+});
 
 const uploads = multer({ storage: storage }).array("file");
+const upload_docfile = multer({ storage: doc_file_storage })
 
 app.use("/static", express.static(path.join(__dirname, "/static")));
 app.use(
@@ -279,7 +289,6 @@ app.post("/add_image", (req, res) => {
     }
 
     req.files.forEach((file) => {
-      console.log(file.path);
       list_of_ids.push(
         file.path
           .replace(URL_DEST, "")
@@ -389,4 +398,12 @@ app.post("/del_projet", (req, res) => {
   console.log("Deleted project : ", req.body.id)
   res.send({ msg: "deleted" });
 });
+
+app.post("/replace_template", upload_docfile.single('file'), (req, res) => {
+  const imageName = req.file
+  console.log(imageName)
+  res.send({ imageName })
+
+})
+
 app.listen(PORT, console.log(`Server started on port ${PORT}`));

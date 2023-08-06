@@ -20,6 +20,7 @@ import useToken from "./useToken";
 import { New_Project } from "./New-project";
 import Del_button from "./Del_button"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import ImportFile from "./EZtool/Tool";
 
 
 function useForceUpdate() {
@@ -134,6 +135,8 @@ export function ListProjectAdmin() {
   return (
     <div className="all-admin-container">
       <div className="admin-button-container">
+
+        <ImportFile></ImportFile>
         <div className="button-admin add-project-admin">
           <Link
             style={{ textDecoration: "none", color: "black" }}
