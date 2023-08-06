@@ -5,14 +5,16 @@ import Login from "../Login";
 import './PageTools.css'
 import { Button } from "@mui/material";
 import Loader from "../Loader";
+import { API_URL } from "../../../../url";
 
 
-const IndentedLabel = ({ label, depth }) => {
+const IndentedLabel = ({ label, depth, className }) => {
     const indentation = `${depth * 30}px`; // You can adjust the indentation size as needed
 
     const style = {
         paddingLeft: indentation,
         textAlign: "start",
+        borderLeft: `${depth * 20}px solid black`,
     };
 
     return <div style={style}>{label}</div>;
@@ -38,7 +40,6 @@ export default function Toolpage() {
         }).then(res => res.blob())
             .then(res => forceDownload(res))
     }
-
     const forceDownload = (response) => {
         const url = window.URL.createObjectURL(new Blob([response]))
         const link = document.createElement('a')
@@ -62,6 +63,7 @@ export default function Toolpage() {
             parseStructure(res)
         })
     }, [])
+    const { token, setToken } = useToken();
 
     const updateChildrenChecked = (dataArray, index, isChecked) => {
         const item = dataArray[index];
@@ -124,8 +126,25 @@ export default function Toolpage() {
     }
 
     useEffect(() => {
-        console.log(structure)
-    })
+        fetch(API_URL + "/welcome_admin", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ token: token }),
+        })
+            .then((res) => res.text())
+            .then((res) => {
+                if (res == "not good") {
+                    setToken(false);
+                }
+            });
+    });
+
+    if (!token) {
+        return <Login setToken={setToken} />;
+    }
     return (<div className="tool-container">
         <div className="list-title">
             {structure && structure.map((item, index) => {
@@ -134,7 +153,7 @@ export default function Toolpage() {
                         {item.isDisplayed && item.isChildDisplayed ? <Button variant="contained" onClick={handleCollapse(index)}>Reduire</Button> : <span></span>}
                         {item.isDisplayed && <>
                             <input className="checkbox-input" type="checkbox" onChange={handleCheck(index)} checked={item.isChecked}></input>
-                            <IndentedLabel label={item.title} depth={item.depth} /></>}
+                            <IndentedLabel label={item.title} depth={item.depth} className="labels-indented" /></>}
                     </div>)
             })}
         </div>
