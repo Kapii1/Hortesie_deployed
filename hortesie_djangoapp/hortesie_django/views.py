@@ -126,26 +126,6 @@ def delete_all_title(doc,match_dict):
             del headings[index]
             index -=1
         index +=1
-    #  headings= get_structure(doc)
-    #  index = 0
-    #  while index <len(headings):
-    #     reverse_index = len(headings) - index - 1
-    #     heading = headings[reverse_index]
-    #     if heading["content"] == [] and reverse_index+1< len(headings) and headings[reverse_index+1]['depth'] <= heading["depth"]:
-    #         print("in")
-    #         to_del= False
-    #         for parag in heading["paragraph"]:
-    #             p = parag._element
-
-    #             if p.getparent() is not None:
-    #                 p.getparent().remove(p)
-    #                 to_del=True
-    #             p._element = None
-    #         del headings[index]
-    #         if to_del:
-    #             index -=1
-    #     index += 1
-    #  print(len(headings))
      return headings
 
 def remove_heading(doc, match_dict):
