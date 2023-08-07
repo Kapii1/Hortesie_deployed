@@ -27,6 +27,7 @@ export default function Toolpage() {
     const [Loading, setLoading] = useState(false)
     const [downloadAsked, setDownloadAsked] = useState(false)
     const [shouldReRender, setShouldReRender] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const handleClickFile = () => {
         const filename = "FICHER_CCTP"
         setLoading(true)
@@ -54,12 +55,14 @@ export default function Toolpage() {
         }, 2000)
     }
     useEffect(() => {
+        setIsLoading(true)
         const res = fetch("https://hortesie.fr:445/cctp_file/", {
             method: "GET"
         }).then(res => {
             return res.json()
         }).then(res => {
             parseStructure(res)
+            setIsLoading(false)
         })
     }, [shouldReRender])
     const { token, setToken } = useToken();
@@ -146,6 +149,7 @@ export default function Toolpage() {
     }
     return (<div className="tool-container">
         <div className="list-title">
+            {isLoading && <Loader loading={isLoading}></Loader>}
             {structure && structure.map((item, index) => {
                 return (
                     <div className="one-checkbox-item" key={item.title}>

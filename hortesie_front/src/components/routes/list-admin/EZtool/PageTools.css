@@ -23,6 +23,7 @@
 .list-title {
     margin-top: 5vh;
     margin-left: 5vw;
+    min-height: 100vh;
     overflow: scroll;
 }
 
