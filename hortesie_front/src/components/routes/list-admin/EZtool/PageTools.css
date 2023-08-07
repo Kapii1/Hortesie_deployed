@@ -3,6 +3,7 @@
     background-color: white;
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
 
 .one-checkbox-item {
@@ -22,7 +23,6 @@
 .list-title {
     margin-top: 5vh;
     margin-left: 5vw;
-    max-height: 91vh;
     overflow: scroll;
 }
 
@@ -32,6 +32,15 @@
 
 .tool-control {
     margin-top: 5vh;
+    position: fixed;
+    width: 20vw;
+    bottom: 0;
+    right: 0;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background-color: white;
+    border-radius: 10px;
+    margin: 20px;
+    padding: 20px;
 }
 
 .collapsing-button {
