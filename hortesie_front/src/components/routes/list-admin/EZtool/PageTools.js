@@ -14,7 +14,6 @@ const IndentedLabel = ({ label, depth, className }) => {
     const style = {
         paddingLeft: indentation,
         textAlign: "start",
-        borderLeft: `${depth * 20}px solid black`,
     };
 
     return <div style={style}>{label}</div>;
@@ -27,24 +26,26 @@ export default function Toolpage() {
     const [unChecked, setUnChecked] = useState([])
     const [Loading, setLoading] = useState(false)
     const [downloadAsked, setDownloadAsked] = useState(false)
+    const [shouldReRender, setShouldReRender] = useState(false)
     const handleClickFile = () => {
+        const filename = "FICHER_CCTP"
         setLoading(true)
         setDownloadAsked(true)
         fetch("https://hortesie.fr:445/cctp_file/", {
             method: "POST",
-            body: JSON.stringify({ values: unChecked }),
+            body: JSON.stringify({ values: unChecked, filename: filename }),
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
             },
         }).then(res => res.blob())
-            .then(res => forceDownload(res))
+            .then(res => forceDownload(res, filename))
     }
-    const forceDownload = (response) => {
+    const forceDownload = (response, filename) => {
         const url = window.URL.createObjectURL(new Blob([response]))
         const link = document.createElement('a')
         link.href = url
-        link.setAttribute('download', 'test.docx')
+        link.setAttribute('download', `${filename}.docx`)
         document.body.appendChild(link)
         link.click()
         setLoading(false)
@@ -56,13 +57,11 @@ export default function Toolpage() {
         const res = fetch("https://hortesie.fr:445/cctp_file/", {
             method: "GET"
         }).then(res => {
-            console.log(res.data)
             return res.json()
         }).then(res => {
-
             parseStructure(res)
         })
-    }, [])
+    }, [shouldReRender])
     const { token, setToken } = useToken();
 
     const updateChildrenChecked = (dataArray, index, isChecked) => {
@@ -150,7 +149,10 @@ export default function Toolpage() {
             {structure && structure.map((item, index) => {
                 return (
                     <div className="one-checkbox-item" key={item.title}>
-                        {item.isDisplayed && item.isChildDisplayed ? <Button variant="contained" onClick={handleCollapse(index)}>Reduire</Button> : <span></span>}
+                        {item.isDisplayed && item.isChildDisplayed ? (<div onClick={handleCollapse(index)} className="collapsing-button">
+                            {(structure[index + 1].isDisplayed) ?
+                                <>-</> : <>+</>}
+                        </div>) : <span></span>}
                         {item.isDisplayed && <>
                             <input className="checkbox-input" type="checkbox" onChange={handleCheck(index)} checked={item.isChecked}></input>
                             <IndentedLabel label={item.title} depth={item.depth} className="labels-indented" /></>}
@@ -160,7 +162,7 @@ export default function Toolpage() {
 
         <div className="tool-control">
             <Button variant="contained" onClick={handleClickFile}>Générer le fichier</Button>
-            <ImportFile></ImportFile>
+            <ImportFile setShouldReRender={setShouldReRender}></ImportFile>
             {downloadAsked && <Loader loading={Loading}></Loader>}
         </div>
     </div>)

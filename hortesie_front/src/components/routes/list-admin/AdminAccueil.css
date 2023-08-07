@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-color: white;
 }
 
 /* Style the child elements (div) inside the accueil container */
@@ -17,6 +18,19 @@
 }
 
 /* Optional: Make the child elements have the same width */
-.accueil>div {
+.accueil>* {
     flex: 1;
+    padding: 20px;
+}
+
+.admin-links {
+    text-decoration: none;
+    color: black;
+    transition: ease-in-out .5s;
+}
+
+.admin-links:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+    color: black;
 }

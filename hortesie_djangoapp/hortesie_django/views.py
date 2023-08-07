@@ -156,6 +156,7 @@ class GenerateCSVAPIView(APIView):
         return response
     def post(self, request):
         values = json.loads(request.body.decode('utf-8')).get("values")
+        filename = json.loads(request.body.decode('utf-8')).get("filename")
         doc=Document("hortesie_django/files/TEMPLATE_WORD_CCTP.docx")
         remove_heading(doc,values)
         file_path = "hortesie_django/files/TEMPLATE_WORD_CCTP_temp.docx"
@@ -163,6 +164,6 @@ class GenerateCSVAPIView(APIView):
             doc_data = file.read()
         # sending response 
         response = HttpResponse(doc_data, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-        response['Content-Disposition'] = 'attachment; filename="test.docx"'
+        response['Content-Disposition'] = f'attachment; filename="{filename}.docx"'
 
         return response

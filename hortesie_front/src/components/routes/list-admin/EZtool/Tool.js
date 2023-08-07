@@ -3,7 +3,7 @@ import { API_URL } from "../../../../url";
 import { Button } from "@mui/material";
 
 
-export default function ImportFile() {
+export default function ImportFile({ setShouldReRender }) {
     const [file, setFile] = useState()
     const [description, setDescription] = useState("")
 
@@ -16,7 +16,9 @@ export default function ImportFile() {
             {
                 method: "POST",
                 body: formData,
-            }).then(res => console.log(res))
+            }).then(res => console.log(res)).then(() => {
+                setShouldReRender(item => !item)
+            })
         // Send the file and description to the server
     }
 

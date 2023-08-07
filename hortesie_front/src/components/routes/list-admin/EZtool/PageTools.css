@@ -7,8 +7,16 @@
 
 .one-checkbox-item {
     display: grid;
-    grid-template-columns: 15% 10% 80%;
+    grid-template-columns: 5% 10% 85%;
     align-items: center;
+}
+
+.labels-indented::before {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    background-color: black;
 }
 
 .list-title {
@@ -24,4 +32,18 @@
 
 .tool-control {
     margin-top: 5vh;
+}
+
+.collapsing-button {
+    padding: 2.5px 5px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.collapsing-button:hover {
+    background-color: #2980b9;
 }

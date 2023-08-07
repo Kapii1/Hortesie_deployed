@@ -13,12 +13,16 @@ export default function AdminAccueil() {
     }
     return (
         <div className="accueil">
-            <div>
-                <Link to="projets">Projets</Link>
-            </div>
-            <div>
-                <Link to='tools'> Outils CCTP</Link>
-            </div>
+
+            <Link className="admin-links" to="projets"><div>Projets</div></Link>
+
+
+            <Link className="admin-links" to='tools'>
+                <div>
+                    Outils CCTP
+                </div>
+            </Link>
+
         </div>
     )
 }
