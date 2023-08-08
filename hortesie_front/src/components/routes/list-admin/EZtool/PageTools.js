@@ -5,7 +5,7 @@ import Login from "../Login";
 import './PageTools.css'
 import { Button } from "@mui/material";
 import Loader from "../Loader";
-import { API_URL } from "../../../../url";
+import { API_URL, DJANGO_URL } from "../../../../url";
 
 
 const IndentedLabel = ({ label, depth, className }) => {
@@ -32,7 +32,7 @@ export default function Toolpage() {
         const filename = "FICHER_CCTP"
         setLoading(true)
         setDownloadAsked(true)
-        fetch("https://hortesie.fr:445/cctp_file/", {
+        fetch(DJANGO_URL + "/cctp_file/", {
             method: "POST",
             body: JSON.stringify({ values: unChecked, filename: filename }),
             headers: {
@@ -56,7 +56,7 @@ export default function Toolpage() {
     }
     useEffect(() => {
         setIsLoading(true)
-        const res = fetch("https://hortesie.fr:445/cctp_file/", {
+        const res = fetch(DJANGO_URL + "/cctp_file/", {
             method: "GET"
         }).then(res => {
             return res.json()
