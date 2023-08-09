@@ -1,14 +1,14 @@
 .a-propos-container {
-    width: 80vw;
-    margin-left: auto;
-    margin-right: auto;
+    width: 100%;
     text-align: justify;
     margin-top: 2rem;
 }
 
 .container-page {
     width: 100%;
-    padding-top: 6rem;
+    padding-left: 20rem;
+    padding-right: 20rem;
     background: white;
+    padding-top: 6rem;
     padding-bottom: 6rem;
 }

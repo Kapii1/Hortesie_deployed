@@ -6,6 +6,7 @@ import './PageTools.css'
 import { Button } from "@mui/material";
 import Loader from "../Loader";
 import { API_URL, DJANGO_URL } from "../../../../url";
+import RepositionableComponent from "../DraggableComponent";
 
 
 const IndentedLabel = ({ label, depth, className }) => {
@@ -163,11 +164,12 @@ export default function Toolpage() {
                     </div>)
             })}
         </div>
-
-        <div className="tool-control">
-            <Button variant="contained" onClick={handleClickFile}>Générer le fichier</Button>
-            <ImportFile setShouldReRender={setShouldReRender}></ImportFile>
-            {downloadAsked && <Loader loading={Loading}></Loader>}
-        </div>
+        <RepositionableComponent>
+            <div className="tool-control">
+                <Button variant="contained" onClick={handleClickFile}>Générer le fichier</Button>
+                <ImportFile setShouldReRender={setShouldReRender}></ImportFile>
+                {downloadAsked && <Loader loading={Loading}></Loader>}
+            </div>
+        </RepositionableComponent>
     </div>)
 }

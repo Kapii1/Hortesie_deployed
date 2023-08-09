@@ -2,7 +2,7 @@ import React, { useEffect, useReducer, useRef, useState } from "react";
 import "./Project.css";
 import { AnimatePresence, motion } from "framer-motion";
 import Grid from "@mui/material/Grid";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, json } from "react-router-dom";
 import { Projet } from "./OneProject";
 import Details from "./Details";
 import { Link, useLocation } from "react-router-dom";
@@ -15,8 +15,58 @@ import { MDBIcon, MDBBtn } from "mdb-react-ui-kit";
 import CustomGrid from "./CustomGrid";
 import { CustomGridItem } from "./CustomGridItem";
 
+function reducer(state, action) {
+  switch (action.type) {
+    case 'TOGGLE_EXPAND_SEARCH':
+      return {
+        ...state,
+        isExpanded: !state.isExpanded
+      }
+    case 'FETCH_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        items: action.payload,
+        error: '',
+        visibleItems: action.payload
+      }
+    case 'ORDER_BY_YEAR_ASC':
+      return {
+        ...state,
+        visibleItems: state.items.sort((item1, item2) => item1.date - item2.date)
+      }
+    case 'ORDER_BY_YEAR_DESC':
+      return {
+        ...state,
+        visibleItems: state.items.sort((item1, item2) => item2.date - item1.date)
+      }
+    case 'SEARCH':
+      return {
+        ...state,
+        visibleItems: state.items.filter((item) => {
+          return (item.nom.toLowerCase().includes(action.searchAttr) | item.ville.toLowerCase().includes(action.searchAttr))
+        })
+      }
+    case 'PROJECTS':
+      return {
+        ...state,
+        visibleItems: state.items.filter(
+          (item) => item.type === "projet"
+        )
+      }
+    case 'ETUDES':
+      return {
+        ...state,
+        visibleItems: state.items.filter(
+          (item) => item.type === "etude"
+        )
+      }
+    default:
+      return state
+  }
+}
 
-export function Projets() {
+export function Projets({ filter }) {
   const location = useLocation();
   const initialState = {
     loading: true,
@@ -31,62 +81,11 @@ export function Projets() {
   const expander = useRef()
   const searchbar = useRef()
 
-  function reducer(state, action) {
-    switch (action.type) {
-      case 'TOGGLE_EXPAND_SEARCH':
-        return {
-          ...state,
-          isExpanded: !state.isExpanded
-        }
-      case 'FETCH_SUCCESS':
-        return {
-          ...state,
-          loading: false,
-          items: action.payload,
-          error: '',
-          visibleItems: action.payload
-        }
-      case 'ORDER_BY_YEAR_ASC':
-        return {
-          ...state,
-          visibleItems: state.items.sort((item1, item2) => item1.date - item2.date)
-        }
-      case 'ORDER_BY_YEAR_DESC':
-        return {
-          ...state,
-          visibleItems: state.items.sort((item1, item2) => item2.date - item1.date)
-        }
-      case 'SEARCH':
-        return {
-          ...state,
-          visibleItems: state.items.filter((item) => {
-            return (item.nom.toLowerCase().includes(action.searchAttr) | item.ville.toLowerCase().includes(action.searchAttr))
-          })
-        }
-      case 'PROJECTS':
-        return {
-          ...state,
-          visibleItems: state.items.filter(
-            (item) => item.type === "projet"
-          )
-        }
-      case 'ETUDES':
-        return {
-          ...state,
-          visibleItems: state.items.filter(
-            (item) => item.type === "etudes"
-          )
-        }
-      default:
-        return state
-    }
-  }
+
   const gridRef = useRef()
-  const onLoad = after(state.items.length, () => {
-    console.log('ok')
+  const onLoad = after(state.visibleItems.length, () => {
     setIsLoaded(true)
     gridRef.current.className += " projets-container-loaded"
-
   });
 
   const fetchData = async () => {
@@ -115,6 +114,17 @@ export function Projets() {
 
   }, [state.isExpanded])
   console.log(state)
+
+  useEffect(() => {
+
+    if (filter === 'projets') {
+      console.log("in projetcs")
+      dispatch({ type: 'PROJECTS' })
+    } else if (filter === 'etudes') {
+      console.log("in studies")
+      dispatch({ type: 'ETUDES' })
+    }
+  }, [location])
   return (
     <>
       {!isLoaded ? <div className="spinner-loading">

@@ -1,0 +1,14 @@
+.draggable {
+    position: absolute;
+    width: 200px;
+    height: 100px;
+    background-color: #3498db;
+    color: white;
+    border-radius: 5px;
+    cursor: grab;
+    user-select: none;
+}
+
+.dragging {
+    cursor: grabbing;
+}

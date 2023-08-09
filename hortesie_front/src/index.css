@@ -1,5 +1,5 @@
 body {
-  background-image: url('IMG_3316.JPG');
+  background-image: url('IMG_8097 (2).jpg');
   background-attachment: fixed;
   background-position: bottom;
   margin: 0px;
@@ -7,13 +7,13 @@ body {
   scrollbar-width: none;
   scroll-behavior: smooth;
   overflow-y: hidden;
-  /* Hide vertical scrollbar */
+  font-family: 'Comfortaa' !important
+    /* Hide vertical scrollbar */
 }
 
 html {
   overflow: scroll;
   overflow-x: hidden;
-  font-family: "Century Gothic", sans-serif;
   height: 100% !important;
 }
 

@@ -30,6 +30,14 @@ export function Contact(props) {
                     11 rue des Saules,
                     95450 Vigny France
                 </div>
+                <div className="titre">
+                    LinkedIn :
+                </div>
+                <div className="contact-data">
+                    <a href="https://www.linkedin.com/company/hort%C3%A9sie/" className="linkdin" target="_blank">
+                        <img src={require("./icons8-linkedin-48.png")} />
+                        Hortesie</a>
+                </div>
             </div>
         </div>
     )

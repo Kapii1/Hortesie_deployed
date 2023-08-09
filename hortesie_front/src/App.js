@@ -1,7 +1,7 @@
 import "./App.css";
 import { Projets } from "./components/routes/Project";
 import { Routes, Route, Link } from "react-router-dom";
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useRef, useState } from "react";
 import { Apropos } from "./components/routes/A-propos";
 import { Contact } from "./components/routes/Contact";
 import { ListProjectAdmin } from "./components/routes/list-admin/List-Project-admin";
@@ -16,16 +16,22 @@ import Footer from "./footer";
 function App() {
   const [color, changeColor] = useState("#282c34");
   const [collapsed, setCollapsed] = useState(false);
+  const navBarRef = useRef()
   const location = useLocation();
   console.log(!(location.pathname.includes("admin")))
   useEffect(() => {
     const navbar = document.getElementsByClassName("navbar-ul")[0];
     const menu_icon = document.getElementsByClassName("menu-icon")[0];
     navbar.style.left = collapsed ? "0" : "100vw";
-    menu_icon.style.transform = collapsed
-      ? "translateX(-75vw)"
-      : "translateX(-5vw)";
+
   }, [collapsed]);
+  useEffect(() => {
+    if (location.pathname === "/") {
+      navBarRef.current.style.backgroundColor = "transparent"
+    } else {
+      navBarRef.current.style.backgroundColor = "white"
+    }
+  }, [location])
   return (
     <div className="App">
       <Helmet>
@@ -33,7 +39,7 @@ function App() {
         <link rel="canonical" href={"https://hortesie.fr"} />
       </Helmet>
       <div className="top-container">
-        <nav className="NavbarItems">
+        <nav className="NavbarItems" ref={navBarRef}>
           <Link to="/" className="nav-title">
             <div className="navbar-logo">
               <div className="logo-container">
@@ -71,6 +77,30 @@ function App() {
             </li>
             <li className="navbar-li">
               <Link
+                to="/etudes"
+                prefetch={false}
+                className="nav-links"
+                onClick={async () => {
+                  setCollapsed(!collapsed);
+                }}
+              >
+                Études
+              </Link>
+            </li>
+            <li className="navbar-li">
+              <Link
+                to="/articles"
+                prefetch={false}
+                className="nav-links"
+                onClick={async () => {
+                  setCollapsed(!collapsed);
+                }}
+              >
+                Articles
+              </Link>
+            </li>
+            <li className="navbar-li">
+              <Link
                 to="/contact"
                 className="nav-links"
                 onClick={async () => {
@@ -102,7 +132,9 @@ function App() {
       <Routes>
         <Route path="/" />
         <Route path="a-propos" exact element={<Apropos />} />
-        <Route path="projets/*" exact element={<Projets />} />
+        <Route path="projets/*" exact element={<Projets filter="projets" />} />
+        <Route path="etudes/*" exact element={<Projets filter="etudes" />} />
+        <Route path="articles/" exact element={<Projets filter="etudes" />} />
         <Route path="contact" exact element={<Contact />} />
         <Route path="admin" exact element={<AdminAccueil />} />
         <Route path="admin/projets/*" exact element={<ListProjectAdmin />} />

@@ -17,6 +17,11 @@
     grid-template-columns: repeat(2, 1fr);
 }
 
+.linkdin {
+    align-items: center;
+    display: flex;
+}
+
 .titre {
     text-align: center;
 

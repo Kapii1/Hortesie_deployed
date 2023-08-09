@@ -8,7 +8,6 @@ export const Apropos = (props) => {
                 <title>{"Hortésie : Projets"}</title>
                 <link rel="canonical" href={"https://hortesie.fr/a-propos"} />
             </Helmet>
-            <h1>A propos d'Hortésie</h1>
             <div className="a-propos-container">
                 L’Agence Hortésie développe depuis trente ans des projets de paysage.s : conception, maîtrise d’œuvre, études et conseils pour l’aménagement des espaces publics et des territoires.
                 L’agence allie la conception, l’expertise technique, l’économie de l’aménagement et la direction de chantier.

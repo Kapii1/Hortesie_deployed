@@ -26,7 +26,7 @@ export function Detail(props) {
     <div className="detail-container">
 
       <motion.div className="text-container">
-        <div className="detail-title">{props.item[0].nom}</div>
+        <div className="detail-title">{props.item[0].nom.toUpperCase()}</div>
         <div className="detail-ville">
           <div className="ville-p">{props.item[0].ville} </div>
           <div className="annee-p">{props.item[0].annee}</div>

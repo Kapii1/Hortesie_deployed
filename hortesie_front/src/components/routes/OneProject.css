@@ -29,7 +29,6 @@
     color: white;
     bottom: 10%;
     font-weight: 500;
-    font-family: "Century Gothic", sans-serif;
     font-size: 2rem;
     width: 100%;
     text-align: center;
@@ -67,9 +66,9 @@
 .description {
   text-align: left;
   text-justify: auto;
-  padding-left: 20px;
+  padding-left: 60px;
   scrollbar-width: none;
-  padding-right: 20px;
+  padding-right: 60px;
 }
 
 .title-description {
