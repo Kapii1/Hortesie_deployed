@@ -31,7 +31,7 @@ export function Detail(props) {
           <div className="ville-p">{props.item[0].ville} </div>
           <div className="annee-p">{props.item[0].annee}</div>
         </div>
-        <div className="description">{props.item[0].description}</div>
+        <div className="description" dangerouslySetInnerHTML={{ __html: props.item[0].description }} />
 
       </motion.div>
       <div ref={carouselRef} className="carousel-container">

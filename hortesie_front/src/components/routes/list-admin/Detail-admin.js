@@ -12,6 +12,8 @@ import { Store } from 'react-notifications-component';
 import { API_URL } from "../../../url";
 import Del_button from "./Del_button";
 import Dndbutton from "./Dndbutton";
+import TextEditor from "./TextEditor";
+import SegmentedControl from "./SegmentedControl";
 function useForceUpdate() {
   const [value, setValue] = useState(0); // integer state
   return () => setValue((value) => value + 1); // update state to force render
@@ -32,7 +34,13 @@ export function DetailAdmin(props) {
   const [fileName, setFileName] = useState("");
   const [vignetteHasChanged, setVignetteHasChanged] = useState();
   const [basicModal, setBasicModal] = useState(false);
+  const [editorValue, setEditorValue] = useState();
 
+  const handleEditorChange = (value) => {
+    setEditorValue(value);
+  };
+  const options = ['projet', 'etude'];
+  const [selectedOption, setSelectedOption] = useState();
   const toggleShow = () => setBasicModal(!basicModal);
   const removeImage = (nom_img) => {
     var index;
@@ -67,10 +75,9 @@ export function DetailAdmin(props) {
 
     today = dd + "/" + mm + "/" + yyyy;
     const nom_projet = document.getElementById("nom-projet").value;
-    const description = document.getElementById("description-projet").value;
+    const description = editorValue;
     const ville = document.getElementById("ville-projet").value;
     const annee = document.getElementById("annee-projet").value;
-    const ordre = document.getElementById("ordre-projet").value;
     var list_of_img = [];
     data.forEach((element, i) => {
       if (i != 0) {
@@ -82,14 +89,13 @@ export function DetailAdmin(props) {
       nom: nom_projet,
       description: description,
       date: today,
-      type: "projet",
+      type: selectedOption,
       vignette: data[0].vignette,
       ville: ville,
       images: list_of_img,
       annee: annee,
-      ordre: ordre,
     };
-
+    console.log(new_data.type)
     const res = await fetch(API_URL + "/save_modif_project", {
       method: "POST",
       headers: {
@@ -121,6 +127,9 @@ export function DetailAdmin(props) {
     onReRender();
     console.log("post toast");
     return new_data;
+  };
+  const handleSelect = (option) => {
+    setSelectedOption(option);
   };
   const updateVignetteonDB = async (path_vignette, idProjet) => {
     var new_data = [];
@@ -217,7 +226,6 @@ export function DetailAdmin(props) {
     }
   };
 
-
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(API_URL + "/projets/" + id, {
@@ -225,6 +233,9 @@ export function DetailAdmin(props) {
       });
       const json = await res.json();
       setVignette(json[0].vignette);
+      console.log(json[0].type)
+      setEditorValue(json[0].description)
+      setSelectedOption(json[0].type)
       updateItems(json);
     };
 
@@ -259,12 +270,12 @@ export function DetailAdmin(props) {
             defaultValue={data[0].annee}
           ></TextField>
           <label className="label-detail">Description du projet</label>
-          <TextField
+          <TextEditor
+            placeholder="Commencez à écrire..."
+            value={editorValue}
+            onChange={handleEditorChange}
             id="description-projet"
-            className="form-projet"
-            defaultValue={data[0].description}
-            multiline
-          ></TextField>
+          />
 
           <label className="label-detail">Ville du projet</label>
           <TextField
@@ -272,7 +283,12 @@ export function DetailAdmin(props) {
             className="form-projet"
             defaultValue={data[0].ville}
           ></TextField>
-
+          <label className="label-detail">Projet ou Étude</label>
+          <SegmentedControl
+            options={options}
+            selectedOption={selectedOption}
+            onSelect={handleSelect}
+          />
           <div className="image-admin-container">
             <div className="add-photo-button">
 

@@ -27,7 +27,7 @@ function App() {
   }, [collapsed]);
   useEffect(() => {
     if (location.pathname === "/") {
-      navBarRef.current.style.backgroundColor = "transparent"
+      navBarRef.current.style.backgroundColor = null
     } else {
       navBarRef.current.style.backgroundColor = "white"
     }

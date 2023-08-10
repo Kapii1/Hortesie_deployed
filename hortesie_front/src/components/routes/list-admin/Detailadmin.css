@@ -35,16 +35,11 @@
     height: 100%;
 }
 
-.form-projet {
-    padding-left: 2rem !important;
-    padding-right: 2rem !important;
-}
-
 .titre-modif {
     font-weight: bold;
 }
 
-label {
+.label-detail {
     margin-top: 2rem;
     padding-bottom: 1rem;
 }
@@ -69,6 +64,7 @@ label {
 .field-container {
     display: flex;
     flex-direction: column;
+    margin: 50px;
 }
 
 .delete-button-img {
