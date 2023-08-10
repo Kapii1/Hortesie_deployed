@@ -93,6 +93,7 @@ export function Projets({ filter }) {
       const res = await fetch(API_URL + "/projets", { method: "GET" });
       const json = await res.json();
       dispatch({ type: 'FETCH_SUCCESS', payload: json })
+      gridRef.current.className += " projets-container-loaded"
       return json;
     } catch (error) {
       console.log("error", error);
