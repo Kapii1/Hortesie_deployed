@@ -5,6 +5,10 @@ const hostname = "127.0.0.1";
 
 require("dotenv").config();
 const cors = require("cors");
+const { JSDOM } = require('jsdom');
+const createDOMPurify = require('dompurify');
+const { window } = new JSDOM('');
+const DOMPurify = createDOMPurify(window);
 const PORT = 3001;
 const sqlite3 = require("sqlite3").verbose();
 const multer = require("multer");
@@ -255,9 +259,11 @@ app.post("/save_modif_project", (req, res) => {
   const ville = req.body.ville;
   const images = req.body.images;
   const date = req.body.annee;
-  var description = req.body.description;
+  var description = DOMPurify.sanitize(req.body.description)
   const vignette = req.body.vignette;
   const ordre = req.body.ordre;
+  const type = req.body.type;
+
 
   let s4 = () => {
     return Math.floor((1 + Math.random()) * 0x10000)
@@ -270,9 +276,12 @@ app.post("/save_modif_project", (req, res) => {
 	  ville = ?,
 	  description_fr = ?,
 	  vignette = ?,
-	  position = ?
-	  WHERE id = ?`, [nom, date, ville, description, vignette, ordre, id]
-  )
+	  position = ?,
+    type = ?
+	  WHERE id = ?`, [nom, date, ville, description, vignette, ordre, type, id],
+    (err, rows) => {
+      console.log(err, rows)
+    })
   res.status(200).send({ msg: "done" });
 });
 
