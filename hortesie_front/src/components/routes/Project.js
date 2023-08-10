@@ -75,7 +75,7 @@ export function Projets({ filter }) {
     visibleItems: [],
     isExpanded: false
   }
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(true)
 
   const [state, dispatch] = useReducer(reducer, initialState)
   const expander = useRef()
@@ -111,7 +111,7 @@ export function Projets({ filter }) {
     } else {
       expander.current.style.transform = "translate(86%)"
     }
-
+    console.log(state)
   }, [state.isExpanded])
   console.log(state)
 
