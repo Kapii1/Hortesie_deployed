@@ -25,9 +25,9 @@ SECRET_KEY = 'django-insecure-2@ay69s+t9h$v#+4x(-=!)&uwykea+t+ivs$c3kjioc)12jtyo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://hortesie.fr/*","hortesiedjango"]
+ALLOWED_HOSTS = ["https://hortesie.fr/*","hortesiedjango","127.0.0.1","localhost"]
 
-# Use in-memory caching for development (for production, consider using a more robust cache backend)
+# Use in-memory caching for development (for production, consider using a more robust cache 
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
