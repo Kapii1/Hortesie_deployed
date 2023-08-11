@@ -257,7 +257,7 @@ app.post("/save_modif_project", (req, res) => {
   const images = req.body.images;
   const date = req.body.annee;
   var description = sanitize(req.body.description, {
-    allowedTags: ['p'],   // Allow only <p> tags
+    allowedTags: ['p'],   // 
   })
   const vignette = req.body.vignette;
   const ordre = req.body.ordre;
