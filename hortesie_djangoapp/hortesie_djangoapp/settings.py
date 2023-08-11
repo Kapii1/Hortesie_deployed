@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["https://hortesie.fr/*","hortesiedjango","127.0.0.1","localhost"]
 
-# Use in-memory caching for development (for production, consider using a more robust cache 
+# Use in-memory caching for develoment (for production, consider using a more robust cache 
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
