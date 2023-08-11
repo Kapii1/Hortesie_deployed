@@ -5,16 +5,13 @@ const hostname = "127.0.0.1";
 
 require("dotenv").config();
 const cors = require("cors");
-const { JSDOM } = require('jsdom');
-const createDOMPurify = require('dompurify');
-const { window } = new JSDOM('');
-const DOMPurify = createDOMPurify(window);
 const PORT = 3001;
 const sqlite3 = require("sqlite3").verbose();
 const multer = require("multer");
 const fs = require("fs");
 const helmet = require("helmet");
 app.use(helmet());
+const sanitizeHtml = require('sanitize-html');
 const db = new sqlite3.Database("base.db");
 const s4 = () => {
   return Math.floor((1 + Math.random()) * 0x10000)
@@ -259,7 +256,9 @@ app.post("/save_modif_project", (req, res) => {
   const ville = req.body.ville;
   const images = req.body.images;
   const date = req.body.annee;
-  var description = DOMPurify.sanitize(req.body.description)
+  var description = sanitize(req.body.description, {
+    allowedTags: ['p'],   // Allow only <p> tags
+  })
   const vignette = req.body.vignette;
   const ordre = req.body.ordre;
   const type = req.body.type;

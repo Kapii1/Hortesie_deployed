@@ -95,7 +95,6 @@ export function DetailAdmin(props) {
       images: list_of_img,
       annee: annee,
     };
-    console.log(new_data.type)
     const res = await fetch(API_URL + "/save_modif_project", {
       method: "POST",
       headers: {
