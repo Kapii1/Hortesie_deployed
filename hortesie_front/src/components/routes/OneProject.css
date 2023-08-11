@@ -5,7 +5,6 @@
 .card-grid {
   transition: 0.4s;
   overflow: hidden;
-  filter: grayscale(80%);
   border-radius: 3px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
 
