@@ -1,0 +1,61 @@
+/* HomeTitle.css */
+.home-title-container {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    width: 800px;
+}
+
+.home-title {
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 1.5s, transform 1.2s;
+    margin-bottom: 6px;
+}
+
+.home-title-subcontainer {
+    grid-column: span 5;
+    overflow: hidden;
+
+    position: relative;
+}
+
+.underline {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    /* Adjust this value to position the underline */
+    width: 0;
+    left: 50%;
+    /* Start with 100% width (full width) */
+    height: 6px;
+    /* Adjust this value to control the underline height */
+    background-color: white;
+    /* Set your desired underline color */
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+    /* Start at horizontal center and full width (visible) */
+    /* Start with full width (visible) */
+    transition: transform .5s ease-in-out;
+}
+
+.animation-complete {
+    transform: translateX(-50%) scaleX(1);
+    width: 100%;
+    /* Retract the width at the end of animation */
+}
+
+.home-visible {
+    opacity: 1 !important;
+    transform: translateY(0);
+}
+
+.home {
+    opacity: 0;
+    color: white;
+    transition: opacity 3s transform 1s;
+    margin-top: 12px;
+}

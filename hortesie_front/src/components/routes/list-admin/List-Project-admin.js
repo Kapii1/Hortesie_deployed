@@ -95,30 +95,11 @@ export function ListProjectAdmin() {
       });
   }
 
-  const { token, setToken } = useToken();
-  useEffect(() => {
-    fetch(API_URL + "/welcome_admin", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ token: token }),
-    })
-      .then((res) => res.text())
-      .then((res) => {
-        if (res == "not good") {
-          setToken(false);
-        }
-      });
-  });
+
   useEffect(() => {
     fetchData();
   }, [reRender]);
 
-  if (!token) {
-    return <Login setToken={setToken} />;
-  }
   const delProjet = async (id) => {
     const res = await fetch(API_URL + "/del_projet", {
       method: "POST",

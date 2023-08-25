@@ -51,10 +51,9 @@
   right: 0;
   margin: auto;
   margin-top: 1rem;
-
+  display: none;
   border-radius: 5px;
   padding: 1rem;
-  display: flex;
 }
 
 @media (min-width:800px) {

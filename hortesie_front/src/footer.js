@@ -6,13 +6,13 @@ export default function Footer() {
     return (
         <MDBFooter bgColor='light' className='text-center text-lg-start text-muted custom-footer'>
             <section className=''>
-                <MDBContainer className='text-center text-md-start mt-5'>
-                    <MDBRow className='mt-3'>
+                <MDBContainer className='text-center text-md-start pt-5'>
+                    <MDBRow>
                         <MDBCol md="3" lg="4" xl="3" className='mx-auto mb-4'>
                             <img className="logo-footer" src={require('./logo.png')}></img>
                         </MDBCol>
 
-                        <MDBCol md="2" lg="2" xl="2" className='mx-auto mb-4'>
+                        {/* <MDBCol md="2" lg="2" xl="2" className='mx-auto mb-4'>
                             <h6 className='text-uppercase fw-bold mb-2'>Articles</h6>
                             <p>
                                 <a href='/doc/apce15ans.pdf' target="_blank" className='text-reset'>
@@ -24,7 +24,7 @@ export default function Footer() {
                                     Guide action pour la publicité dans les paysages des Yvelines
                                 </a>
                             </p>
-                        </MDBCol>
+                        </MDBCol> */}
 
                         <MDBCol md="3" lg="2" xl="2" className='mx-auto mb-4'>
                             <h6 className='text-uppercase fw-bold mb-2'>Liens utiles</h6>
