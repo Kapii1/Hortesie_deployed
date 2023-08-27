@@ -32,7 +32,7 @@ export default function ImportFile({ setShouldReRender }) {
                 name="file"
                 accept="*"
             ></input>
-            <Button variant="contained" type="submit">Envoyer</Button>
+            <Button variant="contained" type="submit">Envoyer!</Button>
         </form>
     )
 
