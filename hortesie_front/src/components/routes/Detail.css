@@ -101,7 +101,8 @@
     position: absolute;
     top: 5%;
     right: 4%;
-    height: 1.5vw;
+    width: auto;
+    height: 1.5rem;
 }
 
 .img-carousel {

@@ -6,7 +6,7 @@
     flex-direction: column;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: auto auto;
-    width: 800px;
+    width: 700px;
 }
 
 .home-title {
@@ -40,6 +40,7 @@
     /* Start at horizontal center and full width (visible) */
     /* Start with full width (visible) */
     transition: transform .5s ease-in-out;
+    display: none;
 }
 
 .animation-complete {

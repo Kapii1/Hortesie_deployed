@@ -90,6 +90,28 @@
   text-transform: uppercase;
 }
 
+.home-logo {
+  width: 150px;
+  margin-left: 3rem;
+  display: flex;
+  flex-grow: 1;
+  max-height: 100%;
+}
+
+.home-logo>svg>g {
+  fill: black;
+}
+
+.home-logo>svg {
+  width: 120px;
+}
+
+.home-logo-img {
+  height: 5rem;
+  width: auto;
+  filter: sepia(2);
+}
+
 .fade-exit-active {
   opacity: 0;
   transition: opacity 200ms;
@@ -162,6 +184,7 @@
   position: fixed;
   z-index: 50;
   height: 5rem;
+  flex-direction: row;
   transition: 1s;
 }
 

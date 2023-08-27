@@ -24,6 +24,8 @@
 }
 
 .admin-links {
+    display: flex;
+    justify-content: center;
     text-decoration: none;
     color: black;
     transition: ease-in-out .5s;

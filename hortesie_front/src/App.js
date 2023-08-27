@@ -10,6 +10,7 @@ import { useLocation } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async';
 import AdminAccueil from "./components/routes/list-admin/AdminAccueil";
 import Toolpage from "./components/routes/list-admin/EZtool/PageTools";
+import { ReactComponent as HortesieLogo } from "./components/logo/Hortesie-rouge-et-or.svg";
 
 import Footer from "./footer";
 import HomeTitle from "./HomeTitle";
@@ -48,7 +49,7 @@ function App() {
       barnavBarRef.current.style.display = 'none'
       appRef.current.style.display = 'flex'
     } else {
-      navBarRef.current.style.display = "block"
+      navBarRef.current.style.display = "flex"
       barnavBarRef.current.style.display = "block"
       appRef.current.style.display = null
     }
@@ -61,6 +62,11 @@ function App() {
       </Helmet>
       <div className="top-container">
         <nav className="NavbarItems" ref={navBarRef}>
+          <div className="home-logo">
+
+            {/* <img className="home-logo-img" src={require('./logo.png')}></img> */}
+            <HortesieLogo></HortesieLogo>
+          </div>
           <ul className="navbar-ul">
             <li className="navbar-li">
               <Link
