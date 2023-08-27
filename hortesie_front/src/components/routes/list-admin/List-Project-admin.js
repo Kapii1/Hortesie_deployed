@@ -41,6 +41,7 @@ async function get_id_update_index(from_index, to_index) {
   })
 
   const json = await res.json()
+  console.log("res ", json)
   return json
 }
 
@@ -69,8 +70,8 @@ export function ListProjectAdmin() {
 
     const index_to_be_updated = [droppedItem.source.index, droppedItem.destination.index]
 
-    const [item_1, item_2] = await get_id_update_index(droppedItem.source.index + 1, droppedItem.destination.index + 1)
-
+    const item_1 = await get_id_update_index(droppedItem.source.index + 1, droppedItem.destination.index + 1)
+    const item_2 = await get_id_update_index(droppedItem.destination.index + 1, droppedItem.source.index + 1)
     change_index(item_1.id, item_2.position)
     change_index(item_2.id, item_1.position)
 
