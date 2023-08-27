@@ -228,10 +228,12 @@ app.post("/set_new_index", async (req, res) => {
   function done_new(row) {
     id_new.push(row[0].id)
   }
-  await db.all(`SELECT id, position FROM projets_corrected WHERE position= ? OR position = ?  `, [
+  await db.all(`SELECT id, position FROM projets_corrected WHERE position = ? OR position = ?  `, [
     new_index,
     old_index,
   ], (err, rows) => {
+    console.log(old_index, new_index)
+    console.log(rows)
     res.status(200).send(JSON.stringify(rows))
   })
 })
@@ -245,7 +247,6 @@ app.post("/replace_index", async (req, res) => {
     id,
   ], (err, rows) => {
     res.status(200).send({ msg: "Changed" })
-    console.log(err)
   })
 })
 
@@ -260,10 +261,9 @@ app.post("/save_modif_project", (req, res) => {
     allowedTags: ['p', 'h1', 'h2', 'h3', 'br', 'b', 'i', 'u', 'ul', 'li', 'span'],   // 
   })
   const vignette = req.body.vignette;
-  const ordre = req.body.ordre;
   const type = req.body.type;
 
-
+  console.log(req.body)
   let s4 = () => {
     return Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
@@ -275,9 +275,8 @@ app.post("/save_modif_project", (req, res) => {
 	  ville = ?,
 	  description_fr = ?,
 	  vignette = ?,
-	  position = ?,
     type = ?
-	  WHERE id = ?`, [nom, date, ville, description, vignette, ordre, type, id],
+	  WHERE id = ?`, [nom, date, ville, description, vignette, type, id],
     (err, rows) => {
       console.log(err, rows)
     })
@@ -343,45 +342,49 @@ app.post("/del_image", (req, res) => {
 
 app.post("/add_project", (req, res) => {
   console.log("Adding project " + req.body.id);
-  db.all(
-    "SELECT * FROM projets_corrected WHERE id=?",
-    [req.body.id],
-    (err, rows) => {
-      if (rows.length == 0) {
-        db.all(
-          "INSERT INTO projets_corrected VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-          [
-            req.body.id,
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-          ],
-          (err, rows) => {
+  db.get("SELECT COUNT(*) as 'count' FROM projets_corrected", (err, rows_count) => {
+    db.all(
+      "SELECT * FROM projets_corrected WHERE id=?",
+      [req.body.id],
+      (err, rows) => {
+        if (rows.length == 0) {
+          db.all(
+            "INSERT INTO projets_corrected VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            [
+              req.body.id,
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              rows_count.count + 1,
+              "",
+              "",
+              "",
+            ],
+            (err, rows) => {
+            }
+          );
+          const folderName = URL_DEST + "images/projets/" + req.body.id;
+          if (!fs.existsSync(folderName)) {
+            fs.mkdirSync(folderName);
           }
-        );
-        const folderName = URL_DEST + "images/projets/" + req.body.id;
-        if (!fs.existsSync(folderName)) {
-          fs.mkdirSync(folderName);
+          res.status(200).send({ msg: "creation" });
         }
-        res.status(200).send({ msg: "creation" });
       }
-    }
-  );
+    );
+
+  })
+
 });
 
 app.post("/del_projet", (req, res) => {

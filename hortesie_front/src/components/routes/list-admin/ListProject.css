@@ -51,6 +51,7 @@
 
 .elem-title {
     font-weight: bold;
+    text-align: center;
     width: 25%;
     font-size: 1.5rem;
     margin: auto;
@@ -59,6 +60,7 @@
 
 .supp-title {
     width: 5%;
+    text-align: center;
 }
 
 .admin-list {
