@@ -25,6 +25,7 @@
 .titre {
     text-align: center;
 
+    word-break: break-word;
     font-size: calc(2vw + 8px);
     width: 25vw;
 
@@ -34,4 +35,5 @@
     width: 25vw;
     text-align: start;
     font-size: calc(2vw + 8px);
+    word-break: break-word;
 }

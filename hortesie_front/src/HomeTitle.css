@@ -19,8 +19,7 @@
 .home-title-subcontainer {
     grid-column: span 5;
     overflow: hidden;
-
-    position: relative;
+    display: flex;
 }
 
 .underline {
@@ -59,4 +58,15 @@
     color: white;
     transition: opacity 3s transform 1s;
     margin-top: 12px;
+}
+
+@media (max-width: 1000px) {
+    .home-title-subcontainer {
+        width: 90vw;
+        margin: auto;
+    }
+
+    .home-title-container {
+        display: flex;
+    }
 }
