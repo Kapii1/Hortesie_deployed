@@ -17,7 +17,7 @@
 
     .annee-p {
         margin: auto;
-
+        text-align: center;
     }
 
     .carousel-container {
@@ -63,7 +63,6 @@
 
 .text-container {
     width: 50%;
-    margin-top: 5rem;
     overflow: hidden;
     overflow-y: scroll;
     align-items: center;
@@ -72,7 +71,7 @@
 .description {
     font-size: 1.1rem;
     text-align: start;
-    max-height: 45vh;
+    max-height: 35vh;
 }
 
 .carousel .control-next.control-arrow:before {
@@ -153,9 +152,12 @@
         flex-direction: column;
         height: calc(100dvh - 4rem);
     }
-
+    .annee-p {
+        margin: auto;
+        text-align: center;
+    }
     .text-container {
-        width: 80%;
+        width: 100%;
     }
 
     .leave {

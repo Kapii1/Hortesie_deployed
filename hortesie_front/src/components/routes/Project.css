@@ -35,7 +35,8 @@
 
 .Grid-container {
   min-width: 100svw;
-  padding-top: 4rem;
+  padding-top: 5rem;
+  min-height: 90vh;
   padding-bottom: 4rem;
   background-color: white;
 }
@@ -86,13 +87,13 @@
 
 @media (max-width:800px) {
   .input-search {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 2vw;
   }
 
   .projets-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     grid-template-rows: max-content;
     gap: 2em;
   }

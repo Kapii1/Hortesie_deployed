@@ -62,11 +62,15 @@ function App() {
       </Helmet>
       <div className="top-container">
         <nav className="NavbarItems" ref={navBarRef}>
-          <div className="home-logo">
+          
 
             {/* <img className="home-logo-img" src={require('./logo.png')}></img> */}
+            <Link to="/">
+            <div className="home-logo">
             <HortesieLogo></HortesieLogo>
-          </div>
+            </div>
+
+            </Link>
           <ul className="navbar-ul">
             <li className="navbar-li">
               <Link

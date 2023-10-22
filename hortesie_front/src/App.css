@@ -94,8 +94,8 @@
   width: 150px;
   margin-left: 3rem;
   display: flex;
-  flex-grow: 1;
   max-height: 100%;
+  padding: 12px;
 }
 
 .home-logo>svg>g {
@@ -244,8 +244,7 @@
     width: 100%;
     top: 5rem;
     padding-left: 0;
-    height: calc(20svh - 1rem);
-    left: 100vw;
+    height: calc(20vh - 1rem);
   }
 
   .bar-navbar {

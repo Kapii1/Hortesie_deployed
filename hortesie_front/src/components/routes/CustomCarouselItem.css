@@ -1,6 +1,4 @@
 @media (min-width:1000px) {
     .carousel-images {
-        max-height: 50vh;
-        width: auto !important;
     }
 }
