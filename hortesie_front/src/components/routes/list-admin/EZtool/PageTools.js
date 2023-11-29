@@ -9,7 +9,7 @@ import { API_URL, DJANGO_URL } from "../../../../url";
 import RepositionableComponent from "../DraggableComponent";
 
 
-const IndentedLabel = ({ label, depth, className }) => {
+const IndentedLabel = ({ label, depth, className, part_number }) => {
     const indentation = `${depth * 30}px`; // You can adjust the indentation size as needed
 
     const style = {
@@ -17,7 +17,7 @@ const IndentedLabel = ({ label, depth, className }) => {
         textAlign: "start",
     };
 
-    return <div style={style}>{label}</div>;
+    return <div style={style}>{part_number} {label}</div>;
 };
 
 
@@ -160,7 +160,7 @@ export default function Toolpage() {
                         </div>) : <span></span>}
                         {item.isDisplayed && <>
                             <input className="checkbox-input" type="checkbox" onChange={handleCheck(index)} checked={item.isChecked}></input>
-                            <IndentedLabel label={item.title} depth={item.depth} className="labels-indented" /></>}
+                            <IndentedLabel label={item.title} depth={item.depth} part_number={item.label_part} className="labels-indented" /></>}
                     </div>)
             })}
         </div>

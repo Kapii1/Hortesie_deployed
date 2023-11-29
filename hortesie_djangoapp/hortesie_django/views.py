@@ -22,29 +22,39 @@ def extract_headings_with_content(doc):
     current_depth = 0
     heading_stack = []
     headings_uids={}
+    compteur_part_principale = 0
+    level_labels = [0,0,0,0,0,0]
     for paragraph in doc.paragraphs:
         if 'Heading' in paragraph.style.name :
             # Determine the depth of the current heading based on indentation
-        
-
             # Pop headings from the stack until we find the parent of the current heading
             # Set the parent heading
             heading_uid = generate_uid()
             # If a new heading is found, save the previous heading and its content
             if current_heading is not None:
                 headings.append(current_heading)
-
+            last_heading = ''
             heading_level = int(paragraph.style.name[7:])
+            if len(heading_stack)>0:
+                last_heading = heading_stack[-1]
+            if last_heading !="" and  heading_level<last_heading['depth']:
+                level_labels[heading_level-1] += 1
+                for i in range(heading_level,last_heading['depth']):
+                    level_labels[ i ] = 0
+            else:
+                level_labels[heading_level-1] += 1
+            if heading_level == 1 :
+                compteur_part_principale += 1
             current_heading = {
                 "uid": heading_uid,
                 "title": paragraph.text,
                 "content": [],
                 "depth" : heading_level,
+                "label_part" : '.'.join([str(level_labels[i]) for i in range(len(level_labels)) if i< heading_level]),
                 'isChecked': True,
                 'isChildDisplayed': False,
                 'isDisplayed': True,
             }
-
             # Push the current heading to the stack
             heading_stack.append(current_heading)
 
@@ -111,8 +121,6 @@ def get_structure(doc):
         headings.append(current_heading)
     return headings
 def delete_all_title(doc,match_dict):
-
-
      headings= get_structure(doc)
      index = 0
      print(len(headings))
