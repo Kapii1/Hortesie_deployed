@@ -62,8 +62,9 @@
 
 @media (max-width: 1000px) {
     .home-title-subcontainer {
-        width: 90vw;
+        width: 100%;
         margin: auto;
+        padding: 20px;
     }
 
     .home-title-container {

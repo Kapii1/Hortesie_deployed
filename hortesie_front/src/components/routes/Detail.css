@@ -54,6 +54,7 @@
 }
 
 .detail-title {
+    padding-top: 1rem;
     font-size: 2rem;
     display: flex;
     flex-direction: column;
@@ -152,10 +153,12 @@
         flex-direction: column;
         height: calc(100dvh - 4rem);
     }
+
     .annee-p {
         margin: auto;
         text-align: center;
     }
+
     .text-container {
         width: 100%;
     }
@@ -194,12 +197,15 @@
     }
 
     .detail-title {
-        padding-top: 1rem;
         font-size: 1.5rem;
     }
 
     .description {
         font-size: 1rem;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        word-break: normal;
+        text-align: justify;
     }
 
     .img-container {

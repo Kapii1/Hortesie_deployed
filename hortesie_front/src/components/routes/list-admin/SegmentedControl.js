@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './SegmentedControl.scss'; // Create this CSS file for styling
+import './SegmentedControl.css'; // Create this CSS file for styling
 
 const SegmentedControl = ({ options, selectedOption, onSelect }) => {
     return (
