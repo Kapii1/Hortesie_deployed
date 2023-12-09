@@ -1,27 +1,25 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import "./Detail.css";
 import { Link } from "react-router-dom";
 import { SimpleSlider } from "./SimpleSlider";
 import { motion } from "framer-motion";
 import { Carousel } from 'react-responsive-carousel';
-import styles from 'react-responsive-carousel/lib/styles/carousel.min.css';
-import {
-  MDBCarousel,
-  MDBCarouselItem,
-} from 'mdb-react-ui-kit';
 import CustomCarouselItem from "./CustomCarouselItem";
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { after } from "underscore";
+import FullScreenCarousel from "./FullscreenCarousel";
 export function Detail(props) {
 
   const carouselRef = useRef()
   const onAllLoad = after(props.item.length - 1, () => {
     carouselRef.current.className += " projets-container-loaded"
   });
-  const photoTemplate = (photo) => {
-    return (
-      <img className="image-carousel" src={photo.nom}></img>
-    )
-  }
+
+  const [isFullScreen, setIsFullScreen] = useState(false);
+
+  const handleFullScreenClick = () => {
+    setIsFullScreen(true);
+  };
   return (
     <div className="detail-container">
 
@@ -35,7 +33,7 @@ export function Detail(props) {
 
       </motion.div>
       <div ref={carouselRef} className="carousel-container">
-        <Carousel onClickItem={() => { console.log("test") }}
+        <Carousel onClickItem={handleFullScreenClick}
           showThumbs={false}
           emulateTouch
           infiniteLoop
@@ -48,6 +46,10 @@ export function Detail(props) {
         </Carousel>
       </div>
 
+      {/* Display the full-screen carousel when isFullScreen is true */}
+      {isFullScreen && (
+        <FullScreenCarousel images={props.item.slice(1)} onClose={() => setIsFullScreen(false)} />
+      )}
       <Link className="leave" to="/projets">
         <img src={require("./close.png")} alt="" className="leave"></img>
       </Link>

@@ -44,9 +44,7 @@
     padding-bottom: 1rem;
 }
 
-.modal-backdrop {
-    z-index: 50 !important;
-}
+.modal-backdrop {}
 
 .input-drag-n-drop {
     border: dashed 1px;
@@ -70,7 +68,6 @@
 .delete-button-img {
     align-items: center;
     margin: auto;
-    z-index: 999;
     top: 0;
     width: 33.33%;
     right: 0;

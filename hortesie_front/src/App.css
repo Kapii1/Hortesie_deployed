@@ -120,6 +120,8 @@
 
 .top-container {
   display: flex;
+  position: fixed;
+  z-index: 3;
 }
 
 .menu-icon {
@@ -182,7 +184,6 @@
   display: flex;
   align-items: center;
   position: fixed;
-  z-index: 50;
   height: 5rem;
   flex-direction: row;
   transition: 1s;
@@ -200,9 +201,8 @@
 .bar-navbar-container {
   width: 100%;
   position: fixed;
-  top: 5rem;
+  top: calc(5rem - 1px);
   transition: 1s;
-  z-index: 50;
   height: 1px;
   background-color: transparent;
 }
