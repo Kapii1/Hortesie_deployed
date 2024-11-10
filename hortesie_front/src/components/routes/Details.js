@@ -5,28 +5,27 @@ import { useParams } from "react-router-dom";
 import { Detail } from "./Detail";
 import { API_URL } from "../../url";
 function Details() {
-  const [items, updateItems] = useState({});
+  const [item, setItem] = useState();
   let { id } = useParams();
 
   async function fetchData() {
-    const res = await fetch(API_URL + "/projets/" + id, {
+    const res = await fetch(API_URL + `/projects/${id}/` , { 
       method: "GET",
     });
     res.json().then((res) => {
-      updateItems(res);
+      setItem(res);
     })
 
   }
-
-
   useEffect(() => {
     fetchData();
   }, []);
+  console.log("should be",item)
   return (
     <div
       className="Details-container"
     >
-      {items[0] && <Detail item={items} />}
+      {item && <Detail item={item} />}
     </div>
   );
 }

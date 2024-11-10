@@ -90,7 +90,7 @@ export function Projets({ filter }) {
 
   const fetchData = async () => {
     try {
-      const res = await fetch(API_URL + "/projets", { method: "GET" });
+      const res = await fetch(API_URL + "/projects/", { method: "GET" });
       const json = await res.json();
       dispatch({ type: 'FETCH_SUCCESS', payload: json })
       gridRef.current.className += " projets-container-loaded"
@@ -119,10 +119,8 @@ export function Projets({ filter }) {
   useEffect(() => {
 
     if (filter === 'projets') {
-      console.log("in projetcs")
       dispatch({ type: 'PROJECTS' })
     } else if (filter === 'etudes') {
-      console.log("in studies")
       dispatch({ type: 'ETUDES' })
     }
   }, [location])
@@ -164,7 +162,7 @@ export function Projets({ filter }) {
 
         <CustomGrid
           ref={gridRef}
-          className="projets-container">
+          className="projets-container projets-container-loaded">
           {state.visibleItems &&
             state.visibleItems.map((item, i) => (
               <CustomGridItem className="projet" >
@@ -173,7 +171,7 @@ export function Projets({ filter }) {
                     <Projet
                       i={i}
                       id={item.id}
-                      nom_fr={item.nom}
+                      name={item.name}
                       path_image={item.vignette}
                       description={item.description}
                       onLoad={onLoad}

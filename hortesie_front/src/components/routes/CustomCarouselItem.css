@@ -1,6 +1,9 @@
-@media (min-width:1000px) {
-    .carousel-images {
-        height: 47dvh;
-        width: auto !important;
-    }
+@media (min-width: 1000px) {
+  .carousel-images {
+    max-height: 47dvh;
+    object-fit: cover;
+  }
+  .carousel-item-container {
+    margin: auto;
+  }
 }

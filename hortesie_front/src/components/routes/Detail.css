@@ -6,7 +6,7 @@
     }
 
     .carousel-root {
-        width: 50vw;
+        width: 100%;
     }
 
     .detail-ville {
@@ -55,6 +55,7 @@
 
 .detail-title {
     padding-top: 1rem;
+    text-align: center;
     font-size: 2rem;
     display: flex;
     flex-direction: column;

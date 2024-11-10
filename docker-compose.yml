@@ -1,0 +1,117 @@
+version: '3'
+
+services:
+  front:
+    build:
+      context: ./hortesie_front
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./hortesie_front:/app
+    environment:
+      - WATCHPACK_POLLING=true
+    networks:
+      local-keycloak:
+        aliases:
+          - "*.landings.localhost"
+  
+    env_file:
+      - .env
+  platform:
+    build:
+      context: ./hortesie_djangoapp
+    volumes:
+      - ./hortesie_djangoapp:/app
+    ports:
+      - "8000:8000"
+    networks:
+      local-keycloak:
+    depends_on:
+      - db
+      - front
+    env_file:
+      - .env
+  
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: yourdbname
+      POSTGRES_USER: yourdbuser
+      POSTGRES_PASSWORD: yourdbpassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    networks:
+      - local-keycloak
+
+  nginx:
+    build: ./nginx
+    restart: ${RESTART_POLICY}
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - 80:80
+      - 443:443
+      - "24:25"
+    networks:
+      local-keycloak:
+  keycloak-postgres:
+      image: postgres:latest
+      volumes:
+        - keycloak_data:/var/lib/postgresql/data
+      env_file:
+        - .env
+      environment:
+        POSTGRES_DB: keycloak
+        POSTGRES_USER: ${POSTGRES_USR}
+        POSTGRES_PASSWORD: ${POSTGRES_PW}
+      networks:
+        - local-keycloak
+      ports:
+        - 5433:5432
+    
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0.2
+    env_file:
+      - .env
+    environment:
+      PROXY_ADDRESS_FORWARDING: "true"
+      DB_VENDOR: postgres
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KEYCLOAK_IMPORT: /opt/keycloak/data/import/realm-config.json
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-postgres:5432/keycloak
+      KC_DB_USERNAME: ${POSTGRES_USR}
+      KC_DB_PASSWORD: ${POSTGRES_PW}
+    command: 
+      - start-dev 
+      - --import-realm
+      - --spi-theme-static-max-age=-1
+      - --spi-theme-cache-themes=false
+      - --spi-theme-cache-templates=false
+    depends_on:
+      - keycloak-postgres
+    ports:
+      - "8080:8080"
+    networks:
+      local-keycloak:
+        ipv4_address: 172.28.0.12
+        aliases:
+          - "auth.landings.localhost"
+    volumes:
+      - ./keycloak/config/realm-export (5).json:/opt/keycloak/data/import/realm-config.json
+      - ./keycloak/themes:/opt/keycloak/themes
+  
+volumes:
+  postgres_data:
+  keycloak_data:
+
+networks:
+  local-keycloak:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/16

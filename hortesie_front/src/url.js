@@ -1,2 +1,2 @@
-export const API_URL = "https://hortesie.fr:444";
-export const DJANGO_URL = "https://hortesie.fr:445"
+export const API_URL = "http://hortesie.localhost/api";
+export const DJANGO_URL = "http://hortesie.localhost/api"

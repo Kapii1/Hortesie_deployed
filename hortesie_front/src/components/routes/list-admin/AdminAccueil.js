@@ -6,11 +6,15 @@ import { Link, Route, Routes } from "react-router-dom";
 import './AdminAccueil.css'
 import useToken from "./useToken";
 import Login from "./Login";
+import { useOidc } from "../../../App";
+
+
+
+
+
 export default function AdminAccueil() {
-    const { token, setToken } = useToken();
-    if (!token) {
-        return <Login setToken={setToken} />;
-    }
+
+    
     return (
         <div className="accueil">
 

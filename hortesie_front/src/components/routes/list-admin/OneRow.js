@@ -11,7 +11,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton } from "@mui/material";
 export const OneRowAdmin = (props) => {
 
-
   if (props.ind % 2 == 0) {
     return (
       <div className="one-row pair"  >

@@ -12,10 +12,11 @@ export default function ImportFile({ setShouldReRender }) {
         const formData = new FormData()
         formData.append("file", file)
         const result = await fetch(
-            API_URL + "/replace_template",
+            API_URL + "/replace_template/",
             {
                 method: "POST",
                 body: formData,
+                credentials: 'include'
             }).then(res => console.log(res)).then(() => {
                 setShouldReRender(item => !item)
             })

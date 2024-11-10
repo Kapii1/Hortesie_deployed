@@ -1,15 +1,21 @@
 .tool-container {
-    margin-top: 4rem;
+    margin-top: 5rem;
+    height: calc(100dvh - 5rem);
     background-color: white;
-    display: flex;
-    flex-direction: row;
     justify-content: center;
+    overflow-y: scroll;
 }
-
 .one-checkbox-item {
     display: grid;
     grid-template-columns: 5% 10% 85%;
     align-items: center;
+}
+.tool-cctp-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    font-weight: bold;
 }
 
 .labels-indented::before {
@@ -21,10 +27,7 @@
 }
 
 .list-title {
-    margin-top: 5vh;
-    margin-left: 5vw;
-    min-height: 100vh;
-    overflow: scroll;
+    margin: 5rem;
 }
 
 .checkbox-input {

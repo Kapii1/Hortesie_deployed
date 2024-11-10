@@ -86,7 +86,7 @@ export function ListProjectAdmin() {
   const [data, setData] = useState();
   const forceUpdate = useForceUpdate();
   async function fetchData() {
-    fetch(API_URL + "/projets", { method: "GET" })
+    fetch(API_URL + "/projects/", { method: "GET" })
       .then((response) => response.json())
       .then((responseJson) => {
         setData(responseJson);
@@ -169,7 +169,7 @@ export function ListProjectAdmin() {
                               to={item.id}
                             >
                               <OneRowAdmin
-                                nom={item.nom}
+                                nom={item.name}
                                 vignette={item.vignette}
                                 ind={index}
                                 ville={item.ville}

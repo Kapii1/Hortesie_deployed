@@ -58,7 +58,8 @@ export default function Toolpage() {
     useEffect(() => {
         setIsLoading(true)
         const res = fetch(DJANGO_URL + "/cctp_file/", {
-            method: "GET"
+            method: "GET",
+            credentials:'include'
         }).then(res => {
             return res.json()
         }).then(res => {
@@ -128,27 +129,11 @@ export default function Toolpage() {
 
     }
 
-    useEffect(() => {
-        fetch(API_URL + "/welcome_admin", {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ token: token }),
-        })
-            .then((res) => res.text())
-            .then((res) => {
-                if (res == "not good") {
-                    setToken(false);
-                }
-            });
-    });
 
-    if (!token) {
-        return <Login setToken={setToken} />;
-    }
-    return (<div className="tool-container">
+    return (
+    
+    <div className="tool-container">
+    <h1 className="tool-cctp-title">Outil CCTP </h1>
         <div className="list-title">
             {isLoading && <Loader loading={isLoading}></Loader>}
             {structure && structure.map((item, index) => {
@@ -171,5 +156,6 @@ export default function Toolpage() {
                 {downloadAsked && <Loader loading={Loading}></Loader>}
             </div>
         </RepositionableComponent>
-    </div>)
+    </div>
+    )
 }

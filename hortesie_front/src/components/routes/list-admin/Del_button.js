@@ -42,6 +42,7 @@ export default function Del_button(props) {
                             <MDBBtn onClick={() => {
                                 console.log(props.item)
                                 delFunction(props.item);
+                                props.reRender();
                                 toggleShow();
                             }}>Supprimer</MDBBtn>
                         </MDBModalFooter>

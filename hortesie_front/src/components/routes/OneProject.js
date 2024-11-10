@@ -18,7 +18,7 @@ export function Projet(props) {
       <div className="sub-card"
       >
         <div className="title-container">
-          <div className="title-card">{props.nom_fr}</div>
+          <div className="title-card">{props.name}</div>
         </div>
         <Image src={props.path_image} className="vignette" load={props.onLoad}></Image>
       </div>
