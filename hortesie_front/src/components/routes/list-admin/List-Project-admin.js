@@ -31,18 +31,14 @@ function useForceUpdate() {
 }
 async function get_id_update_index(from_index, to_index) {
 
-  const res = await fetch(API_URL + "/set_new_index", {
+  const res = await fetch(API_URL + "/projects/switch/", {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ "from_index": from_index, "to_index": to_index }),
+    body: JSON.stringify({ "from": from_index, "to": to_index }),
   })
-
-  const json = await res.json()
-  console.log("res ", json)
-  return json
 }
 
 function change_index(id, to_index) {
@@ -59,23 +55,6 @@ function change_index(id, to_index) {
 export function ListProjectAdmin() {
 
 
-  const handleDrop = async (droppedItem) => {
-
-    if (!droppedItem.destination) return;
-    var updatedList = [...data];
-
-    const [reorderedItem] = updatedList.splice(droppedItem.source.index, 1);
-
-    updatedList.splice(droppedItem.destination.index, 0, reorderedItem);
-
-    const index_to_be_updated = [droppedItem.source.index, droppedItem.destination.index]
-
-    const [item_1, item_2] = await get_id_update_index(droppedItem.source.index + 1, droppedItem.destination.index + 1)
-    change_index(item_1.id, item_2.position)
-    change_index(item_2.id, item_1.position)
-
-    setData(updatedList);
-  };
 
   const [reRender, setReRender] = useState(false);
 
@@ -94,6 +73,16 @@ export function ListProjectAdmin() {
       .catch((error) => {
       });
   }
+  const handleDrop = async (droppedItem) => {
+
+    if (!droppedItem.destination) return;
+    var updatedList = [...data];
+
+    const [reorderedItem] = updatedList.splice(droppedItem.source.index, 1);
+    updatedList.splice(droppedItem.destination.index, 0, reorderedItem);
+    await get_id_update_index(droppedItem.source.index + 1, droppedItem.destination.index + 1)
+    setData(updatedList)
+  };
 
 
   useEffect(() => {
@@ -101,9 +90,8 @@ export function ListProjectAdmin() {
   }, [reRender]);
 
   const delProjet = async (id) => {
-    const res = await fetch(API_URL + "/del_projet", {
-      method: "POST",
-      body: JSON.stringify({ id: id }),
+    const res = await fetch(API_URL + `/projects/${id}/`, {
+      method: "DELETE",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -173,7 +161,7 @@ export function ListProjectAdmin() {
                                 vignette={item.vignette}
                                 ind={index}
                                 ville={item.ville}
-                                ordre={index + 1}
+                                ordre={item.position}
                                 key={item.id}
                               />
                             </Link>

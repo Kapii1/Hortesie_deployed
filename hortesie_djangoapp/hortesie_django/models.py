@@ -15,6 +15,7 @@ class Project(models.Model):
     category = models.CharField(max_length=100)
     resume = models.CharField(max_length=1000, null=True)
     city = models.CharField(max_length=100, blank=True)
+    position = models.IntegerField(default=0)
 
 
 def upload_to(instance, filename):

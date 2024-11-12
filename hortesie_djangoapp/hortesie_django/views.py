@@ -253,6 +253,25 @@ class ProjectViewset(ModelViewSet):
         print(serializer.data)
         return Response(serializer.data)
 
+    @action(detail=False, methods=["post"])
+    def switch(self, request):
+        from_index = request.data.get("from")
+        to_index = request.data.get("to")
+        a = Project.objects.get(position=from_index)
+
+        b = Project.objects.get(position=to_index)
+        b.position = from_index
+        a.position = to_index
+        a.save()
+        b.save()
+        return Response(status=status.HTTP_200_OK)
+
+    def list(self, request, *args, **kwargs):
+        data = super().list(request, *args, **kwargs)
+        data = sorted(data.data, key=lambda d: d["position"])
+
+        return Response(data)
+
 
 class CCTPTemplateCreateView(APIView):
     parser_classes = [MultiPartParser]  # This allows file uploads in the request body
