@@ -1,34 +1,35 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client"; // Import from 'react-dom/client' in React 18
 import "./index.css";
 import App from "./App";
 import {
   BrowserRouter as Router,
-
 } from "react-router-dom";
-import { ReactNotifications } from 'react-notifications-component'
-import 'react-notifications-component/dist/theme.css'
+import { ReactNotifications } from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
-//theme
+// Theme
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 
-import { Helmet, HelmetProvider } from 'react-helmet-async';
-//core
+// Core
 import "primereact/resources/primereact.min.css";
 
-//icons
+// Icons
 import "primeicons/primeicons.css";
 
-ReactDOM.render(
+import {  HelmetProvider } from 'react-helmet-async';
+
+// Create a root for rendering the app
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+root.render(
   <Router>
     <HelmetProvider>
       <ReactNotifications />
       <App />
     </HelmetProvider>
-  </Router>,
-
-  document.getElementById("root")
+  </Router>
 );
 
 // If you want to start measuring performance in your app, pass a function

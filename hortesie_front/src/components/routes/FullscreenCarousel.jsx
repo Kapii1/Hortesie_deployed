@@ -8,7 +8,6 @@ const FullScreenCarousel = ({ images, onClose }) => {
   const handleClick = () => {
     setOpen(false);
     onClose();
-    console.log("open");
   };
   return (
       <Dialog

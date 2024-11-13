@@ -20,7 +20,7 @@ function Details() {
   useEffect(() => {
     fetchData();
   }, []);
-  console.log("should be",item)
+
   return (
     <div
       className="Details-container"

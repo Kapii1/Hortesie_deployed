@@ -41,17 +41,6 @@ async function get_id_update_index(from_index, to_index) {
   })
 }
 
-function change_index(id, to_index) {
-  const res = fetch(API_URL + "/replace_index", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ "id": id, "to_index": to_index }),
-  })
-}
-
 export function ListProjectAdmin() {
 
 
