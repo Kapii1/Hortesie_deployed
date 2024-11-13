@@ -10,6 +10,7 @@ WORKDIR /app
 
 # Copy the current directory contents into the container at /app
 COPY . /app
+
 # Install the required Python packages
 RUN pip install -r requirements.txt
 
@@ -18,4 +19,12 @@ RUN apt-get update && \
     apt-get install -y vim nano iputils-ping telnet postgresql-client && \
     rm -rf /var/lib/apt/lists/*
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Install uWSGI
+RUN pip install uwsgi
+
+
+# Expose port 8000 to allow outside connections
+EXPOSE 8000
+
+# Run the application with uWSGI
+CMD ["uwsgi", "--ini", "hortesie_djangoapp.uwsgi.ini"]

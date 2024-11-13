@@ -234,13 +234,12 @@ class ProjectViewset(ModelViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def retrieve(self, request, *args, **kwargs):
-        print(self.get_object().vignette.file.url)
         serializer = self.get_serializer(self.get_object())
 
         return Response(
             {
                 **serializer.data,
-                "vignette": "/api" + self.get_object().vignette.file.url,
+                "vignette": "/api" + self.get_object().vignette.file.url if self.get_object().vignette else "",
             }
         )
 

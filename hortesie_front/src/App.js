@@ -13,7 +13,22 @@ import HomeTitle from "./HomeTitle";
 import Navbar from "./Navbar";
 import { ReactComponent as HamburgerIcon } from './hamburger-menu-svgrepo-com.svg'
 
+<<<<<<< Updated upstream
 const AdminRouter= React.lazy(() => import("./components/routes/list-admin/AdminRouter"));
+=======
+
+export const {OidcProvider, useOidc} = createReactOidc({
+  issuerUri: "https://auth.hortesie.fr/realms/hortesie",
+  clientId: "hortesie-client",
+  decodedIdTokenSchema: z.object({
+      sub: z.string(),
+      preferred_username: z.string(),
+      resource_access: z.any(),
+      client: z.any()
+  }),
+});
+
+>>>>>>> Stashed changes
 
 const setOpacityRecursive = (element, opacity) => {
   if (element && element.children) {

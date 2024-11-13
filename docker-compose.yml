@@ -12,9 +12,6 @@ services:
       - WATCHPACK_POLLING=true
     networks:
       local-keycloak:
-        aliases:
-          - "*.landings.localhost"
-  
     env_file:
       - .env
   platform:
@@ -38,8 +35,6 @@ services:
       POSTGRES_DB: yourdbname
       POSTGRES_USER: yourdbuser
       POSTGRES_PASSWORD: yourdbpassword
-    ports:
-      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     networks:
@@ -56,6 +51,10 @@ services:
       - "24:25"
     networks:
       local-keycloak:
+    volumes:
+      - ./hortesie_djangoapp/files/uploads:/hortesie_djangoapp/files/uploads  # Mount uploads folder
+      - ./certbot/www:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/nginx/ssl/:ro
   keycloak-postgres:
       image: postgres:latest
       volumes:
@@ -68,8 +67,6 @@ services:
         POSTGRES_PASSWORD: ${POSTGRES_PW}
       networks:
         - local-keycloak
-      ports:
-        - 5433:5432
     
   keycloak:
     image: quay.io/keycloak/keycloak:25.0.2
@@ -78,6 +75,7 @@ services:
     environment:
       PROXY_ADDRESS_FORWARDING: "true"
       DB_VENDOR: postgres
+      KC_HTTP_ENABLE: true
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
       KEYCLOAK_IMPORT: /opt/keycloak/data/import/realm-config.json
@@ -85,25 +83,41 @@ services:
       KC_DB_URL: jdbc:postgresql://keycloak-postgres:5432/keycloak
       KC_DB_USERNAME: ${POSTGRES_USR}
       KC_DB_PASSWORD: ${POSTGRES_PW}
+      KC_HOSTNAME: auth.hortesie.fr
+      KC_HTTPS_CERTIFICATE_FILE: /etc/x509/https/tls.crt
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /etc/x509/https/tls.key
     command: 
-      - start-dev 
-      - --import-realm
+      - start
       - --spi-theme-static-max-age=-1
       - --spi-theme-cache-themes=false
       - --spi-theme-cache-templates=false
+      # - --proxy-headers=forwarded
+      # - --proxy=edge
     depends_on:
       - keycloak-postgres
     ports:
       - "8080:8080"
+      - "8443:8443"
     networks:
       local-keycloak:
         ipv4_address: 172.28.0.12
         aliases:
-          - "auth.landings.localhost"
+          - "auth.hortesie.fr"
     volumes:
       - ./keycloak/config/realm-export (5).json:/opt/keycloak/data/import/realm-config.json
       - ./keycloak/themes:/opt/keycloak/themes
-  
+      - ./certbot/conf/live/hortesie.fr-0001/fullchain.pem:/etc/x509/https/tls.crt
+      - ./certbot/conf/live/hortesie.fr-0001/privkey.pem:/etc/x509/https/tls.key
+  certbot:
+    container_name: certbot
+    image: certbot/certbot:latest
+    depends_on:
+      - nginx
+    networks:
+      local-keycloak:
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw
 volumes:
   postgres_data:
   keycloak_data:

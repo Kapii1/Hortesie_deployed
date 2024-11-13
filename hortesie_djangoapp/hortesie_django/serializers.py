@@ -11,7 +11,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         return {
             **super().to_representation(instance),
-            "vignette": "/api" + instance.vignette.file.url,
+            "vignette": "/api" + instance.vignette.file.url if instance.vignette else "",
         }
 
 
