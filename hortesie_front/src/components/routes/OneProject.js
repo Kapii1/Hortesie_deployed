@@ -1,10 +1,5 @@
 import React, { Component } from "react";
-import "./Project.css";
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
-import { CardActionArea, CardHeader } from "@mui/material";
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import "./OneProject.css";
 import Image from "./Image";
 

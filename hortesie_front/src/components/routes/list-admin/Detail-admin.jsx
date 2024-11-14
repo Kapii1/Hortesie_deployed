@@ -7,7 +7,12 @@ import useAPI from "./apiService";
 import useSWR from "swr";
 import { useForm } from "antd/es/form/Form";
 import dayjs from "dayjs";
-import { DatePicker, Form, Input } from "antd";
+import Input from "antd/es/input";
+import 'antd/es/input/style'; 
+import Form from "antd/es/form";
+import 'antd/es/form/style'; 
+import DatePicker from "antd/es/date-picker";
+import 'antd/es/date-picker/style'; 
 // toast-configuration method,antd
 // it is compulsory method.
 import { API_URL } from "../../../url";
@@ -56,7 +61,7 @@ export function DetailAdmin(props) {
     const userName = form.getFieldValue("name");
     const city = form.getFieldValue("city");
     const annee = form.getFieldValue("annee");
-    console.log(form,annee,annee.toISOString());
+    console.log(form, annee, annee.toISOString());
     const res = fetch(API_URL + "/projects/" + data.id + "/", {
       method: "PATCH",
       headers: {
@@ -89,7 +94,7 @@ export function DetailAdmin(props) {
     });
 
     onReRender();
-    return {msg:"ok"};
+    return { msg: "ok" };
   };
   const handleSelect = (option) => {
     setSelectedOption(option);

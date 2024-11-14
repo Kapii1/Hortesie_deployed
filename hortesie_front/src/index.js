@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import { ReactNotifications } from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css';
-import "@fortawesome/fontawesome-free/css/all.min.css";
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 // Theme
 import "primereact/resources/themes/lara-light-indigo/theme.css";

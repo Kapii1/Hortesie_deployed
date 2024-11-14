@@ -9,60 +9,62 @@ import { Link, useLocation } from "react-router-dom";
 import { after } from "underscore";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { API_URL } from "../../url";
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from "react-helmet-async";
 import { Spinner } from "react-spinner-animated";
-import { MDBIcon, MDBBtn } from "mdb-react-ui-kit";
 import CustomGrid from "./CustomGrid";
 import { CustomGridItem } from "./CustomGridItem";
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'TOGGLE_EXPAND_SEARCH':
+    case "TOGGLE_EXPAND_SEARCH":
       return {
         ...state,
-        isExpanded: !state.isExpanded
-      }
-    case 'FETCH_SUCCESS':
+        isExpanded: !state.isExpanded,
+      };
+    case "FETCH_SUCCESS":
       return {
         ...state,
         loading: false,
         items: action.payload,
-        error: '',
-        visibleItems: action.payload
-      }
-    case 'ORDER_BY_YEAR_ASC':
+        error: "",
+        visibleItems: action.payload,
+      };
+    case "ORDER_BY_YEAR_ASC":
       return {
         ...state,
-        visibleItems: state.items.sort((item1, item2) => item1.date - item2.date)
-      }
-    case 'ORDER_BY_YEAR_DESC':
+        visibleItems: state.items.sort(
+          (item1, item2) => item1.date - item2.date
+        ),
+      };
+    case "ORDER_BY_YEAR_DESC":
       return {
         ...state,
-        visibleItems: state.items.sort((item1, item2) => item2.date - item1.date)
-      }
-    case 'SEARCH':
+        visibleItems: state.items.sort(
+          (item1, item2) => item2.date - item1.date
+        ),
+      };
+    case "SEARCH":
       return {
         ...state,
         visibleItems: state.items.filter((item) => {
-          return (item.nom.toLowerCase().includes(action.searchAttr) | item.ville.toLowerCase().includes(action.searchAttr))
-        })
-      }
-    case 'PROJECTS':
+          return (
+            item.nom.toLowerCase().includes(action.searchAttr) |
+            item.ville.toLowerCase().includes(action.searchAttr)
+          );
+        }),
+      };
+    case "PROJECTS":
       return {
         ...state,
-        visibleItems: state.items.filter(
-          (item) => item.type === "projet"
-        )
-      }
-    case 'ETUDES':
+        visibleItems: state.items.filter((item) => item.type === "projet"),
+      };
+    case "ETUDES":
       return {
         ...state,
-        visibleItems: state.items.filter(
-          (item) => item.type === "etude"
-        )
-      }
+        visibleItems: state.items.filter((item) => item.type === "etude"),
+      };
     default:
-      return state
+      return state;
   }
 }
 
@@ -70,30 +72,29 @@ export function Projets({ filter }) {
   const location = useLocation();
   const initialState = {
     loading: true,
-    error: '',
+    error: "",
     items: [],
     visibleItems: [],
-    isExpanded: false
-  }
-  const [isLoaded, setIsLoaded] = useState(true)
+    isExpanded: false,
+  };
+  const [isLoaded, setIsLoaded] = useState(true);
 
-  const [state, dispatch] = useReducer(reducer, initialState)
-  const expander = useRef()
-  const searchbar = useRef()
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const expander = useRef();
+  const searchbar = useRef();
 
-
-  const gridRef = useRef()
+  const gridRef = useRef();
   const onLoad = after(state.visibleItems.length, () => {
-    setIsLoaded(true)
-    gridRef.current.className += " projets-container-loaded"
+    setIsLoaded(true);
+    gridRef.current.className += " projets-container-loaded";
   });
 
   const fetchData = async () => {
     try {
       const res = await fetch(API_URL + "/projects/", { method: "GET" });
       const json = await res.json();
-      dispatch({ type: 'FETCH_SUCCESS', payload: json })
-      gridRef.current.className += " projets-container-loaded"
+      dispatch({ type: "FETCH_SUCCESS", payload: json });
+      gridRef.current.className += " projets-container-loaded";
       return json;
     } catch (error) {
       console.log("error", error);
@@ -105,67 +106,35 @@ export function Projets({ filter }) {
   }, []);
 
   useEffect(() => {
-    if (state.isExpanded) {
-      expander.current.style.transform = "none"
-    } else if (window.innerWidth < 800) {
-      expander.current.style.transform = "translate(80%)"
-    } else {
-      expander.current.style.transform = "translate(86%)"
+    if (filter === "projets") {
+      dispatch({ type: "PROJECTS" });
+    } else if (filter === "etudes") {
+      dispatch({ type: "ETUDES" });
     }
-    console.log(state)
-  }, [state.isExpanded])
-  console.log(state)
-
-  useEffect(() => {
-
-    if (filter === 'projets') {
-      dispatch({ type: 'PROJECTS' })
-    } else if (filter === 'etudes') {
-      dispatch({ type: 'ETUDES' })
-    }
-  }, [location])
+  }, [location]);
   return (
     <>
-      {!isLoaded ? <div className="spinner-loading">
-        <Spinner text={"Chargement..."} center={false} height={"100px"} />
-      </div> : ''
-      }
-
-      < div className="Grid-container"
-        id="grid-projet" >
-        <div className="searching-container" ref={expander}>
-          <div className="expander-search" onClick={() => {
-            if (!state.isExpanded) { searchbar.current.focus() }
-            dispatch({ type: 'TOGGLE_EXPAND_SEARCH' })
-          }}>
-            <MDBIcon fas icon={!state.isExpanded ? "search" : "angle-right"} size="2x" />
-          </div>
-          <div className="input-search">
-            <input ref={searchbar} onChange={(e) => {
-              dispatch({ type: "SEARCH", searchAttr: e.target.value.toLocaleLowerCase() })
-            }}></input>
-
-            <MDBBtn className='btn-float' floating onClick={() => { dispatch({ type: 'ORDER_BY_YEAR_ASC' }) }}><MDBIcon fas icon="sort-amount-up" /></MDBBtn>
-            <MDBBtn className='btn-float' floating onClick={() => { dispatch({ type: 'ORDER_BY_YEAR_DESC' }) }}><MDBIcon fas icon="sort-amount-down" /></MDBBtn>
-            <div className="btn-container">
-              <MDBBtn onClick={() => { dispatch({ type: 'PROJECTS' }) }}>Projets</MDBBtn>
-              <MDBBtn onClick={() => { dispatch({ type: 'ETUDES' }) }}>Etudes</MDBBtn>
-            </div>
-          </div>
-
+      {!isLoaded ? (
+        <div className="spinner-loading">
+          <Spinner text={"Chargement..."} center={false} height={"100px"} />
         </div>
+      ) : (
+        ""
+      )}
+
+      <div className="Grid-container" id="grid-projet">
         <Helmet>
           <title>{"Hortésie : Projets"}</title>
           <link rel="canonical" href={"https://hortesie.fr/projets"} />
         </Helmet>
 
-
         <CustomGrid
           ref={gridRef}
-          className="projets-container projets-container-loaded">
+          className="projets-container projets-container-loaded"
+        >
           {state.visibleItems &&
             state.visibleItems.map((item, i) => (
-              <CustomGridItem className="projet" >
+              <CustomGridItem className="projet">
                 <Link to={item.id}>
                   <motion.div key={i}>
                     <Projet
@@ -180,15 +149,13 @@ export function Projets({ filter }) {
                 </Link>
               </CustomGridItem>
             ))}
-
         </CustomGrid>
-
 
         <Routes location={location} key={location.key}>
           <Route path="/" />
           <Route path="/:id" element={<Details />} />
         </Routes>
-      </div >
+      </div>
     </>
   );
 }
