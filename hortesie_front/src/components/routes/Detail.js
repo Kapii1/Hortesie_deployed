@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import "./Detail.css";
 import { Link } from "react-router-dom";
-import { SimpleSlider } from "./SimpleSlider";
 import { motion } from "framer-motion";
 import { Carousel } from 'react-responsive-carousel';
 import CustomCarouselItem from "./CustomCarouselItem";
