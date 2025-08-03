@@ -1,154 +1,142 @@
-import React, { useEffect, useReducer, useRef, useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback, useRef } from "react";
 import "./Project.css";
-import { AnimatePresence, motion } from "framer-motion";
-import Grid from "@mui/material/Grid";
-import { Routes, Route, json } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Routes, Route } from "react-router-dom";
 import { Projet } from "./OneProject";
 import Details from "./Details";
 import { Link, useLocation } from "react-router-dom";
-import { after } from "underscore";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { API_URL } from "../../url";
 import { Helmet } from "react-helmet-async";
 import { Spinner } from "react-spinner-animated";
 import CustomGrid from "./CustomGrid";
 import { CustomGridItem } from "./CustomGridItem";
 
-function reducer(state, action) {
-  switch (action.type) {
-    case "TOGGLE_EXPAND_SEARCH":
-      return {
-        ...state,
-        isExpanded: !state.isExpanded,
-      };
-    case "FETCH_SUCCESS":
-      return {
-        ...state,
-        loading: false,
-        items: action.payload,
-        error: "",
-        visibleItems: action.payload,
-      };
-    case "ORDER_BY_YEAR_ASC":
-      return {
-        ...state,
-        visibleItems: state.items.sort(
-          (item1, item2) => item1.date - item2.date
-        ),
-      };
-    case "ORDER_BY_YEAR_DESC":
-      return {
-        ...state,
-        visibleItems: state.items.sort(
-          (item1, item2) => item2.date - item1.date
-        ),
-      };
-    case "SEARCH":
-      return {
-        ...state,
-        visibleItems: state.items.filter((item) => {
-          return (
-            item.nom.toLowerCase().includes(action.searchAttr) |
-            item.ville.toLowerCase().includes(action.searchAttr)
-          );
-        }),
-      };
-    case "PROJECTS":
-      return {
-        ...state,
-        visibleItems: state.items.filter((item) => item.type === "projet"),
-      };
-    case "ETUDES":
-      return {
-        ...state,
-        visibleItems: state.items.filter((item) => item.type === "etude"),
-      };
-    default:
-      return state;
-  }
-}
+// Custom hook for project data management
+const useProjects = () => {
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-export function Projets({ filter }) {
-  const location = useLocation();
-  const initialState = {
-    loading: true,
-    error: "",
-    items: [],
-    visibleItems: [],
-    isExpanded: false,
-  };
-  const [isLoaded, setIsLoaded] = useState(true);
-
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const expander = useRef();
-  const searchbar = useRef();
-
-  const gridRef = useRef();
-  const onLoad = after(state.visibleItems.length, () => {
-    setIsLoaded(true);
-    gridRef.current.className += " projets-container-loaded";
-  });
-
-  const fetchData = async () => {
+  const fetchProjects = useCallback(async () => {
     try {
-      const res = await fetch(API_URL + "/projects/", { method: "GET" });
-      const json = await res.json();
-      dispatch({ type: "FETCH_SUCCESS", payload: json });
-      gridRef.current.className += " projets-container-loaded";
-      return json;
-    } catch (error) {
-      console.log("error", error);
+      setLoading(true);
+      setError(null);
+      const response = await fetch(`${API_URL}/projects/`, { method: "GET" });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      setProjects(data);
+    } catch (err) {
+      setError(err.message);
+      console.error("Error fetching projects:", err);
+    } finally {
+      setLoading(false);
     }
-  };
-
-  useEffect(() => {
-    fetchData();
   }, []);
 
   useEffect(() => {
+    fetchProjects();
+  }, [fetchProjects]);
+
+  return { projects, loading, error, refetch: fetchProjects };
+};
+
+// Custom hook for project filtering
+const useProjectFilter = (projects, filter, searchTerm = "") => {
+  return useMemo(() => {
+    let filtered = [...projects];
+
+    // Apply type filter
     if (filter === "projets") {
-      dispatch({ type: "PROJECTS" });
+      filtered = filtered.filter(item => item.type === "projet");
     } else if (filter === "etudes") {
-      dispatch({ type: "ETUDES" });
+      filtered = filtered.filter(item => item.type === "etude");
     }
-  }, [location]);
+
+    // Apply search filter
+    if (searchTerm) {
+      const search = searchTerm.toLowerCase();
+      filtered = filtered.filter(item => 
+        (item.name && item.name.toLowerCase().includes(search)) ||
+        (item.city && item.city.toLowerCase().includes(search))
+      );
+    }
+
+    return filtered;
+  }, [projects, filter, searchTerm]);
+};
+
+export function Projets({ filter }) {
+  const location = useLocation();
+  const { projects, loading, error } = useProjects();
+  const [isLoaded, setIsLoaded] = useState(false);
+  const gridRef = useRef();
+  
+  const filteredProjects = useProjectFilter(projects, filter);
+
+  // Handle loading completion
+  useEffect(() => {
+    if (!loading && filteredProjects.length > 0) {
+      setIsLoaded(true);
+      if (gridRef.current) {
+        gridRef.current.classList.add("projets-container-loaded");
+      }
+    }
+  }, [loading, filteredProjects.length]);
+
+  const handleProjectLoad = useCallback(() => {
+    // Individual project load handler - can be expanded for specific needs
+  }, []);
+
+  if (error) {
+    return (
+      <div className="error-container">
+        <p>Erreur lors du chargement des projets: {error}</p>
+        <button onClick={() => window.location.reload()}>Réessayer</button>
+      </div>
+    );
+  }
+
   return (
     <>
-      {!isLoaded ? (
+      {loading && (
         <div className="spinner-loading">
-          <Spinner text={"Chargement..."} center={false} height={"100px"} />
+          <Spinner text="Chargement..." center={false} height="100px" />
         </div>
-      ) : (
-        ""
       )}
 
       <div className="Grid-container" id="grid-projet">
         <Helmet>
-          <title>{"Hortésie : Projets"}</title>
-          <link rel="canonical" href={"https://hortesie.fr/projets"} />
+          <title>Hortésie : Projets</title>
+          <link rel="canonical" href="https://hortesie.fr/projets" />
         </Helmet>
 
         <CustomGrid
           ref={gridRef}
-          className="projets-container projets-container-loaded"
+          className="projets-container"
         >
-          {state.visibleItems &&
-            state.visibleItems.map((item, i) => (
-              <CustomGridItem className="projet">
-                <Link to={item.id}>
-                  <motion.div key={i}>
-                    <Projet
-                      i={i}
-                      id={item.id}
-                      name={item.name}
-                      path_image={item.vignette}
-                      description={item.description}
-                      onLoad={onLoad}
-                    />
-                  </motion.div>
-                </Link>
-              </CustomGridItem>
-            ))}
+          {filteredProjects.map((item) => (
+            <CustomGridItem key={item.id} className="projet">
+              <Link to={item.id}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Projet
+                    id={item.id}
+                    name={item.name}
+                    path_image={item.vignette}
+                    description={item.description}
+                    onLoad={handleProjectLoad}
+                  />
+                </motion.div>
+              </Link>
+            </CustomGridItem>
+          ))}
         </CustomGrid>
 
         <Routes location={location} key={location.key}>

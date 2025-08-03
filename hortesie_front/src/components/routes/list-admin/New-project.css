@@ -1,81 +1,187 @@
-.Detail-container {
-    overflow: scroll;
-    border: solid;
-    border-width: 1px;
-    background-color: transparent;
-    width: 50%;
-    max-height: 100dvh;
+/* New Project Page - Modern Black & White Design */
+
+.new-project-container {
+    min-height: 100vh;
+    background: #f8f9fa;
+    padding: 2rem;
+    padding-top: calc(5rem + 2rem);
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    width: 100vw;
+    margin: 0;
+    box-sizing: border-box;
 }
 
-.button-admin {
-    margin-left: 50%;
-}
-
-.form-projet {
-    padding-left: 2rem !important;
-    padding-right: 2rem !important;
-}
-
-.titre-container {
-    height: 4rem;
-}
-
-.titre-modif {
-    font-weight: bold;
-}
-
-.label-detail {
-    margin: auto;
-    margin-top: 2rem;
-    padding-bottom: 1rem;
-}
-
-.add-photo-button {
-    margin: auto;
-    padding-bottom: 2rem;
-    padding-top: 1rem;
-}
-
-.field-container {
+.new-project-header {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
 
+.back-button {
+    background: #f8f9fa !important;
+    color: #000000 !important;
+    border: 1px solid #dee2e6 !important;
+    border-radius: 8px !important;
+    text-transform: none !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+}
+
+.back-button:hover {
+    background: #000000 !important;
+    color: white !important;
+    transform: translateY(-1px);
 }
 
 .titre-ajout {
+    flex: 1;
     display: flex;
-    height: 100%;
-    align-items: center;
     justify-content: center;
-    font-weight: bold;
-    font-size: large;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #000000;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
 }
 
-.image-admin {
-    height: 15rem;
-    width: auto;
+.button-admin {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
 }
 
-.image-admin-container {
+.save-button {
+    background: #000000 !important;
+    color: white !important;
+    border-radius: 12px !important;
+    padding: 12px 32px !important;
+    text-transform: none !important;
+    font-weight: 600 !important;
+    font-size: 1.1rem !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+    transition: all 0.3s ease !important;
+}
+
+.save-button:hover {
+    background: #333333 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+.field-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     display: flex;
     flex-direction: column;
-    margin: auto;
-    padding-top: 15px;
-    width: 100%;
+    gap: 2rem;
 }
 
-.vignette-admin {
-    width: auto;
-    height: 30rem;
-    margin: auto;
-}
-
-.image-vignette {
+.form-group {
     display: flex;
     flex-direction: column;
+    gap: 0.75rem;
 }
 
-.change-vignette {
-    margin: auto !important;
-    margin-bottom: 10px !important;
+.label-detail {
+    font-weight: 600;
+    color: #000000;
+    font-size: 1rem;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    margin: 0;
+}
+
+.form-projet {
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif !important;
+}
+
+.form-projet .MuiOutlinedInput-root {
+    border-radius: 8px !important;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+.form-projet .MuiOutlinedInput-root:hover {
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-projet .MuiOutlinedInput-root.Mui-focused {
+    background: white;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+}
+
+.form-projet .MuiOutlinedInput-notchedOutline {
+    border-color: #dee2e6 !important;
+}
+
+.form-projet .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #000000 !important;
+}
+
+.form-projet .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #000000 !important;
+    border-width: 2px !important;
+}
+
+.form-projet .MuiInputBase-input {
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif !important;
+    color: #000000 !important;
+}
+
+.form-projet .MuiInputBase-input::placeholder {
+    color: #6c757d !important;
+    opacity: 1 !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .new-project-container {
+        padding: 1rem;
+        padding-top: calc(5rem + 1rem);
+    }
+    
+    .new-project-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+        text-align: center;
+    }
+    
+    .back-button {
+        align-self: flex-start;
+    }
+    
+    .titre-ajout {
+        font-size: 1.25rem;
+    }
+    
+    .field-container {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .new-project-container {
+        padding: 0.5rem;
+        padding-top: calc(5rem + 0.5rem);
+    }
+    
+    .new-project-header {
+        padding: 1.5rem;
+    }
+    
+    .field-container {
+        padding: 1rem;
+        gap: 1.5rem;
+    }
+    
+    .titre-ajout {
+        font-size: 1.1rem;
+    }
 }

@@ -39,18 +39,18 @@ export default function Navbar({setCollapsed}) {
           Études
         </Link>
       </li>
-      <li className="navbar-li">
-        <Link
-          to="/articles"
-          prefetch={false}
-          className="nav-links"
-          onClick={async () => {
-            setCollapsed(collapsed=>!collapsed);
-          }}
-        >
-          Articles
-        </Link>
-      </li>
+      {/*<li className="navbar-li">*/}
+      {/*  <Link*/}
+      {/*    to="/articles"*/}
+      {/*    prefetch={false}*/}
+      {/*    className="nav-links"*/}
+      {/*    onClick={async () => {*/}
+      {/*      setCollapsed(collapsed=>!collapsed);*/}
+      {/*    }}*/}
+      {/*  >*/}
+      {/*    Articles*/}
+      {/*  </Link>*/}
+      {/*</li>*/}
       <li className="navbar-li">
         <Link
           to="/contact"
