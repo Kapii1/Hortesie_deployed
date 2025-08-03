@@ -5,6 +5,7 @@
     background-color: transparent;
     width: 50%;
     max-height: 100dvh;
+    padding-top: 5rem;
 }
 
 .header-admin-container {
@@ -47,14 +48,15 @@
 .modal-backdrop {}
 
 .input-drag-n-drop {
-    border: dashed 1px;
+    border: dashed 1px black;
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 50px;
     margin-top: 50px;
     margin-left: 50px;
     margin-right: 50px;
-    color: rgb(0, 110, 74)
+    color: #000000;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
 }
 
 
@@ -108,7 +110,7 @@ fieldset>legend {
     position: relative;
     width: 100%;
     padding-top: 1rem;
-    border-top: dashed 1px gray;
+    border-top: dashed 1px black;
 }
 
 .image-container-delete {

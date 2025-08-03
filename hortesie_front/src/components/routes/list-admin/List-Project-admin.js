@@ -1,23 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRef } from "react";
 import AddIcon from "@mui/icons-material/Add";
-import { Routes, Route } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import ListProject from "./ListProject.css";
 import { OneRowAdmin } from "./OneRow";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { DetailAdmin } from "./Detail-admin";
 import Save from "@mui/icons-material/Save";
 import { Button, Icon } from "@mui/material";
 import Login from "./Login";
 import { API_URL } from "../../../url";
 import useToken from "./useToken";
-import { New_Project } from "./New-project";
 import Del_button from "./Del_button"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import ImportFile from "./EZtool/Tool";
@@ -42,15 +39,12 @@ async function get_id_update_index(from_index, to_index) {
 }
 
 export function ListProjectAdmin() {
-
-
-
+  const navigate = useNavigate();
   const [reRender, setReRender] = useState(false);
 
   const handleReRender = () => {
     setReRender(!reRender);
   };
-  const location = useLocation();
   const [data, setData] = useState();
   const forceUpdate = useForceUpdate();
   async function fetchData() {
@@ -96,7 +90,7 @@ export function ListProjectAdmin() {
         <div className="button-admin add-project-admin">
           <Link
             style={{ textDecoration: "none", color: "black" }}
-            to="new_project"
+            to="/admin/projets/new"
           >
             <Button sx={{ fontSize: 20 }} startIcon={<AddIcon />}>
               Ajouter projet
@@ -143,7 +137,7 @@ export function ListProjectAdmin() {
                                 color: "black",
                                 width: "95%",
                               }}
-                              to={item.id}
+                              to={`/admin/projets/${item.id}/edit`}
                             >
                               <OneRowAdmin
                                 nom={item.name}
@@ -166,18 +160,6 @@ export function ListProjectAdmin() {
             </Droppable>
           </DragDropContext>
         </div>
-
-        <Routes location={location} key={location.key}>
-          <Route path="/" />
-          <Route
-            path="/:id"
-            element={<DetailAdmin onReRender={handleReRender} />}
-          />
-          <Route
-            path="/new_project"
-            element={<New_Project onReRender={handleReRender} />}
-          />
-        </Routes>
       </div>
     </div>
   );

@@ -1,61 +1,119 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import SaveIcon from "@mui/icons-material/Save";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Button } from "@mui/material";
 import { Store } from 'react-notifications-component';
 import { API_URL } from "../../../url";
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
+import "./New-project.css";
 
 export function New_Project(props) {
   const { onReRender } = props;
+  const navigate = useNavigate();
   const s4 = () => {
     return Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
       .substring(1);
   };
   const id = s4() + s4() + s4();
-  const [imgs, setimgs] = useState([]);
+  const [formData, setFormData] = useState({
+    name: '',
+    description: '',
+    city: ''
+  });
+
+  const handleInputChange = (field, value) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleBackToList = () => {
+    navigate('/admin/projets');
+  };
 
   const format_new_data_to_save = async () => {
-    const creation = await create_project();
-    var new_data = [];
-    var today = new Date();
-    var yyyy = today.getFullYear();
-
-    today = yyyy;
-
-    const nom_projet = document.getElementById("nom-projet").value;
-    const description = document.getElementById("description-projet").value;
-    const ville = document.getElementById("ville-projet").value;
-    var list_of_img = [];
-    new_data = await {
-      id: id,
-      nom: nom_projet,
-      description: description,
-      date: today,
-      type: "projet",
-      vignette: "",
-      ville: ville,
-      images: [],
-    };
-    const res = await fetch(API_URL + "/save_modif_project", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(new_data),
-    }).then((res) => {
-      if (res.status === 200) {
+    try {
+      // Validate required fields
+      if (!formData.name.trim()) {
         Store.addNotification({
-          title: "Créé",
-          message: <div> Vous pouvez vous rendre sur le menu du projet  <a href={'/admin/' + id}>
-            en cliquant ici
-          </a>
-          </div>,
+          title: "Erreur",
+          message: "Le nom du projet est requis",
+          type: "danger",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 5000,
+            onScreen: true
+          }
+        });
+        return;
+      }
+
+      // Prepare data for API call
+      const today = new Date();
+      const projectData = {
+        id: id,
+        name: formData.name,
+        description: formData.description || '',
+        date: today.toISOString().split('T')[0], // Format as YYYY-MM-DD
+        type: "projet",
+        city: formData.city || '',
+        category: "default", // Required field with default value
+        position: 0, // Will be handled by backend
+        vignette: null, // Will be set later when images are uploaded
+        resume: null
+      };
+
+      // Make API call to create project
+      const response = await fetch(API_URL + "/projects/", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(projectData),
+      });
+
+      if (response.ok) {
+        const createdProject = await response.json();
+        
+        Store.addNotification({
+          title: "Projet créé avec succès",
+          message: "Le projet a été créé. Vous pouvez maintenant l'éditer pour ajouter des images.",
           type: "success",
           insert: "top",
-          container: "bottom-center",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 5000,
+            onScreen: true
+          }
+        });
+
+        // Navigate to the edit page for the newly created project
+        navigate(`/admin/projets/${createdProject.id}/edit`);
+        
+        if (onReRender) {
+          onReRender();
+        }
+        
+        return createdProject;
+      } else {
+        const errorData = await response.json();
+        console.error('Project creation failed:', errorData);
+        
+        Store.addNotification({
+          title: "Erreur lors de la création",
+          message: "Une erreur s'est produite lors de la création du projet. Veuillez réessayer.",
+          type: "danger",
+          insert: "top",
+          container: "top-right",
           animationIn: ["animate__animated", "animate__fadeIn"],
           animationOut: ["animate__animated", "animate__fadeOut"],
           dismiss: {
@@ -64,57 +122,91 @@ export function New_Project(props) {
           }
         });
       }
-    });
-
-    onReRender();
-    return new_data;
+    } catch (error) {
+      console.error('Error creating project:', error);
+      
+      Store.addNotification({
+        title: "Erreur réseau",
+        message: "Impossible de créer le projet. Vérifiez votre connexion.",
+        type: "danger",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
+    }
   };
 
-  const create_project = async () => {
-    const res = await fetch(API_URL + "/add_project", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id: id }),
-    });
-    const response_json = await res.json();
-    return response_json;
-  };
 
   return (
-    <div className="Detail-container">
-      <div className="titre-container">
+    <div className="new-project-container">
+      <div className="new-project-header">
+        <Button
+          onClick={handleBackToList}
+          sx={{ fontSize: 16, marginRight: 2 }}
+          startIcon={<ArrowBackIcon />}
+          className="back-button"
+        >
+          Retour à la liste
+        </Button>
         <div className="titre-ajout">
-          <label>Ajout d'un projet</label>
+          <label>Création d'un nouveau projet</label>
         </div>
       </div>
+      
       <div className="button-admin">
         <Button
           onClick={() => format_new_data_to_save()}
           sx={{ fontSize: 20 }}
           endIcon={<SaveIcon sx={{ fontSize: 40 }} />}
+          className="save-button"
         >
-          Sauvegarder
+          Créer le projet
         </Button>
       </div>
+      
       <div className="field-container">
-        <label className="label-detail"> Titre du projet</label>
-        <TextField id="nom-projet" className="form-projet"></TextField>
-        <label className="label-detail">Description du projet</label>
-        <TextField
-          id="description-projet"
-          className="form-projet"
-          multiline
-        ></TextField>
+        <div className="form-group">
+          <label className="label-detail">Titre du projet</label>
+          <TextField 
+            value={formData.name}
+            onChange={(e) => handleInputChange('name', e.target.value)}
+            className="form-projet"
+            variant="outlined"
+            fullWidth
+            placeholder="Entrez le nom du projet"
+          />
+        </div>
+        
+        <div className="form-group">
+          <label className="label-detail">Description du projet</label>
+          <TextField
+            value={formData.description}
+            onChange={(e) => handleInputChange('description', e.target.value)}
+            className="form-projet"
+            variant="outlined"
+            multiline
+            rows={4}
+            fullWidth
+            placeholder="Décrivez le projet"
+          />
+        </div>
 
-        <label className="label-detail">Ville du projet</label>
-        <TextField
-          id="ville-projet"
-          className="form-projet"
-          multiline
-        ></TextField>
+        <div className="form-group">
+          <label className="label-detail">Ville du projet</label>
+          <TextField
+            value={formData.city}
+            onChange={(e) => handleInputChange('city', e.target.value)}
+            className="form-projet"
+            variant="outlined"
+            fullWidth
+            placeholder="Ville où se déroule le projet"
+          />
+        </div>
       </div>
     </div>
   );

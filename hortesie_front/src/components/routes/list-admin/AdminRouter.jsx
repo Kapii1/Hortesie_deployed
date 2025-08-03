@@ -3,7 +3,14 @@ import { Route, Routes } from "react-router-dom";
 import { createReactOidc } from "oidc-spa/react";
 import { z } from "zod";
 import {ListProjectAdmin} from "./List-Project-admin";
+import {ListProjectAdminRedesigned} from "./List-Project-admin-redesigned";
+import {ProjectDetailPage} from "./ProjectDetailPage";
+import {ProjectDetailPageRedesigned} from "./ProjectDetailPageRedesigned";
+import {New_Project} from "./New-project";
 import Toolpage from "./EZtool/PageTools";
+import CCTPPageRedesigned from "./EZtool/CCTPPageRedesigned";
+import AdminAccueil from "./AdminAccueil";
+import {ProjectPositionManager} from "./ProjectPositionManager";
 export const { OidcProvider, useOidc } = createReactOidc({
   issuerUri: process.env.REACT_APP_KEYCLOAK_URL + "/realms/hortesie",
   clientId: "hortesie-client",
@@ -17,13 +24,14 @@ export const { OidcProvider, useOidc } = createReactOidc({
 
 export const ProtectedPage = (props) => {
   const { login, isUserLoggedIn, oidcTokens } = useOidc();
-  console.log(isUserLoggedIn);
   if (!isUserLoggedIn) {
     login({ doesCurrentHrefRequiresAuth: true });
   } else if (
-    oidcTokens.decodedIdToken.client.roles.includes(`admin-hortesie`) ||
+
+        oidcTokens.decodedIdToken.client.roles.includes(`admin-hortesie`) ||
     oidcTokens?.decodedIdToken.client.roles.includes(`admin-hortesie`)
   ) {
+
     return <>{props.children}</>;
   }
   return <></>;
@@ -33,25 +41,49 @@ const AdminRouter = (children) => {
     <>
       <OidcProvider>
         <Routes>
+            <Route path="/" exact element={<ProtectedPage><AdminAccueil/></ProtectedPage>} />
           <Route
             path="projets"
             exact
             element={
               <ProtectedPage>
-                {" "}
-                …<ListProjectAdmin />
+                <ListProjectAdminRedesigned />
               </ProtectedPage>
             }
-          ></Route>
+          />
+          <Route
+            path="projets/:id/edit"
+            element={
+              <ProtectedPage>
+                <ProjectDetailPageRedesigned />
+              </ProtectedPage>
+            }
+          />
+          <Route
+            path="projets/new"
+            element={
+              <ProtectedPage>
+                <New_Project />
+              </ProtectedPage>
+            }
+          />
+          <Route
+            path="projets/positions"
+            element={
+              <ProtectedPage>
+                <ProjectPositionManager />
+              </ProtectedPage>
+            }
+          />
           <Route
             path="tools"
             exact
             element={
               <ProtectedPage>
-                …<Toolpage></Toolpage>
+                <CCTPPageRedesigned />
               </ProtectedPage>
             }
-          ></Route>
+          />
         </Routes>
       </OidcProvider>
     </>
