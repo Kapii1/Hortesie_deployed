@@ -12,7 +12,7 @@ import CCTPPageRedesigned from "./EZtool/CCTPPageRedesigned";
 import AdminAccueil from "./AdminAccueil";
 import {ProjectPositionManager} from "./ProjectPositionManager";
 export const { OidcProvider, useOidc } = createReactOidc({
-  issuerUri: process.env.REACT_APP_KEYCLOAK_URL + "/realms/hortesie",
+  issuerUri: "https://auth.hortesie.fr/realms/hortesie",
   clientId: "hortesie-client",
   decodedIdTokenSchema: z.object({
     sub: z.string(),
@@ -40,10 +40,11 @@ const AdminRouter = (children) => {
   return (
     <>
       <OidcProvider>
+        <ProtectedPage>
         <Routes>
             <Route path="/" exact element={<ProtectedPage><AdminAccueil/></ProtectedPage>} />
           <Route
-            path="projets"
+            path="projets/*"
             exact
             element={
               <ProtectedPage>
@@ -81,10 +82,11 @@ const AdminRouter = (children) => {
             element={
               <ProtectedPage>
                 <CCTPPageRedesigned />
-              </ProtectedPage>
+		    </ProtectedPage>
             }
           />
         </Routes>
+        </ProtectedPage>
       </OidcProvider>
     </>
   );

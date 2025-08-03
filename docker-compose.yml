@@ -4,8 +4,6 @@ services:
   front:
     build:
       context: ./hortesie_front
-    ports:
-      - "3000:3000"
     volumes:
       - ./hortesie_front:/app
     environment:
@@ -13,22 +11,21 @@ services:
     networks:
       local-keycloak:
     env_file:
-      - .env
+      - .env   # Limit to 512MB of memory
+
   platform:
     build:
       context: ./hortesie_djangoapp
     volumes:
       - ./hortesie_djangoapp:/app
-    ports:
-      - "8000:8000"
     networks:
       local-keycloak:
     depends_on:
       - db
       - front
     env_file:
-      - .env
-  
+      - .env     # Limit to 1GB of memory
+
   db:
     image: postgres:15
     environment:
@@ -38,7 +35,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     networks:
-      - local-keycloak
+      - local-keycloak      # Limit to 1GB of memory
 
   nginx:
     build: ./nginx
@@ -52,22 +49,22 @@ services:
     networks:
       local-keycloak:
     volumes:
-      - ./hortesie_djangoapp/files/uploads:/hortesie_djangoapp/files/uploads  # Mount uploads folder
+      - ./hortesie_djangoapp/files/uploads:/hortesie_djangoapp/files/uploads
       - ./certbot/www:/var/www/certbot/:ro
       - ./certbot/conf/:/etc/nginx/ssl/:ro
   keycloak-postgres:
-      image: postgres:latest
-      volumes:
-        - keycloak_data:/var/lib/postgresql/data
-      env_file:
-        - .env
-      environment:
-        POSTGRES_DB: keycloak
-        POSTGRES_USER: ${POSTGRES_USR}
-        POSTGRES_PASSWORD: ${POSTGRES_PW}
-      networks:
-        - local-keycloak
-    
+    image: postgres:latest
+    volumes:
+      - keycloak_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: ${POSTGRES_USR}
+      POSTGRES_PASSWORD: ${POSTGRES_PW}
+    networks:
+      - local-keycloak   # Limit to 1GB of memory
+
   keycloak:
     image: quay.io/keycloak/keycloak:25.0.2
     env_file:
@@ -84,20 +81,16 @@ services:
       KC_DB_USERNAME: ${POSTGRES_USR}
       KC_DB_PASSWORD: ${POSTGRES_PW}
       KC_HOSTNAME: auth.hortesie.fr
-      KC_HTTPS_CERTIFICATE_FILE: /etc/x509/https/tls.crt
-      KC_HTTPS_CERTIFICATE_KEY_FILE: /etc/x509/https/tls.key
+      KC_HTTPS_CERTIFICATE_FILE: /etc/letsencrypt/live/auth.hortesie.fr/fullchain.pem
+      KC_HTTPS_CERTIFICATE_KEY_FILE:  /etc/letsencrypt/live/auth.hortesie.fr/privkey.pem
     command: 
       - start
       - --spi-theme-static-max-age=-1
       - --spi-theme-cache-themes=false
       - --spi-theme-cache-templates=false
-      # - --proxy-headers=forwarded
-      # - --proxy=edge
+      - --verbose
     depends_on:
       - keycloak-postgres
-    ports:
-      - "8080:8080"
-      - "8443:8443"
     networks:
       local-keycloak:
         ipv4_address: 172.28.0.12
@@ -106,11 +99,13 @@ services:
     volumes:
       - ./keycloak/config/realm-export (5).json:/opt/keycloak/data/import/realm-config.json
       - ./keycloak/themes:/opt/keycloak/themes
-      - ./certbot/conf/live/hortesie.fr-0001/fullchain.pem:/etc/x509/https/tls.crt
-      - ./certbot/conf/live/hortesie.fr-0001/privkey.pem:/etc/x509/https/tls.key
+      - ./certbot/conf:/etc/letsencrypt/:ro
+
+
   certbot:
     container_name: certbot
     image: certbot/certbot:latest
+    restart: unless-stopped
     depends_on:
       - nginx
     networks:
@@ -118,6 +113,9 @@ services:
     volumes:
       - ./certbot/www/:/var/www/certbot/:rw
       - ./certbot/conf/:/etc/letsencrypt/:rw
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    # Limit to 256MB of memory
+
 volumes:
   postgres_data:
   keycloak_data:
