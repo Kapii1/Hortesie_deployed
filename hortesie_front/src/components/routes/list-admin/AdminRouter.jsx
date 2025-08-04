@@ -11,7 +11,7 @@ import Toolpage from "./EZtool/PageTools";
 import CCTPPageRedesigned from "./EZtool/CCTPPageRedesigned";
 import AdminAccueil from "./AdminAccueil";
 import {ProjectPositionManager} from "./ProjectPositionManager";
-import { AUTH_ISSUER } from "../../url";
+import {AUTH_ISSUER} from "../../../url";
 
 export const { OidcProvider, useOidc } = createReactOidc({
   issuerUri: AUTH_ISSUER,

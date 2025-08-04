@@ -1,7 +1,7 @@
 import React from "react";
 import "./A-propos.css";
 import { Helmet } from "react-helmet-async";
-import { CANONICAL_BASE } from "../url";
+import {CANONICAL_BASE} from "../../url";
 
 export const Apropos = (props) => {
     return (

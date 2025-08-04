@@ -29,21 +29,17 @@ export default function Footer() {
             <h6 className="footer-title">Contact</h6>
             <div className="contact-info">
               <div className="contact-item">
-                <span className="contact-icon">📍</span>
                 <span>11 rue des Saules, 95450 Vigny</span>
               </div>
               <div className="contact-item">
-                <span className="contact-icon">✉️</span>
                 <span>hortesie[at]hortesie.biz</span>
               </div>
               <div className="contact-item">
-                <span className="contact-icon">📞</span>
                 <span>01 30 39 24 88</span>
               </div>
               <div className="contact-item">
-                <span className="contact-icon">🔗</span>
                 <a href="https://www.linkedin.com/company/hort%C3%A9sie/" className="footer-link">
-                  LinkedIn - Hortésie
+                  LinkedIn
                 </a>
               </div>
             </div>

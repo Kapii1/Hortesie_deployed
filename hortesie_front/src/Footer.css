@@ -4,7 +4,7 @@
   border-top: 1px solid #e5e5e5;
   margin-top: auto;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
 }
 
 .footer-container {
@@ -16,8 +16,8 @@
 .footer-content {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 40px;
-  padding: 40px 0 25px 0;
+  gap: 20px;
+  padding: 20px 0 15px 0;
   align-items: start;
 }
 
@@ -89,25 +89,15 @@
 }
 
 .contact-info {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  display: block;
 }
 
 .contact-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 14px;
-  line-height: 1.4;
+  display: block;
+  font-size: 12px;
+  line-height: 1.5;
   color: #666666;
-}
-
-.contact-icon {
-  font-size: 16px;
-  opacity: 0.7;
-  flex-shrink: 0;
-  margin-top: 1px;
+  margin-bottom: 6px;
 }
 
 .footer-divider {
@@ -117,7 +107,7 @@
 }
 
 .footer-bottom {
-  padding: 20px 0;
+  padding: 15px 0;
   text-align: center;
 }
 
@@ -133,8 +123,8 @@
 @media (max-width: 768px) {
   .footer-content {
     grid-template-columns: 1fr;
-    gap: 30px;
-    padding: 30px 0 20px 0;
+    gap: 15px;
+    padding: 15px 0 10px 0;
     text-align: center;
   }
   
@@ -147,7 +137,7 @@
   }
   
   .footer-bottom {
-    padding: 15px 0;
+    padding: 10px 0;
   }
   
   .logo-footer {
@@ -157,8 +147,8 @@
 
 @media (max-width: 480px) {
   .footer-content {
-    gap: 25px;
-    padding: 25px 0 15px 0;
+    gap: 12px;
+    padding: 12px 0 8px 0;
   }
   
   .footer-title {
@@ -168,7 +158,7 @@
   
   .footer-link,
   .contact-item {
-    font-size: 13px;
+    font-size: 11px;
   }
   
   .copyright {
@@ -176,6 +166,6 @@
   }
   
   .footer-bottom {
-    padding: 12px 0;
+    padding: 8px 0;
   }
 }

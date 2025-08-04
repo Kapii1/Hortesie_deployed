@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, useMemo } from "react";
 import "./DetailElegant.css";
 import { useParams, useNavigate } from "react-router-dom";
 import { DetailElegant } from "./DetailElegant";
-import { API_URL } from "../../url";
+import {API_URL} from "../../url";
 
 // Simplified hook for project data management - no blinking
 const useProjectDetails = (projectId) => {
