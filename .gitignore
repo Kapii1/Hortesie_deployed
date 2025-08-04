@@ -7,5 +7,15 @@ images
 *.xml
 *.iml
 *.docx
-hortesie_front/Dockerfile
+hortesie_front/Dockerfile.del
 docker-compose.yml
+
+# Environment files - ignore actual environment files but keep templates
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+# Keep .env.dev and .env.prod as templates (these are tracked)
+!.env.dev
+!.env.prod

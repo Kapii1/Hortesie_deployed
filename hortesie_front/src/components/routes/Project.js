@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import { Projet } from "./OneProject";
 import Details from "./Details";
 import { Link, useLocation } from "react-router-dom";
-import { API_URL } from "../../url";
+import { API_URL, CANONICAL_BASE } from "../../url";
 import { Helmet } from "react-helmet-async";
 import { Spinner } from "react-spinner-animated";
 import CustomGrid from "./CustomGrid";
@@ -111,7 +111,7 @@ export function Projets({ filter }) {
       <div className="Grid-container" id="grid-projet">
         <Helmet>
           <title>Hortésie : Projets</title>
-          <link rel="canonical" href="https://hortesie.fr/projets" />
+          <link rel="canonical" href={`${CANONICAL_BASE}/projets`} />
         </Helmet>
 
         <CustomGrid

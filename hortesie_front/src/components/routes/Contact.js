@@ -1,6 +1,7 @@
 import React from "react";
 import './Contact.css';
 import { Helmet } from "react-helmet-async";
+import { CANONICAL_BASE } from "../url";
 
 export function Contact(props) {
 
@@ -9,7 +10,7 @@ export function Contact(props) {
             <Helmet>
                 <title>{"Hortésie : Contact"}</title>
                 <meta name="description" content="Contactez Hortésie pour vos projets d'aménagement paysager. Téléphone, email, adresse et formulaire de contact disponibles." />
-                <link rel="canonical" href={"https://hortesie.fr/contact"} />
+                <link rel="canonical" href={`${CANONICAL_BASE}/contact`} />
             </Helmet>
             
             <div className="contact-content">

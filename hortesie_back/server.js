@@ -112,7 +112,10 @@ const storage = multer.diskStorage({
 const doc_file_storage = multer.diskStorage({
   destination: (req, file, cb) => {
     // Set the destination folder where uploaded files will be stored
-    cb(null, "/var/tmp/hortesie.fr/hortesie_djangoapp/hortesie_django/files");
+    // Environment-specific file path based on domain
+    const domain = process.env.MAIN_DOMAIN || 'hortesie.localhost';
+    const filePath = `/var/tmp/${domain}/hortesie_djangoapp/hortesie_django/files`;
+    cb(null, filePath);
   },
   filename: (req, file, cb) => {
     // Set the filename for the uploaded file

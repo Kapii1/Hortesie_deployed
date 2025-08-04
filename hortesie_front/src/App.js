@@ -11,7 +11,8 @@ import { ReactComponent as HortesieLogo } from "./components/logo/Hortesie-rouge
 import Footer from "./footer";
 import HomeTitle from "./HomeTitle";
 import Navbar from "./Navbar";
-import { ReactComponent as HamburgerIcon } from './hamburger-menu-svgrepo-com.svg'
+import { ReactComponent as HamburgerIcon } from './hamburger-menu-svgrepo-com.svg';
+import { CANONICAL_BASE } from "./url";
 
 const AdminRouter= React.lazy(() => import("./components/routes/list-admin/AdminRouter"));
 
@@ -54,7 +55,7 @@ function App() {
     <div className="App" ref={appRef}>
       <Helmet>
         <title>{"Hortesie"}</title>
-        <link rel="canonical" href={"https://hortesie.fr"} />
+        <link rel="canonical" href={CANONICAL_BASE} />
       </Helmet>
       <div className="top-container">
         <nav className="NavbarItems" ref={navBarRef}>

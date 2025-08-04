@@ -11,8 +11,10 @@ import Toolpage from "./EZtool/PageTools";
 import CCTPPageRedesigned from "./EZtool/CCTPPageRedesigned";
 import AdminAccueil from "./AdminAccueil";
 import {ProjectPositionManager} from "./ProjectPositionManager";
+import { AUTH_ISSUER } from "../../url";
+
 export const { OidcProvider, useOidc } = createReactOidc({
-  issuerUri: "https://auth.hortesie.fr/realms/hortesie",
+  issuerUri: AUTH_ISSUER,
   clientId: "hortesie-client",
   decodedIdTokenSchema: z.object({
     sub: z.string(),

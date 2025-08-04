@@ -1,12 +1,14 @@
 import React from "react";
 import "./A-propos.css";
 import { Helmet } from "react-helmet-async";
+import { CANONICAL_BASE } from "../url";
+
 export const Apropos = (props) => {
     return (
         <div className="container-page">
             <Helmet>
                 <title>{"Hortésie : À propos"}</title>
-                <link rel="canonical" href={"https://hortesie.fr/a-propos"} />
+                <link rel="canonical" href={`${CANONICAL_BASE}/a-propos`} />
             </Helmet>
 
             <section className="intro-section">
