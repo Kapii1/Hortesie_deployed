@@ -7,9 +7,10 @@ images
 *.xml
 *.iml
 *.docx
-hortesie_front/Dockerfile.del
+hortesie_front/Dockerfile
 docker-compose.yml
-
+nginx/nginx.conf
+hortesie_djangoapp/Dockerfile
 # Environment files - ignore actual environment files but keep templates
 .env
 .env.local
