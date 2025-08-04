@@ -1,2 +1,11 @@
 node_modules
 images
+*.png
+*.jpg
+*/build/*
+*.md
+*.xml
+*.iml
+*.docx
+hortesie_front/Dockerfile
+docker-compose.yml
