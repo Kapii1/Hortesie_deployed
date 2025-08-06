@@ -6,6 +6,37 @@ import FullScreenCarousel from "./FullscreenCarousel";
 import useAPI from "./list-admin/apiService";
 import useSWR from "swr";
 
+// Custom arrow components for carousel
+const ElegantArrowPrev = ({ onClick }) => (
+  <button 
+    className="elegant-carousel-arrow elegant-carousel-arrow-prev" 
+    onClick={onClick}
+    aria-label="Image précédente"
+  >
+    ←
+  </button>
+);
+
+const ElegantArrowNext = ({ onClick }) => (
+  <button 
+    className="elegant-carousel-arrow elegant-carousel-arrow-next" 
+    onClick={onClick}
+    aria-label="Image suivante"
+  >
+    →
+  </button>
+);
+
+// Custom indicator component for carousel
+const ElegantIndicator = ({ onClick, isSelected, index, label }) => (
+  <button
+    className={`elegant-carousel-indicator ${isSelected ? 'selected' : ''}`}
+    onClick={onClick}
+    aria-label={`Aller à l'image ${index + 1}`}
+    title={`Image ${index + 1}`}
+  />
+);
+
 // Simple image component without complex animations
 const ElegantImage = ({ src, alt, onLoad }) => {
   const [loaded, setLoaded] = useState(false);
@@ -188,11 +219,25 @@ export function DetailElegant({ item, onBack, onNavigateBack }) {
                 showThumbs={false}
                 showStatus={false}
                 showIndicators={true}
-                infiniteLoop={true}
-                emulateTouch={true}
+                infiniteLoop
+                autoPlay
+                interval={7000}
                 swipeable={true}
-                dynamicHeight={false}
                 className="elegant-carousel"
+                renderArrowPrev={(onClickHandler, hasPrev) => 
+                  hasPrev && <ElegantArrowPrev onClick={onClickHandler} />
+                }
+                renderArrowNext={(onClickHandler, hasNext) => 
+                  hasNext && <ElegantArrowNext onClick={onClickHandler} />
+                }
+                renderIndicator={(onClickHandler, isSelected, index, label) => (
+                  <ElegantIndicator
+                    onClick={onClickHandler}
+                    isSelected={isSelected}
+                    index={index}
+                    label={label}
+                  />
+                )}
               >
                 {images.map((image, index) => (
                   <ElegantImage

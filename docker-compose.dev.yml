@@ -60,8 +60,8 @@ services:
       - .env
     environment:
       POSTGRES_DB: keycloak
-      POSTGRES_USER: ${POSTGRES_USR}
-      POSTGRES_PASSWORD: ${POSTGRES_PW}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     networks:
       - local-keycloak   # Limit to 1GB of memory
 
@@ -75,17 +75,15 @@ services:
       KC_HTTP_ENABLE: true
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
-      KEYCLOAK_IMPORT: /opt/keycloak/data/import/realm-config.json
       KC_DB: postgres
       KC_DB_URL: jdbc:postgresql://keycloak-postgres:5432/keycloak
-      KC_DB_USERNAME: ${POSTGRES_USR}
-      KC_DB_PASSWORD: ${POSTGRES_PW}
-      KC_HOSTNAME: auth.hortesie.fr
-      KC_HTTPS_CERTIFICATE_FILE: /etc/letsencrypt/live/auth.hortesie.fr/fullchain.pem
-      KC_HTTPS_CERTIFICATE_KEY_FILE:  /etc/letsencrypt/live/auth.hortesie.fr/privkey.pem
-    command: 
-      - start
+      KC_DB_USERNAME: ${POSTGRES_USER}
+      KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      KC_HOSTNAME: auth.hortesie.localhost
+    command:
+      - start-dev
       - --spi-theme-static-max-age=-1
+      - --import-realm
       - --spi-theme-cache-themes=false
       - --spi-theme-cache-templates=false
       - --verbose

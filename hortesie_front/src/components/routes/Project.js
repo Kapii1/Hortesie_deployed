@@ -86,7 +86,7 @@ export function Projets({ filter }) {
       }
     }
   }, [loading, filteredProjects.length]);
-
+  console.log("test")
   const handleProjectLoad = useCallback(() => {
     // Individual project load handler - can be expanded for specific needs
   }, []);
@@ -138,11 +138,6 @@ export function Projets({ filter }) {
             </CustomGridItem>
           ))}
         </CustomGrid>
-
-        <Routes location={location} key={location.key}>
-          <Route path="/" />
-          <Route path="/:id" element={<Details />} />
-        </Routes>
       </div>
     </>
   );

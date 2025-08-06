@@ -13,6 +13,7 @@ import HomeTitle from "./HomeTitle";
 import Navbar from "./Navbar";
 import { ReactComponent as HamburgerIcon } from './hamburger-menu-svgrepo-com.svg';
 import { CANONICAL_BASE } from "./url";
+import Details from "./components/routes/Details";
 
 const AdminRouter= React.lazy(() => import("./components/routes/list-admin/AdminRouter"));
 
@@ -43,11 +44,9 @@ function App() {
   useEffect(() => {
     if (location.pathname === "/") {
       navBarRef.current.style.display = "none";
-      barnavBarRef.current.style.display = "none";
       appRef.current.style.display = "flex";
     } else {
       navBarRef.current.style.display = "flex";
-      barnavBarRef.current.style.display = "block";
       appRef.current.style.display = null;
     }
   }, [location]);
@@ -75,21 +74,21 @@ function App() {
             <HamburgerIcon/>
           </div>
         </nav>
-        <div className="bar-navbar-container" ref={barnavBarRef}>
-          <div className="bar-navbar"></div>
-        </div>
+
       </div>
 
         <Routes>
           <Route path="/" exact element={<HomeTitle></HomeTitle>} />
           <Route path="a-propos" exact element={<Apropos />} />
           <Route
-            path="projets/*"
+            path="projets"
             exact
             element={<Projets filter="projets" />}
           />
-          <Route path="etudes/*" exact element={<Projets filter="etudes" />} />
-          <Route path="articles/" exact element={<Projets filter="etudes" />} />
+          <Route path="etudes" exact element={<Projets filter="etudes" />} />
+          <Route path="articles" exact element={<Projets filter="etudes" />} />
+          <Route path="etudes/:id" element={<Details />} />
+          <Route path="projets/:id" element={<Details />} />
           <Route path="contact" exact element={<Contact />} />
 
           <Route
