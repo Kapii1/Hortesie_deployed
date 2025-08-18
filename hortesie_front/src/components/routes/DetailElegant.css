@@ -6,6 +6,7 @@
     color: #000000;
     font-family: 'Roboto', sans-serif;
     overflow-y: auto;
+    min-height: calc(100vh - 5rem );
     overflow-x: hidden;
 }
 

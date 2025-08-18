@@ -1,15 +1,18 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-export default function Navbar({setCollapsed}) {
+export default function Navbar({ collapsed, setCollapsed }) {
   return (
-    <ul className="navbar-ul">
+    <ul
+      id="primary-navigation"
+      className={`navbar-ul${collapsed ? " open" : ""}`}
+    >
       <li className="navbar-li">
         <NavLink
           to="/a-propos"
           className={({ isActive }) => `nav-links${isActive ? " active" : ""}`}
           onClick={async () => {
-            setCollapsed(collapsed=>!collapsed);
+            setCollapsed(false);
           }}
         >
           À propos
@@ -20,7 +23,7 @@ export default function Navbar({setCollapsed}) {
           to="/projets"
           className={({ isActive }) => `nav-links${isActive ? " active" : ""}`}
           onClick={async () => {
-            setCollapsed(collapsed=>!collapsed);
+            setCollapsed(false);
           }}
         >
           Projets
@@ -31,7 +34,7 @@ export default function Navbar({setCollapsed}) {
           to="/articles"
           className={({ isActive }) => `nav-links${isActive ? " active" : ""}`}
           onClick={async () => {
-            setCollapsed(collapsed=>!collapsed);
+            setCollapsed(false);
           }}
         >
           Articles
@@ -42,7 +45,7 @@ export default function Navbar({setCollapsed}) {
           to="/contact"
           className={({ isActive }) => `nav-links${isActive ? " active" : ""}`}
           onClick={async () => {
-            setCollapsed(collapsed=>!collapsed);
+            setCollapsed(false);
           }}
         >
           Contact

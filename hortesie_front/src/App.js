@@ -38,11 +38,6 @@ function App() {
   const appRef = useRef();
   const location = useLocation();
   useEffect(() => {
-    const navbar = document.getElementsByClassName("navbar-ul")[0];
-    const menu_icon = document.getElementsByClassName("menu-icon")[0];
-    navbar.style.left = collapsed ? "0" : "100vw";
-  }, [collapsed]);
-  useEffect(() => {
     if (location.pathname === "/") {
       navBarRef.current.style.display = "none";
       appRef.current.style.display = "flex";
@@ -65,11 +60,22 @@ function App() {
             </div>
           </Link>
 
-          <Navbar setCollapsed={setCollapsed}/>
+          <Navbar collapsed={collapsed} setCollapsed={setCollapsed}/>
           <div
             className="menu-icon"
+            role="button"
+            aria-label="Ouvrir le menu"
+            aria-controls="primary-navigation"
+            aria-expanded={collapsed}
+            tabIndex={0}
             onClick={async () => {
               setCollapsed(!collapsed);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                setCollapsed(!collapsed);
+              }
             }}
           >
             <HamburgerIcon/>
