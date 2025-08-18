@@ -1,0 +1,397 @@
+.articles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 8px 0 24px;
+}
+
+.article-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 16px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.article-thumb {
+  width: 220px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 6px;
+  background: #f5f5f5;
+  flex-shrink: 0;
+}
+
+.article-thumb.placeholder {
+  display: block;
+}
+
+.article-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.article-title {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+.article-summary {
+  margin: 0;
+  color: #444;
+  line-height: 1.5;
+}
+
+.article-link {
+  color: #000;
+  text-decoration: underline;
+  width: fit-content;
+}
+
+@media (max-width: 700px) {
+  .article-row {
+    flex-direction: column;
+  }
+  .article-thumb {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+
+/* Elegant Articles Page */
+.articles-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 16px 8px 8px;
+}
+
+.articles-hero-title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.articles-hero-subtitle {
+  margin: 0;
+  color: #555;
+}
+
+/* Card-based list */
+.articles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 8px 0 40px;
+}
+
+.article-card {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 24px;
+  min-height: 240px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.04) 0 6px 20px;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.article-card:hover {
+  transform: translateY(-2px);
+  box-shadow: rgba(0, 0, 0, 0.08) 0 10px 28px;
+}
+
+.article-thumb {
+  width: 320px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #f5f5f5;
+  flex-shrink: 0;
+}
+
+.article-thumb.placeholder {
+  display: block;
+}
+
+.article-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.article-date {
+  white-space: nowrap;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid #000;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.badge-pdf {
+  background: #000;
+  color: #fff;
+}
+
+.article-title {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+.article-summary {
+  margin: 0;
+  color: #333;
+  line-height: 1.6;
+}
+
+.article-actions {
+  margin-top: 4px;
+}
+
+.article-actions .article-link {
+  display: inline-block;
+  color: #000;
+  text-decoration: none;
+  border: 1px solid #000;
+  padding: 8px 14px;
+  border-radius: 999px;
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+
+.article-actions .article-link:hover {
+  background: #000;
+  color: #fff;
+}
+
+@media (max-width: 900px) {
+  .article-card { flex-direction: column; }
+  .article-thumb { width: 100%; max-width: 100%; }
+}
+
+/* --- Articles Redesign 2025 (Scoped) ---------------------------------- */
+#grid-articles {
+  /* Neutral, sober palette variables */
+  --surface: #ffffff;
+  --surface-2: #fafafa;
+  --text: #111111;
+  --muted: #5a5a5a;
+  --border: #e6e6e6;
+  --shadow: 0 10px 30px rgba(0,0,0,0.06);
+  --shadow-hover: 0 16px 40px rgba(0,0,0,0.10);
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 10px;
+  --accent: #0f1115; /* subtle, sober accent */
+}
+
+@media (prefers-color-scheme: dark) {
+  #grid-articles {
+    --surface: #111214;
+    --surface-2: #16181b;
+    --text: #f2f3f5;
+    --muted: #a6adbb;
+    --border: #2a2e36;
+    --shadow: 0 10px 30px rgba(0,0,0,0.35);
+    --shadow-hover: 0 18px 48px rgba(0,0,0,0.5);
+    --accent: #e7eaee;
+  }
+}
+
+/* HERO */
+#grid-articles .articles-hero {
+  position: relative;
+  display: grid;
+  place-items: center;
+  gap: 1rem;
+  text-align: center;
+  padding: clamp(3rem, 6vw, 6rem) 1rem clamp(2rem, 4vw, 3rem);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(1200px 400px at 50% -10%, rgba(0,0,0,0.06), transparent 60%),
+    linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+#grid-articles .articles-hero::after {
+  content: "";
+  position: absolute;
+  inset: -40% -10% auto -10%;
+  height: 120%;
+  background:
+    radial-gradient(1200px 200px at 50% 0%, rgba(0,0,0,0.04), transparent 60%);
+  pointer-events: none;
+}
+#grid-articles .articles-hero-title {
+  margin: 0;
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  font-weight: 600;
+  color: var(--text);
+}
+#grid-articles .articles-hero-subtitle {
+  margin: 0;
+  max-width: 70ch;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+}
+
+/* LIST AS MODERN GRID */
+#grid-articles .articles-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: clamp(16px, 2.4vw, 28px);
+  padding: clamp(8px, 1vw, 12px) 0 clamp(32px, 4vw, 56px);
+}
+
+/* CARD */
+#grid-articles .article-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+  overflow: hidden;
+}
+#grid-articles .article-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+  border-color: color-mix(in oklab, var(--border), var(--text) 10%);
+}
+#grid-articles .article-card:focus-within {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--text), transparent 86%), var(--shadow-hover);
+}
+
+/* MEDIA */
+#grid-articles .article-thumb {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  background: #f1f3f5;
+  border-radius: 0; /* handled by card overflow */
+}
+#grid-articles .article-thumb.placeholder {
+  min-height: 180px;
+}
+
+/* CONTENT */
+#grid-articles .article-content {
+  padding: 16px clamp(14px, 2vw, 20px) clamp(16px, 2vw, 20px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+#grid-articles .article-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+#grid-articles .article-date { white-space: nowrap; }
+
+#grid-articles .badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--text);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+#grid-articles .badge-pdf { background: var(--text); color: var(--surface); }
+
+#grid-articles .article-title {
+  margin: 0;
+  font-size: clamp(1.125rem, 1.4vw, 1.35rem);
+  line-height: 1.25;
+  font-weight: 600;
+  color: var(--text);
+}
+#grid-articles .article-summary {
+  margin: 0;
+  color: color-mix(in oklab, var(--text), white 40%);
+  line-height: 1.6;
+}
+
+#grid-articles .article-actions { margin-top: 2px; }
+#grid-articles .article-actions .article-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  text-decoration: none;
+  border: 1px solid var(--text);
+  padding: 9px 14px;
+  border-radius: 999px;
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease, transform .2s ease;
+}
+#grid-articles .article-actions .article-link:hover {
+  background: var(--text);
+  color: var(--surface);
+  transform: translateY(-1px);
+}
+#grid-articles .article-actions .article-link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--text), transparent 80%);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  #grid-articles .article-card,
+  #grid-articles .article-actions .article-link,
+  #grid-articles .articles-container { transition: none; }
+}
+
+
+/* --- Articles page specific container (replacing reserved project classes) --- */
+#grid-articles.articles-page {
+  background-color: var(--surface);
+  padding: clamp(16px, 2.5vw, 48px) clamp(16px, 4vw, 56px) clamp(40px, 6vw, 80px);
+  overflow-x: hidden; /* prevent horizontal overflow */
+}
+
+#grid-articles .articles-container {
+  /* graceful fade-in without affecting layout */
+  opacity: 0;
+  transition: opacity .6s ease;
+  min-height: 50svh;
+}
+
+#grid-articles .articles-container-loaded {
+  opacity: 1;
+}
