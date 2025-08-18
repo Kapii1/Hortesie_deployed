@@ -34,6 +34,7 @@ import { API_URL } from "../../../url";
 import TextEditor from "./TextEditor";
 import SegmentedControl from "./SegmentedControl";
 import "./ProjectDetailPageRedesigned.css";
+import CropModal from "./CropModal";
 
 // Enhanced fetcher function with error handling
 const fetcher = async (url) => {
@@ -88,14 +89,18 @@ const FileUploadZone = ({ onUpload, uploading, uploadProgress }) => {
     e.preventDefault();
     setDragOver(false);
     const files = Array.from(e.dataTransfer.files);
-    setSelectedFiles(files);
-    onUpload(files);
+    const first = files[0];
+    if (!first) return;
+    setSelectedFiles([first]);
+    onUpload([first]);
   };
 
   const handleFileSelect = (e) => {
     const files = Array.from(e.target.files);
-    setSelectedFiles(files);
-    onUpload(files);
+    const first = files[0];
+    if (!first) return;
+    setSelectedFiles([first]);
+    onUpload([first]);
   };
 
   return (
@@ -108,7 +113,6 @@ const FileUploadZone = ({ onUpload, uploading, uploadProgress }) => {
     >
       <input
         type="file"
-        multiple
         accept="image/*"
         onChange={handleFileSelect}
         style={{ display: 'none' }}
@@ -117,10 +121,10 @@ const FileUploadZone = ({ onUpload, uploading, uploadProgress }) => {
       <label htmlFor="file-upload-input" className="file-upload-label">
         <CloudUploadIcon className="upload-icon" />
         <Typography variant="h6" className="upload-title">
-          {uploading ? 'Upload en cours...' : 'Glissez vos images ici'}
+          {uploading ? 'Upload en cours...' : 'Glissez votre image ici'}
         </Typography>
         <Typography variant="body2" className="upload-subtitle">
-          ou cliquez pour sélectionner des fichiers
+          ou cliquez pour sélectionner un fichier
         </Typography>
         {uploading && uploadProgress && (
           <Box className="upload-progress">
@@ -222,6 +226,64 @@ export function ProjectDetailPageRedesigned() {
   const [uploadProgress, setUploadProgress] = useState(0);
   const { notification, showNotification, hideNotification } = useNotification();
 
+  // Crop flow state (single-file)
+  const [cropModalOpen, setCropModalOpen] = useState(false);
+  const [currentImageSrc, setCurrentImageSrc] = useState(null);
+  const [currentFileType, setCurrentFileType] = useState('image/jpeg');
+  const [currentOrigName, setCurrentOrigName] = useState('');
+
+  const resetCropFlow = useCallback(() => {
+    try { if (currentImageSrc) URL.revokeObjectURL(currentImageSrc); } catch (_) {}
+    setCropModalOpen(false);
+    setCurrentImageSrc(null);
+    setCurrentFileType('image/jpeg');
+    setCurrentOrigName('');
+  }, [currentImageSrc]);
+
+  const setCurrentFromFile = useCallback((file) => {
+    try { if (currentImageSrc) URL.revokeObjectURL(currentImageSrc); } catch (_) {}
+    const objUrl = URL.createObjectURL(file);
+    setCurrentImageSrc(objUrl);
+    setCurrentFileType(file.type || 'image/jpeg');
+    setCurrentOrigName(file.name || 'image');
+  }, [currentImageSrc]);
+
+  // Called by FileUploadZone; accepts only the first file and opens modal
+  const imageHandler = useCallback((acceptedFiles) => {
+    if (!acceptedFiles || acceptedFiles.length === 0) return;
+    const first = acceptedFiles[0];
+    if (!first) return;
+    setCurrentFromFile(first);
+    setCropModalOpen(true);
+  }, [setCurrentFromFile]);
+
+  const handleCropCancel = useCallback(() => {
+    resetCropFlow();
+  }, [resetCropFlow]);
+
+  const handleCropComplete = useCallback(async (blob) => {
+    // Create a File from the blob, keep original extension if possible
+    const origName = currentOrigName || 'image';
+    const extFromName = origName.includes('.') ? origName.split('.').pop() : null;
+    let ext = extFromName;
+    if (!ext) {
+      if (currentFileType && currentFileType.includes('/')) {
+        ext = currentFileType.split('/')[1];
+      } else {
+        ext = 'jpg';
+      }
+    }
+    const base = origName.replace(/\.[^/.]+$/, '');
+    const newName = `${base}-16x9.${ext}`;
+    const file = new File([blob], newName, { type: currentFileType || 'image/jpeg' });
+
+    setCropModalOpen(false);
+    try { if (currentImageSrc) URL.revokeObjectURL(currentImageSrc); } catch (_) {}
+    // upload the single cropped file
+    await handleFileUpload([file]);
+    resetCropFlow();
+  }, [currentOrigName, currentFileType, currentImageSrc, handleFileUpload, resetCropFlow]);
+
   // SWR for project data
   const { 
     data: projectData, 
@@ -279,7 +341,7 @@ export function ProjectDetailPageRedesigned() {
   };
 
   // Enhanced file upload with progress
-  const handleFileUpload = async (files) => {
+  async function handleFileUpload(files) {
     if (!files || files.length === 0) return;
 
     try {
@@ -325,7 +387,7 @@ export function ProjectDetailPageRedesigned() {
       setUploading(false);
       setUploadProgress(0);
     }
-  };
+  }
 
   // Set vignette with optimistic update
   const handleSetVignette = async (imageId) => {
@@ -430,6 +492,13 @@ export function ProjectDetailPageRedesigned() {
 
   return (
     <div className="project-detail-container">
+      <CropModal
+        open={cropModalOpen}
+        imageSrc={currentImageSrc}
+        onCancel={handleCropCancel}
+        onComplete={handleCropComplete}
+        fileType={currentFileType}
+      />
       {/* Header */}
       <div className="project-header">
         <Button
@@ -539,7 +608,7 @@ export function ProjectDetailPageRedesigned() {
               <Divider className="section-divider" />
               
               <FileUploadZone
-                onUpload={handleFileUpload}
+                onUpload={imageHandler}
                 uploading={uploading}
                 uploadProgress={uploadProgress}
               />

@@ -20,6 +20,7 @@ import Dndbutton from "./Dndbutton";
 import TextEditor from "./TextEditor";
 import SegmentedControl from "./SegmentedControl";
 import "./Detailadmin.css";
+import CropModal from "./CropModal";
 
 function useForceUpdate() {
   const [value, setValue] = useState(0);
@@ -34,6 +35,13 @@ export function ProjectDetailPage() {
   const [vignette, setLocalVignette] = useState();
   const [vignetteHasChanged, setVignetteHasChanged] = useState();
   const [editorValue, setEditorValue] = useState();
+  const [cropModalOpen, setCropModalOpen] = useState(false);
+  const [cropQueue, setCropQueue] = useState([]);
+  const [currentCropIndex, setCurrentCropIndex] = useState(0);
+  const [currentImageSrc, setCurrentImageSrc] = useState(null);
+  const [croppedFiles, setCroppedFiles] = useState([]);
+  const [currentFileType, setCurrentFileType] = useState('image/jpeg');
+  const [currentOrigName, setCurrentOrigName] = useState('');
 
   const handleEditorChange = (value) => {
     setEditorValue(value);
@@ -42,6 +50,131 @@ export function ProjectDetailPage() {
   const options = ["projet", "etude"];
   const [selectedOption, setSelectedOption] = useState();
   const { getProjectImages, deletePhoto, setVignette } = useAPI();
+  
+  // Cropping helpers and flow state handlers
+  const resetCropFlow = () => {
+    try {
+      if (currentImageSrc) URL.revokeObjectURL(currentImageSrc);
+    } catch (_) {}
+    setCropModalOpen(false);
+    setCropQueue([]);
+    setCurrentCropIndex(0);
+    setCurrentImageSrc(null);
+    setCroppedFiles([]);
+    setCurrentFileType('image/jpeg');
+    setCurrentOrigName('');
+  };
+
+  const setCurrentFromFile = (file, index = 0) => {
+    try {
+      if (currentImageSrc) URL.revokeObjectURL(currentImageSrc);
+    } catch (_) {}
+    const objUrl = URL.createObjectURL(file);
+    setCurrentImageSrc(objUrl);
+    setCurrentFileType(file.type || 'image/jpeg');
+    setCurrentOrigName(file.name || `image_${index}`);
+  };
+
+  const uploadCroppedFiles = async (files) => {
+    if (!files || files.length === 0) return;
+    Store.addNotification({
+      title: "Vos images sont en cours d'envoi",
+      message: "Veuillez patienter vos images s'envoient.",
+      type: "default",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animate__animated", "animate__fadeIn"],
+      animationOut: ["animate__animated", "animate__fadeOut"],
+      dismiss: { duration: 5000, onScreen: true },
+    });
+
+    const data2 = new FormData();
+    data2.append("idProjet", id);
+    files.forEach((f) => data2.append("file", f));
+
+    try {
+      let res = fetch(API_URL + `/projects/${id}/add_image/`, {
+        method: "POST",
+        body: data2,
+      })
+        .then((res) => {
+          if (res.status === 200) {
+            Store.addNotification({
+              title: "Parfait !",
+              message: "Les images ont bien été transmises !",
+              type: "success",
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animate__animated", "animate__fadeIn"],
+              animationOut: ["animate__animated", "animate__fadeOut"],
+              dismiss: { duration: 5000, onScreen: true },
+            });
+            return res.json();
+          } else {
+            Store.addNotification({
+              title: "Erreur !",
+              message: "Une erreur s'est produite...",
+              type: "danger",
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animate__animated", "animate__fadeIn"],
+              animationOut: ["animate__animated", "animate__fadeOut"],
+              dismiss: { duration: 5000, onScreen: true },
+            });
+            return "error";
+          }
+        })
+        .then((res) => {
+          if (res != "error") {
+            res.forEach((img) => {
+              data.push({ nom: img });
+            });
+          }
+          mutate();
+          resetCropFlow();
+        });
+    } catch (error) {
+      console.log("Error : ", error);
+      resetCropFlow();
+    }
+  };
+
+  const handleCropCancel = () => {
+    resetCropFlow();
+  };
+
+  const handleCropComplete = async (blob) => {
+    // Create a File from the blob, keep original ext if possible
+    const origName = currentOrigName || 'image';
+    const extFromName = origName.includes('.') ? origName.split('.').pop() : null;
+    let ext = extFromName;
+    if (!ext) {
+      if (currentFileType && currentFileType.includes('/')) {
+        ext = currentFileType.split('/')[1];
+      } else {
+        ext = 'jpg';
+      }
+    }
+    const base = origName.replace(/\.[^/.]+$/, '');
+    const newName = `${base}-16x9.${ext}`;
+    const file = new File([blob], newName, { type: currentFileType || 'image/jpeg' });
+
+    const newFiles = [...croppedFiles, file];
+    setCroppedFiles(newFiles);
+
+    const nextIndex = currentCropIndex + 1;
+    if (nextIndex < cropQueue.length) {
+      setCurrentCropIndex(nextIndex);
+      const nextFile = cropQueue[nextIndex];
+      setCurrentFromFile(nextFile, nextIndex);
+    } else {
+      setCropModalOpen(false);
+      try {
+        if (currentImageSrc) URL.revokeObjectURL(currentImageSrc);
+      } catch (_) {}
+      uploadCroppedFiles(newFiles);
+    }
+  };
   
   const {
     data: images,
@@ -109,78 +242,13 @@ export function ProjectDetailPage() {
       });
   };
   
-  const imageHandler = async (file) => {
-    Store.addNotification({
-      title: "Vos images sont en cours d'envoi",
-      message: "Veuillez patienter vos images s'envoient.",
-      type: "default",
-      insert: "top",
-      container: "top-right",
-      animationIn: ["animate__animated", "animate__fadeIn"],
-      animationOut: ["animate__animated", "animate__fadeOut"],
-      dismiss: {
-        duration: 5000,
-        onScreen: true,
-      },
-    });
-    
-    const data2 = new FormData();
-    data2.append("idProjet", id);
-    const file_photo = file;
-
-    for (let i = 0; i < file_photo.length; i++) {
-      data2.append("file", file_photo[i]);
-    }
-
-    try {
-      let res = fetch(API_URL + `/projects/${id}/add_image/`, {
-        method: "POST",
-        body: data2,
-      })
-        .then((res) => {
-          if (res.status === 200) {
-            Store.addNotification({
-              title: "Parfait !",
-              message: "Les images ont bien été transmises !",
-              type: "success",
-              insert: "top",
-              container: "top-right",
-              animationIn: ["animate__animated", "animate__fadeIn"],
-              animationOut: ["animate__animated", "animate__fadeOut"],
-              dismiss: {
-                duration: 5000,
-                onScreen: true,
-              },
-            });
-            return res.json();
-          } else {
-            Store.addNotification({
-              title: "Erreur !",
-              message: "Une erreur s'est produite...",
-              type: "danger",
-              insert: "top",
-              container: "top-right",
-              animationIn: ["animate__animated", "animate__fadeIn"],
-              animationOut: ["animate__animated", "animate__fadeOut"],
-              dismiss: {
-                duration: 5000,
-                onScreen: true,
-              },
-            });
-            return "error";
-          }
-        })
-        .then((res) => {
-          if (res != "error") {
-            res.forEach((img) => {
-              data.push({ nom: img });
-            });
-          }
-          mutate();
-        });
-    } catch (error) {
-      console.log("Error : ", error);
-    }
+  const imageHandler = async (acceptedFiles) => {
+    if (!acceptedFiles || acceptedFiles.length === 0) return;
+    setCropQueue(acceptedFiles);
+    setCurrentCropIndex(0);
+    setCroppedFiles([]);
+    setCurrentFromFile(acceptedFiles[0], 0);
+    setCropModalOpen(true);
   };
 
   useEffect(() => {
@@ -228,6 +296,13 @@ export function ProjectDetailPage() {
       
       {data && (
         <div className="field-container">
+          <CropModal
+            open={cropModalOpen}
+            imageSrc={currentImageSrc}
+            onCancel={handleCropCancel}
+            onComplete={handleCropComplete}
+            fileType={currentFileType}
+          />
           <Form
             form={form}
             layout="vertical"

@@ -6,12 +6,7 @@ import Dropzone from "react-dropzone";
 import { useDrag } from 'react-dnd'
 import "./Detailadmin.css"
 
-function onDrop(acceptedFiles) {
-    console.log(acceptedFiles)
-    acceptedFiles.forEach(file => {
-        console.log(file)
-    })
-}
+
 
 export default function Dndbutton({ handleClick_photo }) {
 

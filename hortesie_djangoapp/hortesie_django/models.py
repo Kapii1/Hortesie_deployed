@@ -33,6 +33,16 @@ class Photo(models.Model):
     filename = models.CharField(max_length=100)
 
 
+class Article(models.Model):
+    id = models.CharField(max_length=100, primary_key=True, default=uuid.uuid4)
+    title = models.CharField(max_length=200)
+    summary = models.CharField(max_length=1000, null=True, blank=True)
+    content = models.TextField(blank=True)
+    date = models.DateField(max_length=100)
+    vignette = models.ForeignKey("Photo", on_delete=models.SET_NULL, null=True, blank=True)
+    pdf = models.FileField(upload_to=upload_to, null=True, blank=True)
+
+
 def upload_to_remove(instance, filename):
     if os.path.exists("hortesie_django/TEMPLATE_WORD_CCTP.docx"):
         os.remove("hortesie_django/TEMPLATE_WORD_CCTP.docx")

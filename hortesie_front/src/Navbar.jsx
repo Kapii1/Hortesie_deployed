@@ -1,66 +1,52 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function Navbar({setCollapsed}) {
   return (
     <ul className="navbar-ul">
       <li className="navbar-li">
-        <Link
+        <NavLink
           to="/a-propos"
-          className="nav-links"
+          className={({ isActive }) => `nav-links${isActive ? " active" : ""}`}
           onClick={async () => {
             setCollapsed(collapsed=>!collapsed);
           }}
         >
           À propos
-        </Link>
+        </NavLink>
       </li>
       <li className="navbar-li">
-        <Link
+        <NavLink
           to="/projets"
-          prefetch={false}
-          className="nav-links"
+          className={({ isActive }) => `nav-links${isActive ? " active" : ""}`}
           onClick={async () => {
             setCollapsed(collapsed=>!collapsed);
           }}
         >
           Projets
-        </Link>
+        </NavLink>
       </li>
       <li className="navbar-li">
-        <Link
-          to="/etudes"
-          prefetch={false}
-          className="nav-links"
+        <NavLink
+          to="/articles"
+          className={({ isActive }) => `nav-links${isActive ? " active" : ""}`}
           onClick={async () => {
             setCollapsed(collapsed=>!collapsed);
           }}
         >
-          Études
-        </Link>
+          Articles
+        </NavLink>
       </li>
-      {/*<li className="navbar-li">*/}
-      {/*  <Link*/}
-      {/*    to="/articles"*/}
-      {/*    prefetch={false}*/}
-      {/*    className="nav-links"*/}
-      {/*    onClick={async () => {*/}
-      {/*      setCollapsed(collapsed=>!collapsed);*/}
-      {/*    }}*/}
-      {/*  >*/}
-      {/*    Articles*/}
-      {/*  </Link>*/}
-      {/*</li>*/}
       <li className="navbar-li">
-        <Link
+        <NavLink
           to="/contact"
-          className="nav-links"
+          className={({ isActive }) => `nav-links${isActive ? " active" : ""}`}
           onClick={async () => {
             setCollapsed(collapsed=>!collapsed);
           }}
         >
           Contact
-        </Link>
+        </NavLink>
       </li>
     </ul>
   );

@@ -177,7 +177,7 @@ export function DetailElegant({ item, onBack, onNavigateBack }) {
         <div className="elegant-header-content">
           <h1 className="elegant-title">{item.name}</h1>
           <div className="elegant-meta">
-            {item.city && <span className="elegant-location">📍 {item.city}</span>}
+            {item.city && <span className="elegant-location">{item.city}</span>}
             {formattedYear && <span className="elegant-year">{formattedYear}</span>}
           </div>
         </div>
@@ -186,19 +186,7 @@ export function DetailElegant({ item, onBack, onNavigateBack }) {
 
       {/* Content */}
       <main className="elegant-content">
-        {/* Description */}
-        <section 
-          ref={descriptionRef}
-          className={`elegant-description-section ${hasOverflow ? 'has-overflow' : ''}`}
-        >
-          <div className="elegant-description">
-            {item.description ? (
-              <div dangerouslySetInnerHTML={{ __html: item.description }} />
-            ) : (
-              <p>Aucune description disponible.</p>
-            )}
-          </div>
-        </section>
+
 
         {/* Images */}
         <section className="elegant-images-section">
@@ -224,10 +212,10 @@ export function DetailElegant({ item, onBack, onNavigateBack }) {
                 interval={7000}
                 swipeable={true}
                 className="elegant-carousel"
-                renderArrowPrev={(onClickHandler, hasPrev) => 
+                renderArrowPrev={(onClickHandler, hasPrev) =>
                   hasPrev && <ElegantArrowPrev onClick={onClickHandler} />
                 }
-                renderArrowNext={(onClickHandler, hasNext) => 
+                renderArrowNext={(onClickHandler, hasNext) =>
                   hasNext && <ElegantArrowNext onClick={onClickHandler} />
                 }
                 renderIndicator={(onClickHandler, isSelected, index, label) => (
@@ -254,6 +242,20 @@ export function DetailElegant({ item, onBack, onNavigateBack }) {
             </div>
           )}
         </section>
+        {/* Description */}
+        <section 
+          ref={descriptionRef}
+          className={`elegant-description-section ${hasOverflow ? 'has-overflow' : ''}`}
+        >
+          <div className="elegant-description">
+            {item.description ? (
+              <div dangerouslySetInnerHTML={{ __html: item.description }} />
+            ) : (
+              <p>Aucune description disponible.</p>
+            )}
+          </div>
+        </section>
+
       </main>
 
       {/* Full Screen Carousel */}

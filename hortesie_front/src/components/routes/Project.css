@@ -36,6 +36,7 @@
 .Grid-container {
     background-color: white;
     padding: 2rem 3rem 4rem;
+    overflow-x: hidden; /* prevent horizontal overflow from grid rounding/padding */
 }
 
 
@@ -60,7 +61,7 @@
 
     .projets-container {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(min(26.667rem, 100%), 1fr));
         grid-template-rows: max-content;
         gap: 3em;
     }
@@ -73,9 +74,8 @@
 @media (min-width: 800px) and (max-width: 1000px) {
     .projets-container {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(min(26.667rem, 100%), 1fr));
         grid-template-rows: max-content;
-
         gap: 3em;
     }
 }

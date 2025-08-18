@@ -1,85 +1,123 @@
 .vignette {
-  width: 100%;
+    /* Ensure thumbnails are at least 15rem high and keep 16:9 ratio */
+    width: 100%;
+    min-height: 15rem;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
 }
 
 .card-grid {
-  transition: 0.4s;
-  overflow: hidden;
-  border-radius: 3px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+    transition: 0.4s;
+    overflow: hidden;
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
 
 }
-
+.vignette{
+    transition: 0.4s;
+}
 @media (min-width: 1000px) {
-  .card-grid:hover {
-    transform: scale(1.04);
-    filter: grayscale(0%);
-  }
+    .card-grid:hover {
+        transform: scale(1.04);
+    }
 
-  .card-grid:hover .title-card {
-    opacity: 1;
-    transform: translate(0, 0);
-  }
+    .card-grid:hover .title-card {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
 
-  .title-card {
-    position: absolute;
-    width: inherit;
-    text-decoration: none;
-    color: white;
-    bottom: 10%;
-    font-weight: 500;
-    font-size: 2rem;
-    width: 100%;
-    text-align: center;
-    opacity: 0;
-    transform: translate(0, -6vw);
-    transition: 0.7s;
-  }
+    .title-card {
+        position: absolute;
+        z-index:10;
+        text-decoration: none;
+        color: white;
+        bottom: 10%;
+        padding-right: 1rem;
+        padding-left: 1rem;
+
+        line-height: 1.2;
+        font-weight: 500;
+        font-size: 2rem;
+        width: 100%;
+        text-align: center;
+        opacity: 0;
+        transform: translate(0, -6vw);
+        transition: 0.7s;
+    }
 
 }
 
 @media (max-width: 1000px) {
-  .title-card {
-    position: absolute;
-    text-align: center;
-    text-decoration: none;
-    color: white;
-    width: 100%;
-    font-weight: 400;
-    font-size: 1.2rem;
-    bottom: 2rem;
-    transition: 1s;
-  }
+    .title-card {
+        position: absolute;
+        text-align: center;
+        text-decoration: none;
+        color: white;
+        width: 100%;
+        font-weight: 400;
+        font-size: 1.2rem;
+        bottom: 2rem;
+        transition: 1s;
+    }
 
 
 }
 
 .sub-card {
-  display: flex;
-  position: relative;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  transition: 2s;
+    display: flex;
+    position: relative;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    transition: 2s;
+    width: 100%;
 }
 
 .description {
-  text-align: left;
-  text-justify: auto;
-  padding-left: 60px;
-  scrollbar-width: none;
-  padding-right: 60px;
+    text-align: left;
+    text-justify: auto;
+    padding-left: 60px;
+    scrollbar-width: none;
+    padding-right: 60px;
 }
 
 .title-description {
-  font-weight: lighter;
-  margin: 0;
-  padding-top: 20px;
+    font-weight: lighter;
+    margin: 0;
+    padding-top: 20px;
 }
 
 
-
 .title-card-container {
-  max-width: 100%;
-  text-align: left;
+    max-width: 100%;
+    text-align: left;
+}
+
+/* Gradient overlay for project card images on hover */
+.sub-card::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%; /* covers lower part where title sits */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.25) 60%, rgba(0, 0, 0,0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none; /* do not block clicks */
+    z-index: 5; /* below title, above image */
+}
+
+@media (min-width: 1000px) {
+    .card-grid:hover .sub-card::after {
+        opacity: 1; /* reveal gradient on hover */
+    }
+}
+
+/* Ensure title stays above overlay on small screens as well */
+@media (max-width: 1000px) {
+    .title-card {
+        z-index: 10;
+    }
 }

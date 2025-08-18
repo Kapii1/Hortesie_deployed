@@ -2,7 +2,6 @@
 .contact-container {
     min-height: 100vh;
     background: #ffffff;
-    padding-top: 4rem;
     font-family: 'Comfortaa', sans-serif;
     display: flex;
     align-items: center;
@@ -23,20 +22,21 @@
     margin-bottom: 3rem;
     letter-spacing: -0.02em;
 }
-
+.contact-title-list{
+    display: none;
+}
 .contact-list {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap:1.3rem
 }
 
 .contact-item {
     display: flex;
     align-items: center;
     padding: 1.5rem;
-    background: #f8fafc;
     border-radius: 12px;
-    border: 1px solid #e2e8f0;
+    border: 2px solid #e2e8f0;
 }
 
 .contact-icon {

@@ -16,12 +16,13 @@ from rest_framework.views import APIView
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
-from hortesie_django.models import CCTPTemplate, Photo, Project
+from hortesie_django.models import CCTPTemplate, Photo, Project, Article
 from hortesie_django.serializers import (
 	CCTPTemplateSerializer,
 	PhotoSerializer,
 	ProjectSerializer,
 	PhotoModelSerializer,
+	ArticleSerializer,
 )
 
 
@@ -335,3 +336,35 @@ class CCTPTemplateCreateView(APIView):
 
 class PhotoViewSet(ModelViewSet):
 	queryset = Photo.objects.all()
+
+
+class ArticleViewset(ModelViewSet):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+
+    @action(detail=True, methods=["post"])
+    def add_image(self, request, pk):
+        article = self.get_object()
+        serializer = PhotoSerializer(data=request.data, instance=article)
+        if serializer.is_valid():
+            serializer.create(serializer.validated_data)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def retrieve(self, request, *args, **kwargs):
+        serializer = self.get_serializer(self.get_object())
+        instance = self.get_object()
+        data = serializer.data
+        # ensure proper URLs for media
+        if getattr(instance, "vignette", None):
+            data["vignette"] = "/api" + instance.vignette.file.url
+        if getattr(instance, "pdf", None):
+            data["pdf"] = "/api" + instance.pdf.url
+        return Response(data)
+
+    @action(detail=True, methods=["get"])
+    def images(self, request, pk):
+        article = self.get_object()
+        data = Photo.objects.filter(id_projet=article.id)
+        serializer = PhotoModelSerializer(data, many=True)
+        return Response(serializer.data)

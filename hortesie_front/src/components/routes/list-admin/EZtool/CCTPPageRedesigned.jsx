@@ -349,7 +349,7 @@ export default function CCTPPageRedesigned() {
     const stats = getStats();
 
     return (
-        <Box className="cctp-redesigned-container" sx={{marginTop: '80px'}}>
+        <Box className="cctp-redesigned-container" >
             {/* Header Section */}
             <StyledPaper elevation={0}>
                 <Box textAlign="center">

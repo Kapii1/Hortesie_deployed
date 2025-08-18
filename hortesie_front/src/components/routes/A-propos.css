@@ -3,11 +3,8 @@
 
 .container-page {
     width: 100%;
-    padding-left: 8rem;
-    padding-right: 8rem;
     background: white;
-    padding-top: 6rem;
-    padding-bottom: 6rem;
+    padding: 1rem 8rem 6rem;
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
     color: #333;

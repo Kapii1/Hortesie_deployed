@@ -44,12 +44,7 @@ const HomeTitle = () => {
       >
         Projets
       </Link>
-      <Link
-        to="/etudes"
-        className={`home nav-links ${isVisible ? "home-visible" : ""}`}
-      >
-        Études
-      </Link>
+
       <Link
         to="/etudes"
         className={`home nav-links ${isVisible ? "home-visible" : ""}`}

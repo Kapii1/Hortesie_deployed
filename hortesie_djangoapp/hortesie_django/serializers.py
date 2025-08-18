@@ -2,7 +2,7 @@ import copy
 
 from requests import Response
 
-from hortesie_django.models import CCTPTemplate, Photo, Project
+from hortesie_django.models import CCTPTemplate, Photo, Project, Article
 from rest_framework import serializers
 
 
@@ -70,3 +70,20 @@ class PhotoModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Photo
         fields = "__all__"
+
+
+class ArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Article
+        fields = "__all__"
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        # Add absolute-ish URLs for media similar to ProjectSerializer
+        data["vignette"] = (
+            "/api" + instance.vignette.file.url if getattr(instance, "vignette", None) else None
+        )
+        data["pdf"] = (
+            "/api" + instance.pdf.url if getattr(instance, "pdf", None) else None
+        )
+        return data

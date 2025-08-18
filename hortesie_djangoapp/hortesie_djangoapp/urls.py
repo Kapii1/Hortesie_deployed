@@ -25,6 +25,7 @@ from hortesie_django.views import (
     GenerateCSVAPIView,
     PhotoViewSet,
     ProjectViewset,
+    ArticleViewset,
 )
 from hortesie_djangoapp import settings
 
@@ -33,6 +34,7 @@ router = DefaultRouter()
 
 # Register the viewset with the router
 router.register(r"projects", ProjectViewset, basename="project")
+router.register(r"articles", ArticleViewset, basename="article")
 router.register(r"images", PhotoViewSet, basename="image")
 
 urlpatterns = (

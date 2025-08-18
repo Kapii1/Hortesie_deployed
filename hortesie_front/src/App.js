@@ -14,6 +14,7 @@ import Navbar from "./Navbar";
 import { ReactComponent as HamburgerIcon } from './hamburger-menu-svgrepo-com.svg';
 import { CANONICAL_BASE } from "./url";
 import Details from "./components/routes/Details";
+import Articles from "./components/routes/Articles";
 
 const AdminRouter= React.lazy(() => import("./components/routes/list-admin/AdminRouter"));
 
@@ -22,7 +23,7 @@ const setOpacityRecursive = (element, opacity) => {
   if (element && element.children) {
     const childElements = element.children;
     for (let i = 0; i < childElements.length; i++) {
-      if (childElements[i].className === "nav-links") {
+      if (childElements[i].classList && childElements[i].classList.contains("nav-links")) {
         childElements[i].style.opacity = opacity;
       }
       setOpacityRecursive(childElements[i], opacity);
@@ -85,9 +86,7 @@ function App() {
             exact
             element={<Projets filter="projets" />}
           />
-          <Route path="etudes" exact element={<Projets filter="etudes" />} />
-          <Route path="articles" exact element={<Projets filter="etudes" />} />
-          <Route path="etudes/:id" element={<Details />} />
+          <Route path="articles" exact element={<Articles />} />
           <Route path="projets/:id" element={<Details />} />
           <Route path="contact" exact element={<Contact />} />
 

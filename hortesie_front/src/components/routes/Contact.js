@@ -24,7 +24,7 @@ export function Contact(props) {
                             </svg>
                         </div>
                         <div className="contact-details">
-                            <h3>Téléphone</h3>
+                            <h3 className="contact-title-list">Téléphone</h3>
                             <a href="tel:+33130392488" className="contact-link">01 30 39 24 88</a>
                         </div>
                     </div>
@@ -36,23 +36,8 @@ export function Contact(props) {
                             </svg>
                         </div>
                         <div className="contact-details">
-                            <h3>Email</h3>
+                            <h3 className="contact-title-list">Email</h3>
                             <a  className="contact-link">hortesie[at]hortesie.biz</a>
-                        </div>
-                    </div>
-
-                    <div className="contact-item">
-                        <div className="contact-icon">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                            </svg>
-                        </div>
-                        <div className="contact-details">
-                            <h3>Adresse</h3>
-                            <address className="contact-address">
-                                11 rue des Saules,<br />
-                                95450 Vigny, France
-                            </address>
                         </div>
                     </div>
 
@@ -63,7 +48,7 @@ export function Contact(props) {
                             </svg>
                         </div>
                         <div className="contact-details">
-                            <h3>LinkedIn</h3>
+                            <h3 className="contact-title-list">LinkedIn</h3>
                             <a 
                                 href="https://www.linkedin.com/company/hort%C3%A9sie/" 
                                 className="contact-link"

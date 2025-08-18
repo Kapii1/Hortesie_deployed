@@ -86,7 +86,6 @@ export function Projets({ filter }) {
       }
     }
   }, [loading, filteredProjects.length]);
-  console.log("test")
   const handleProjectLoad = useCallback(() => {
     // Individual project load handler - can be expanded for specific needs
   }, []);

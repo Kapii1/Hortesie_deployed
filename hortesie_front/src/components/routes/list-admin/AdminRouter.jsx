@@ -12,6 +12,9 @@ import CCTPPageRedesigned from "./EZtool/CCTPPageRedesigned";
 import AdminAccueil from "./AdminAccueil";
 import {ProjectPositionManager} from "./ProjectPositionManager";
 import {AUTH_ISSUER} from "../../../url";
+import ArticlesAdmin from "./ArticlesAdmin";
+import ArticleListAdmin from "./ArticleListAdmin";
+import ArticleEditAdmin from "./ArticleEditAdmin";
 
 export const { OidcProvider, useOidc } = createReactOidc({
   issuerUri: AUTH_ISSUER,
@@ -85,6 +88,41 @@ const AdminRouter = (children) => {
               <ProtectedPage>
                 <CCTPPageRedesigned />
 		    </ProtectedPage>
+            }
+          />
+          <Route
+            path="articles"
+            exact
+            element={
+              <ProtectedPage>
+                <ArticlesAdmin />
+              </ProtectedPage>
+            }
+          />
+          <Route
+            path="article"
+            exact
+            element={
+              <ProtectedPage>
+                <ArticleListAdmin />
+              </ProtectedPage>
+            }
+          />
+          <Route
+            path="article/new"
+            exact
+            element={
+              <ProtectedPage>
+                <ArticlesAdmin />
+              </ProtectedPage>
+            }
+          />
+          <Route
+            path="article/:id"
+            element={
+              <ProtectedPage>
+                <ArticleEditAdmin />
+              </ProtectedPage>
             }
           />
         </Routes>

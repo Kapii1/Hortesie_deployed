@@ -39,6 +39,7 @@
 .nav-links {
   color: black;
   align-items: center;
+    transition: 0.1s ease-in-out;
   vertical-align: middle;
   display: flex;
   flex-direction: row;
@@ -48,7 +49,6 @@
   width: 100%;
   font-size: 1.5rem;
   height: 100%;
-  transition: 0.3s ease-in-out;
 }
 
 .nav-links:hover {
@@ -158,7 +158,7 @@
 }
 
 .logo-footer {
-  height: 10rem;
+  height: 8rem;
 
 }
 
@@ -265,5 +265,44 @@
     right: 2rem;
     transition: 1s;
     transform: translateX(-5vw);
+  }
+}
+
+
+/* Elegant active menu styling */
+.nav-links {
+  position: relative;
+}
+
+.nav-links::after {
+  content: "";
+  position: absolute;
+  bottom: 0.6rem;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: linear-gradient(90deg, #000000 0%, #4d4d4d 100%);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 250ms ease;
+}
+
+.nav-links.active {
+  color: #000000;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.nav-links.active::after {
+  transform: scaleX(1);
+}
+
+@media (max-width: 1000px) and (orientation:portrait) {
+  .nav-links.active {
+    border-left: 2px solid #000000;
+    padding-left: 0.75rem;
+  }
+  .nav-links.active::after {
+    display: none;
   }
 }
